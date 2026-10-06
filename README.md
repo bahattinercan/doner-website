@@ -37,13 +37,14 @@ her şey `site.js` içindeki iki veri bloğunda.
 |---|---|
 | **4 sayfa** | Ana sayfa, Menü, Hakkımızda, İletişim |
 | **Menü arama** | Ürün adı + açıklamada anlık filtre (sayfa yenilemeden) |
-| **Sipariş sepeti** | Sağ altta canlı sepet, adet artır/azalt, toplam tutar |
+| **Sipariş sepeti** | Sağ altta canlı sepet, adet artır/azalt, toplam tutar, `localStorage` ile kalıcılık |
 | **WhatsApp sipariş** | Sepeti tek tıkla `wa.me` üzerinden hazır mesaj olarak gönderir |
 | **Açık / kapalı rozeti** | Saatlerden otomatik hesaplanır, yeşil/kırmızı nokta ile gösterilir |
 | **Mobil uyumlu** | 640 px altında hamburger menü, sepet tam genişlik, hero tek kolon |
 | **Animasyon** | Scroll-reveal, ken burns, köz parçacıkları, kayan şerit, sayan sayaçlar, toast bildirimi |
 | **SEO** | Sayfa başlıkları, meta description, `schema.org` `Restaurant` JSON-LD (adres + telefon) |
 | **Erişilebilirlik** | `aria-label`, `aria-expanded`, `prefers-reduced-motion`, klavye odaklanma (focus outline) |
+| **Gece modu** | Üst bardaki ☾/☀ düğmesi; tercih `localStorage`'da durur, seçilmezse sistem ayarı (`prefers-color-scheme`) esas alınır |
 | **Kısa URL dostu** | Build yok, framework yok → CDN'de ~30 KB HTML/CSS/JS + SVG |
 | **Türkçe para formatı** | `285` yaz, `285 ₺` olarak çıkar (`toLocaleString("tr-TR")`) |
 
@@ -181,8 +182,8 @@ Tandır Döner sipariş:
 Toplam: 615 ₺
 ```
 
-> Sepet **sayfa yenilenince sıfırlanır** (localStorage kullanılmıyor).
-> Kalıcı sepet istenirse `order` dizisi `localStorage`'a yazılabilir — bkz. [Yol haritası](#yol-haritası).
+> Sepet **`localStorage`'da (`tandir-cart`) durur**: sayfa yenilense ya da başka sayfaya geçilseniz
+> sepet korunur. "Sepeti temizle" düğmesi sıfırlar.
 
 ---
 
@@ -324,12 +325,12 @@ python3 -m http.server 8000     # veya nginx ile /var/www/doner
 - [ ] Gerçek ürün fotoğrafları (dürüm, porsiyon, künefe) + `sharp` optimizasyonu
 - [ ] Menü kartlarında küçük thumbnail
 - [x] Scroll reveal + hero animasyonları (ken burns, köz, ticker, sayaçlar)
-- [ ] Sepetin `localStorage` ile sayfa yenilenince korunması
+- [x] Sepetin `localStorage` ile sayfa yenilenince korunması
 - [ ] QR menü (masaya basılı QR → `menu.html`)
 - [ ] Menü verisinin Google Sheets / CSV'den okunması (deploy'sız fiyat güncelleme)
 - [ ] KVKK / çerez bildirimi
 - [ ] Instagram galerisi, Google Maps tek tıkla yol tarifi
-- [ ] Gece modu (`prefers-color-scheme: dark`)
+- [x] Gece modu (`prefers-color-scheme: dark` + üst bar düğmesi)
 - [ ] Gerçek adresin Google Maps linki ve `og:image` / favicon güncellemesi
 
 ---

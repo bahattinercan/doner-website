@@ -100,9 +100,35 @@ function isOpenNow() {
   };
 }
 
-/* ---------- sipariş sepeti (WhatsApp'a mesaj olarak gider) ---------- */
+/* ---------- sipariş sepeti (localStorage'da kalır, WhatsApp'a gider) ---------- */
 
-const order = [];
+const CART_KEY = "tandir-cart";
+const THEME_KEY = "tandir-theme";
+
+const order = loadOrder();
+
+function loadOrder() {
+  try {
+    const raw = localStorage.getItem(CART_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.filter((o) => o && o.name && Number(o.price)) : [];
+  } catch (err) {
+    return [];
+  }
+}
+
+function saveOrder() {
+  try {
+    localStorage.setItem(CART_KEY, JSON.stringify(order));
+  } catch (err) {
+    /* localStorage kapalıysa sepet sadece bu sayfa için çalışır */
+  }
+}
+
+function cartCount() {
+  return order.reduce((s, o) => s + o.qty, 0);
+}
 
 function orderText() {
   const lines = order.map((o) => `${o.qty} × ${o.name} — ${TL(o.price * o.qty)}`);
@@ -138,10 +164,19 @@ function renderOrder() {
       if (q <= 0) order.splice(order.indexOf(found), 1);
       else found.qty = q;
       renderOrder();
+      saveOrder();
     })
   );
   panel.querySelector(".order-total").textContent = TL(total);
   panel.querySelector(".order-send").href = waLink();
+
+  const counter = document.getElementById("cart-count");
+  if (counter) {
+    counter.textContent = cartCount();
+    counter.classList.remove("is-pop");
+    void counter.offsetWidth;
+    counter.classList.add("is-pop");
+  }
 }
 
 function toast(message) {
@@ -160,6 +195,7 @@ function addToOrder(item) {
   if (found) found.qty += 1;
   else order.push({ name: item.name, price: item.price, qty: 1 });
   renderOrder();
+  saveOrder();
   toast(`${item.name} sepete eklendi`);
 }
 
@@ -273,6 +309,36 @@ function fillStatic() {
   if (map) map.src = `https://www.google.com/maps?q=${encodeURIComponent(SITE.mapsQuery)}&output=embed`;
 }
 
+/* ---------- tema (gece / gündüz) ---------- */
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  const btn = document.getElementById("theme-toggle");
+  if (btn) {
+    btn.textContent = theme === "dark" ? "Gündüz" : "Gece";
+    btn.setAttribute("aria-label", theme === "dark" ? "Gündüz moduna geç" : "Gece moduna geç");
+  }
+}
+
+function initTheme() {
+  const saved = localStorage.getItem(THEME_KEY);
+  const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  applyTheme(saved || (systemDark ? "dark" : "light"));
+
+  const btn = document.getElementById("theme-toggle");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    applyTheme(next);
+    try { localStorage.setItem(THEME_KEY, next); } catch (err) { /* yoksay */ }
+  });
+
+  // kullanıcı sistem tercihini değiştirirse ve elle seçim yoksa takip et
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+    if (!localStorage.getItem(THEME_KEY)) applyTheme(e.matches ? "dark" : "light");
+  });
+}
+
 /* ---------- animasyonlar ---------- */
 
 let activeCategory = "Tümü";
@@ -352,6 +418,7 @@ function initScrollFx() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  initTheme();
   fillStatic();
 
   // mobil menü
@@ -390,6 +457,18 @@ document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("menu-preview")) renderPreview("menu-preview");
 
   wireMenuButtons();
+  if (order.length) renderOrder();
+
+  const clear = document.getElementById("order-clear");
+  if (clear) {
+    clear.addEventListener("click", () => {
+      order.length = 0;
+      saveOrder();
+      renderOrder();
+      toast("Sepet temizlendi");
+    });
+  }
+
   initReveal();
   initCounters();
   initScrollFx();
