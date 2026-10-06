@@ -1,0 +1,7 @@
+# yerel artefaktlar
+_shot.png
+*.log
+node_modules/
+.vercel/
+.DS_Store
+Thumbs.db

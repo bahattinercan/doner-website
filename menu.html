@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Menü — Tandır Döner</title>
+  <meta name="description" content="Tandır Döner menüsü: dürüm, porsiyon, başlangıç, tatlı ve içecekler.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="assets/logo.svg">
+  <script src="site.js" defer></script>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="index.html">
+      <img src="assets/logo.svg" alt="">
+      <span>Tandır Döner</span>
+    </a>
+    <button class="burger" aria-expanded="false" aria-label="Menüyü aç">Menü ≡</button>
+    <nav class="nav-links">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="menu.html" class="active">Menü</a>
+      <a href="about.html">Hakkımızda</a>
+      <a href="contact.html">İletişim</a>
+    </nav>
+    <a class="cta-call" href="tel:+905321234567">Ara</a>
+  </div>
+</header>
+
+<section class="section wrap">
+  <h2>Menü</h2>
+  <div class="menu-toolbar">
+    <input id="menu-search" type="search" placeholder="Ürün ara (dürüm, künefe, ayran…)" aria-label="Menüde ara">
+    <a class="btn btn-ghost" style="color:var(--ink);border-color:var(--line)" href="contact.html">Sipariş için ara</a>
+  </div>
+  <div id="menu"></div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span>© <span data-site="name"></span> · <span data-site="address"></span></span>
+    <span><span class="status" id="open-status"><span class="dot"></span><span class="status-text"></span></span></span>
+  </div>
+</footer>
+
+<div class="order" id="order" hidden>
+  <h4>Sipariş listesi</h4>
+  <ul class="order-items"></ul>
+  <div class="order-total"></div>
+  <a class="order-send" href="#">WhatsApp ile gönder</a>
+</div>
+
+</body>
+</html>

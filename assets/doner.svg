@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="320" height="320" role="img" aria-label="Odun ateşinde dönen döner">
+  <defs>
+    <linearGradient id="meat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e9b255"/>
+      <stop offset="0.55" stop-color="#c78429"/>
+      <stop offset="1" stop-color="#8f4f2a"/>
+    </linearGradient>
+    <linearGradient id="fire" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#a83a2c"/>
+      <stop offset="1" stop-color="#e9b255"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ateş -->
+  <g fill="url(#fire)" opacity=".85">
+    <path d="M110 292c14-26 34-30 46-18 12 12 30 8 40-14 10 22 26 26 34 14c8 26-14 44-60 44s-70-16-60-44z"/>
+  </g>
+  <g fill="#e9b255" opacity=".55">
+    <path d="M140 286c8-16 20-18 26-10 6 8 16 6 22-8 6 14 16 16 20 8c4 16-10 26-40 26s-42-10-28-26z"/>
+  </g>
+
+  <!-- şiş -->
+  <rect x="156" y="26" width="8" height="250" rx="4" fill="#2c241c"/>
+
+  <!-- döner gövdesi -->
+  <path d="M160 40 L236 210 Q236 246 160 246 Q84 246 84 210 Z" fill="url(#meat)"/>
+
+  <!-- katman çizgileri -->
+  <g stroke="#171310" stroke-width="2" opacity=".35" fill="none" stroke-linecap="round">
+    <path d="M112 120c22 6 34 18 40 32"/>
+    <path d="M132 92c22 6 36 20 44 36"/>
+    <path d="M96 168c26 6 40 16 48 28"/>
+    <path d="M188 100c14 12 22 26 24 40"/>
+  </g>
+
+  <!-- kıvrılan parça -->
+  <path d="M236 200c18 10 26 26 20 40c-6 14-24 18-34 10" fill="none" stroke="#c78429" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- lavaş -->
+  <ellipse cx="160" cy="272" rx="96" ry="22" fill="#f6f0e4" opacity=".9"/>
+  <ellipse cx="160" cy="268" rx="80" ry="14" fill="#fffaf3" opacity=".8"/>
+</svg>
