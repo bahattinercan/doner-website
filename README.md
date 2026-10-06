@@ -179,17 +179,21 @@ ticker: ["Odun ateşinde döner", "Her gün taze çekilen et", "Cuma & cumartesi
 ## Sipariş akışı
 
 ```
-Menüde "Sipariş" tıkla
+Menüde "Sepete ekle" tıkla
         │
         ▼
-  order[] dizisine eklenir (aynı ürün → adet artar)
+  order[] dizisine eklenir (aynı ürün → adet artar) + localStorage
         │
         ▼
-  Sağ alttaki sepet paneli güncellenir (adet, toplam)
+  Sağ alttaki sepet paneli açılır (adet, toplam, − ile azalt, temizle)
         │
         ▼
   "WhatsApp ile gönder" → wa.me/<numara>?text=<hazır mesaj>
 ```
+
+Üst bardaki **sepet düğmesi** (sepet simgesi + adet rozeti) paneli açar/kapatır;
+panelin sağ üstündeki **×** de kapatır. Sepet boşken panel açılırsa
+"Sepet henüz boş — menüden ürün ekle." yazısı görünür.
 
 Gönderilen mesaj formatı:
 

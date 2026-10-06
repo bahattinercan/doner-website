@@ -125,6 +125,7 @@ const MENU = [
 /* ---------- yardımcı ---------- */
 
 const TL = (n) => n.toLocaleString("tr-TR") + " ₺";
+const BASKET_ICON = `<svg class="icon icon-basket" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14M6.5 8l2 9.5h7l2-9.5M9 4.5v3.5M15 4.5v3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function isOpenNow() {
@@ -151,6 +152,7 @@ const CART_KEY = "tandir-cart";
 const THEME_KEY = "tandir-theme";
 
 const order = loadOrder();
+let orderOpen = false;
 
 function loadOrder() {
   try {
@@ -188,19 +190,29 @@ function waLink() {
 function renderOrder() {
   const panel = document.getElementById("order");
   if (!panel) return;
-  if (!order.length) {
+  const counter = document.getElementById("cart-count");
+  if (counter) {
+    counter.textContent = cartCount();
+    counter.classList.remove("is-pop");
+    void counter.offsetWidth;
+    counter.classList.add("is-pop");
+  }
+  if (!orderOpen) {
     panel.hidden = true;
     return;
   }
   panel.hidden = false;
   const total = order.reduce((s, o) => s + o.price * o.qty, 0);
-  panel.querySelector(".order-items").innerHTML = order
-    .map(
-      (o) =>
-        `<li><span>${o.qty} × ${o.name}</span><b>${TL(o.price * o.qty)}</b>` +
-        `<button class="qty" data-name="${o.name}" data-qty="${o.qty - 1}" aria-label="Azalt">−</button></li>`
-    )
-    .join("");
+  panel.querySelector(".order-items").innerHTML = order.length
+    ? order
+        .map(
+          (o) =>
+            `<li><span>${o.qty} × ${o.name}</span><b>${TL(o.price * o.qty)}</b>` +
+            `<button class="qty" data-name="${o.name}" data-qty="${o.qty - 1}" aria-label="Azalt">−</button></li>`
+        )
+        .join("")
+    : '<li class="empty">Sepet henüz boş — menüden ürün ekle.</li>';
+  panel.querySelector(".order-send").hidden = !order.length;
   panel.querySelectorAll(".qty").forEach((b) =>
     b.addEventListener("click", () => {
       const q = Number(b.dataset.qty);
@@ -214,14 +226,6 @@ function renderOrder() {
   );
   panel.querySelector(".order-total").textContent = TL(total);
   panel.querySelector(".order-send").href = waLink();
-
-  const counter = document.getElementById("cart-count");
-  if (counter) {
-    counter.textContent = cartCount();
-    counter.classList.remove("is-pop");
-    void counter.offsetWidth;
-    counter.classList.add("is-pop");
-  }
 }
 
 function toast(message) {
@@ -239,6 +243,7 @@ function addToOrder(item) {
   const found = order.find((o) => o.name === item.name);
   if (found) found.qty += 1;
   else order.push({ name: item.name, price: item.price, qty: 1 });
+  orderOpen = true;
   renderOrder();
   saveOrder();
   toast(`${item.name} sepete eklendi`);
@@ -265,6 +270,7 @@ function renderMenu(target, filter = "", category = "Tümü") {
         <section class="menu-group reveal">
           <h3>${group.category}</h3>
           ${group.note ? `<p class="group-note">${group.note}</p>` : ""}
+          ${items.length > 3 ? `<p class="scroll-hint">Yana kaydır</p>` : ""}
           <ul class="menu-list">
             ${items
               .map(
@@ -275,8 +281,12 @@ function renderMenu(target, filter = "", category = "Tümü") {
                     ${i.desc ? `<div class="mi-desc">${i.desc}</div>` : ""}
                     ${i.tags ? `<div class="mi-tags">${i.tags.map((t) => `<span>${t}</span>`).join("")}</div>` : ""}
                   </div>
-                  <div class="mi-price">${TL(i.price)}</div>
-                  <button class="mi-add" data-add="${i.name}" aria-label="${i.name} ekle">Sipariş</button>
+                  <div class="mi-foot">
+                    <span class="mi-price">${TL(i.price)}</span>
+                    <button class="mi-add" data-add="${i.name}" data-label="Sepete ekle" aria-label="${i.name} sepete ekle">
+                      ${BASKET_ICON}<span class="mi-add-label">Sepete ekle</span>
+                    </button>
+                  </div>
                 </li>`
               )
               .join("")}
@@ -306,7 +316,9 @@ function renderPreview(target) {
         <div class="preview-desc">${i.desc || ""}</div>
         <div class="preview-foot">
           <span class="preview-price">${TL(i.price)}</span>
-          <button class="mi-add" data-add="${i.name}" aria-label="${i.name} ekle">Sipariş</button>
+          <button class="mi-add" data-add="${i.name}" data-label="Sepet" aria-label="${i.name} sepete ekle">
+            ${BASKET_ICON}<span class="mi-add-label">Sepet</span>
+          </button>
         </div>
       </article>`
     )
@@ -319,11 +331,12 @@ function wireMenuButtons() {
       const item = MENU.flatMap((g) => g.items).find((i) => i.name === btn.dataset.add);
       if (!item) return;
       addToOrder(item);
+      const label = btn.querySelector(".mi-add-label");
       btn.classList.add("is-added");
-      btn.textContent = "Eklendi";
+      if (label) label.textContent = "Eklendi";
       setTimeout(() => {
         btn.classList.remove("is-added");
-        btn.textContent = "Sipariş";
+        if (label) label.textContent = btn.dataset.label || "Sepete ekle";
       }, 900);
     });
   });
@@ -533,8 +546,23 @@ document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("menu-preview")) renderPreview("menu-preview");
 
   wireMenuButtons();
-  if (order.length) renderOrder();
+  renderOrder();
   initTicker();
+
+  const cartBtn = document.getElementById("cart-btn");
+  if (cartBtn) {
+    cartBtn.addEventListener("click", () => {
+      orderOpen = !orderOpen;
+      renderOrder();
+    });
+  }
+  const orderClose = document.getElementById("order-close");
+  if (orderClose) {
+    orderClose.addEventListener("click", () => {
+      orderOpen = false;
+      renderOrder();
+    });
+  }
 
   const clear = document.getElementById("order-clear");
   if (clear) {
