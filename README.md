@@ -10,7 +10,7 @@ Mahalle dönercisi için **sıfır bağımlılıklı, build adımı olmayan** ta
 Dosyaları tarayıcıya sür, çalışır. Menü ürünlerini değiştirmek için programlama bilmesine gerek yok —
 her şey `site.js` içindeki iki veri bloğunda.
 
-![Site önizleme](docs/preview.png)
+![Site önizleme](docs/preview.jpg)
 
 ---
 
@@ -59,10 +59,11 @@ doner-website/
 ├── styles.css          # Tek tasarım dosyası (renk paleti :root içinde)
 ├── site.js             # TÜM İÇERİK VERİSİ: SITE + MENU, sepet & render mantığı
 ├── assets/
-│   ├── logo.svg        # Üst bar logosu (48×48)
-│   └── doner.svg       # Hero illüstrasyonu (320×320)
+│   ├── logo.svg           # Üst bar logosu (48×48)
+│   ├── doner.svg          # SVG illüstrasyon (yedek, hâlâ kullanımda değil)
+│   └── doner-photo.jpg    # Gerçek tandır döner fotoğrafı (640×1137, ~172 KB)
 ├── docs/
-│   └── preview.png     # README ekran görüntüsü
+│   └── preview.jpg        # README ekran görüntüsü
 ├── README.md
 └── .gitignore
 ```
@@ -204,6 +205,22 @@ Renkler `styles.css` → `:root` bloğunda tek yerde tanımlı:
 Tipografi: başlıklar `Georgia` (serif), gövde `Segoe UI / system-ui`.
 Kırılma noktaları: **860 px** (hero tek kolon), **640 px** (hamburger menü).
 
+### Görseller
+
+| Dosya | Boyut | Ağırlık | Nerelerde |
+|---|---|---|---|
+| `assets/doner-photo.jpg` | 640 × 1137 | ~172 KB | Hero (320 px'e ölçeklenir), Hakkımızda (260 px) |
+| `assets/logo.svg` | 48 × 48 | 0.4 KB | Tüm sayfalarda üst bar + favicon |
+| `assets/doner.svg` | 320 × 320 | 1.7 KB | Yedek illüstrasyon |
+
+Fotoğraf progressive JPEG, mozjpeg, q75. Hero'da 320 CSS px gösterildiği için
+2x DPR ekranlara yakın bir çözünürlük veriyor.
+
+> ⚠️ **Lisans uyarısı:** bu görsel Yandex görsel aramasından alındı, dükkana ait
+> değil. Gerçek yayına geçerken **kendi çektiğin fotoğraf** ile değiştir
+> (`assets/doner-photo.jpg` üzerine aynı adla yaz, kod değişikliği gerekmez).
+
+
 ---
 
 ## SEO & erişilebilirlik
@@ -283,7 +300,8 @@ python3 -m http.server 8000     # veya nginx ile /var/www/doner
 
 ## Yol haritası
 
-- [ ] Gerçek ürün fotoğrafları + `sharp` ile web optimizasyonu (900 px, mozjpeg q80)
+- [ ] Gerçek ürün fotoğrafları (dürüm, porsiyon, künefe) + `sharp` optimizasyonu
+- [ ] Menü kartlarında küçük thumbnail
 - [ ] Sepetin `localStorage` ile sayfa yenilenince korunması
 - [ ] QR menü (masaya basılı QR → `menu.html`)
 - [ ] Menü verisinin Google Sheets / CSV'den okunması (deploy'sız fiyat güncelleme)
