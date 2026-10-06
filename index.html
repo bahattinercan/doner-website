@@ -44,7 +44,10 @@
       <a href="contact.html">İletişim</a>
     </nav>
     <span class="cart-count" id="cart-count" aria-label="Sepetteki ürün adedi">0</span>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Gece / gündüz modu">Gece</button>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Gece moduna geç" title="Gece / gündüz modu">
+      <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 14.3A8.6 8.6 0 1 1 9.7 3.4a8.6 8.6 0 0 0 10.9 10.9z" fill="currentColor"/></svg>
+      <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.6" fill="currentColor"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2.4v2.6M12 19v2.6M2.4 12h2.6M19 12h2.6M5.2 5.2l1.9 1.9M16.9 16.9l1.9 1.9M18.8 5.2l-1.9 1.9M5.2 18.8l1.9-1.9"/></g></svg>
+    </button>
     <a class="cta-call" href="tel:+905321234567">Ara</a>
   </div>
   <div class="scroll-progress" id="scroll-progress"></div>
@@ -73,17 +76,9 @@
   </div>
 </section>
 
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-track">
-    <span>Odun ateşinde döner</span><span class="sep">◆</span>
-    <span>Her gün taze çekilen et</span><span class="sep">◆</span>
-    <span>Günlük açılan lavaş</span><span class="sep">◆</span>
-    <span>Mahalle fiyatı</span><span class="sep">◆</span>
-    <span>Odun ateşinde döner</span><span class="sep">◆</span>
-    <span>Her gün taze çekilen et</span><span class="sep">◆</span>
-    <span>Günlük açılan lavaş</span><span class="sep">◆</span>
-    <span>Mahalle fiyatı</span><span class="sep">◆</span>
-  </div>
+<div class="ticker" id="ticker" aria-hidden="true">
+  <div class="ticker-track" id="ticker-track"></div>
+  <button class="ticker-close" id="ticker-close" aria-label="Kayan şeridi kapat">×</button>
 </div>
 
 <section class="section wrap">
@@ -101,15 +96,36 @@
 </section>
 
 <section class="section wrap">
-  <h2>Vitrinden</h2>
+  <div class="section-head">
+    <h2>Vitrinden</h2>
+    <a class="btn btn-outline" href="menu.html">Tüm menü →</a>
+  </div>
   <p class="section-lede">Ocakta bugün olanlar. Fiyatlar sahaya göre değişmez.</p>
   <div id="menu-preview" class="preview"></div>
-  <p style="margin-top:16px"><a class="btn btn-primary" href="menu.html">Tüm menü →</a></p>
 </section>
 
 <section class="section wrap">
   <h2>Açılış saatleri</h2>
-  <table class="hours-table" data-hours></table>
+  <div class="hours-panel reveal">
+    <div>
+      <div class="hours-today">
+        <span class="hours-today-label">Bugün</span>
+        <strong id="today-day">—</strong>
+        <span class="hours-today-time" id="today-time">—</span>
+      </div>
+      <div class="status" id="hours-status"><span class="dot"></span><span class="status-text"></span></div>
+      <ul class="hours-notes">
+        <li>Son sipariş kapanıştan 30 dakika önce alınır.</li>
+        <li>Cuma ve cumartesi 24:00'a kadar açığız.</li>
+        <li>Resmî tatillerde ocak yanmaz.</li>
+      </ul>
+      <div class="card-actions">
+        <a class="btn btn-primary" href="tel:+905321234567">Sipariş için ara</a>
+        <a class="btn btn-outline" href="contact.html">Yol tarifi</a>
+      </div>
+    </div>
+    <table class="hours-table" data-hours></table>
+  </div>
   <p style="margin-top:14px"><span data-site="address"></span> · <a href="tel:+905321234567" data-site="phone"></a></p>
 </section>
 

@@ -16,6 +16,23 @@ const SITE = {
   mapsQuery: "İstiklal Caddesi 12 Beyoğlu İstanbul",
   instagram: "https://instagram.com/",
   email: "info@tandirdoner.com",
+  // Kayan şerit: buraya istediğin kadar yazı ekleyebilirsin.
+  // Şeridi kapatmak için sayfadaki × düğmesine bas; tercih localStorage'da
+  // "tandir-ticker" anahtarında durur.
+  ticker: [
+    "Odun ateşinde döner",
+    "Her gün taze çekilen et",
+    "Günlük açılan lavaş",
+    "Mahalle fiyatı",
+    "Cuma & cumartesi 24:00'a kadar",
+    "WhatsApp ile sipariş",
+    "Son şiş bitince ocak kapanır",
+    "Ocak sabah 09:00'da yanar",
+    "Dürüm sıcak gelir, bekletilmez",
+    "Beyoğlu · İstiklal Cd. No: 12",
+    "20 yıldır aynı usta",
+    "Vejetaryen seçenekler var",
+  ],
   // Açılış saatleri: 0 = Pazartesi ... 6 = Pazar
   hours: [
     { day: "Pazartesi", open: "10:00", close: "23:00" },
@@ -39,14 +56,31 @@ const MENU = [
       { name: "Döner Sandviç", desc: "Lavaş yerine ekmek arası, domates ve turşu ile.", price: 210 },
       { name: "Çeyrek Döner", desc: "Küçük porsiyon, yanında patates.", price: 175 },
       { name: "Etli Pide", desc: "Kıymalı döner parçaları, kaşar, közlenmiş biber.", price: 240 },
+      { name: "Adana Dürüm", desc: "Acılı kıyım, çift lavaş, közlenmiş biber.", price: 300, tags: ["Acı sever"] },
+      { name: "Döner Burger", desc: "Lavaş yerine brioche, cheddar, turşu, sarımsaklı sos.", price: 340, tags: ["Yeni"] },
+      { name: "Kaşarlı Dürüm", desc: "Döner + eritilmiş kaşar, çift lavaş.", price: 300 },
+      { name: "Duble Tandır", desc: "İki kat et, iki kat lavaş. Ciddi bir porsiyon.", price: 420, tags: ["Çok satan"] },
+    ],
+  },
+  {
+    category: "Fırından",
+    note: "Odun ateşinin kıyısından: pide, lahmacun, börek.",
+    items: [
+      { name: "Lahmacun", desc: "İnce hamur, kıymalı harç, maydanoz ve limon.", price: 180, tags: ["Çok satan"] },
+      { name: "Kaşarlı Pide", desc: "Bol kaşarlı, közlenmiş biberli.", price: 220 },
+      { name: "Paçanga Böreği", desc: "Pastırmalı, kaşarlı, fırından sıcak.", price: 165 },
+      { name: "Çift Lahmacun", desc: "İki lahmacun, yanında ayran.", price: 330 },
     ],
   },
   {
     category: "Başlangıçlar",
     items: [
       { name: "Mercimek Çorbası", desc: "Ev yapımı, tereyağlı, limon ile.", price: 95 },
+      { name: "Ezogelin Çorbası", desc: "Bulgurlu, domatesli, naneli.", price: 90 },
       { name: "Çoban Salata", desc: "Domates, salatalık, biber, nar ekşisi.", price: 120 },
+      { name: "Roket Salata", desc: "Roket, beyaz peynir, nar ve zeytinyağı.", price: 135, tags: ["Vejetaryen"] },
       { name: "Humus", desc: "Nohut ezmesi, zeytinyağı, sıcak lavaş ile.", price: 130, tags: ["Vejetaryen"] },
+      { name: "Haydari", desc: "Süzme yoğurt, nane, sarımsak; lavaş ile.", price: 110, tags: ["Vejetaryen"] },
       { name: "Közlenmiş Biber", desc: "Odun ateşinde közlenmiş, sarımsaklı.", price: 110, tags: ["Vejetaryen"] },
     ],
   },
@@ -54,17 +88,22 @@ const MENU = [
     category: "Yanında İyi Gider",
     items: [
       { name: "Çıtır Patates", desc: "Elde kesilmiş, tuzlu, kıtır.", price: 110 },
+      { name: "Büyük Patates", desc: "200 g, elde kesilmiş, tuzlu.", price: 150 },
       { name: "Soğan Halkası", desc: "Çıtır pane, acı sos ile.", price: 100 },
       { name: "Turşu Tabağı", desc: "Karışık turşu, ev yapımı.", price: 70 },
       { name: "Pilav", desc: "Tereyağlı bulgur pilavı.", price: 90 },
+      { name: "Çıtır Lavaş", desc: "Sıcak, tek kişilik lavaş.", price: 40 },
+      { name: "Mısır", desc: "Haşlanmış, tereyağlı.", price: 60 },
     ],
   },
   {
     category: "Tatlılar",
     items: [
       { name: "Künefe", desc: "Antep fıstıklı, sıcak şerbetli.", price: 190, tags: ["Çok satan"] },
+      { name: "Fistikli Baklava", desc: "4 parça, fıstıklı, şerbetli.", price: 160 },
       { name: "Sütlaç", desc: "Fırında, tarçanlı.", price: 120 },
       { name: "Kazandibi", desc: "Yanık süt tatlısı, fındıklı.", price: 130 },
+      { name: "Şekerpare", desc: "Ev yapımı, 4 adet, çay ile iyi gider.", price: 110 },
     ],
   },
   {
@@ -74,8 +113,11 @@ const MENU = [
       { name: "Şalgam", desc: "Acılı veya acısız.", price: 50 },
       { name: "Limonata", desc: "Ev yapımı, nane ile.", price: 60 },
       { name: "Soda", desc: "Koyu / açık.", price: 40 },
+      { name: "Su", desc: "500 ml, kaynak suyu.", price: 20 },
+      { name: "Maden Suyu", desc: "Sade, limonlu.", price: 35 },
       { name: "Çay", desc: "İnce belli, demlenmiş.", price: 25 },
       { name: "Türk Kahvesi", desc: "Köpüklü, lokum ile.", price: 65 },
+      { name: "Filtre Kahve", desc: "Sıcak filtre; sütlü istenirse +10 ₺.", price: 80, tags: ["Yeni"] },
     ],
   },
 ];
@@ -89,7 +131,7 @@ function isOpenNow() {
   const now = new Date();
   const idx = (now.getDay() + 6) % 7; // Pazartesi = 0
   const h = SITE.hours[idx];
-  if (!h) return { open: false, text: "Saat bilgisi yok" };
+  if (!h) return { open: false, text: "Saat bilgisi yok", day: "", time: "", idx: 0 };
   const [oh, om] = h.open.split(":").map(Number);
   const [ch, cm] = h.close.split(":").map(Number);
   const cur = now.getHours() * 60 + now.getMinutes();
@@ -97,6 +139,9 @@ function isOpenNow() {
   return {
     open: isOpen,
     text: isOpen ? `Şu an açık · ${h.close}'e kadar` : `Kapalı · ${h.open}'te açılıyor`,
+    day: h.day,
+    time: `${h.open} – ${h.close}`,
+    idx,
   };
 }
 
@@ -290,15 +335,21 @@ function fillStatic() {
   document.querySelectorAll("[data-site]").forEach((el) => {
     el.textContent = SITE[el.dataset.site];
   });
-  const status = document.getElementById("open-status");
-  if (status) {
-    const s = isOpenNow();
-    status.querySelector(".status-text").textContent = s.text;
-    status.classList.add(s.open ? "is-open" : "is-closed");
-  }
+  const s = isOpenNow();
+  document.querySelectorAll(".status").forEach((el) => {
+    const text = el.querySelector(".status-text");
+    if (text) text.textContent = s.text;
+    el.classList.add(s.open ? "is-open" : "is-closed");
+  });
+
+  const todayDay = document.getElementById("today-day");
+  const todayTime = document.getElementById("today-time");
+  if (todayDay) todayDay.textContent = s.day || "—";
+  if (todayTime) todayTime.textContent = s.time || "—";
+
   document.querySelectorAll("[data-hours]").forEach((el) => {
     el.innerHTML = SITE.hours
-      .map((h) => `<tr><td>${h.day}</td><td>${h.open} – ${h.close}</td></tr>`)
+      .map((h, i) => `<tr class="${i === s.idx ? "is-today" : ""}"><td>${h.day}</td><td>${h.open} – ${h.close}</td></tr>`)
       .join("");
   });
 
@@ -315,7 +366,6 @@ function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
   const btn = document.getElementById("theme-toggle");
   if (btn) {
-    btn.textContent = theme === "dark" ? "Gündüz" : "Gece";
     btn.setAttribute("aria-label", theme === "dark" ? "Gündüz moduna geç" : "Gece moduna geç");
   }
 }
@@ -417,6 +467,32 @@ function initScrollFx() {
   onScroll();
 }
 
+function initTicker() {
+  const ticker = document.getElementById("ticker");
+  if (!ticker) return;
+
+  if (localStorage.getItem("tandir-ticker") === "off") {
+    ticker.remove();
+    return;
+  }
+
+  const track = document.getElementById("ticker-track");
+  if (track) {
+    const group = SITE.ticker
+      .map((text) => `<span>${text}</span><span class="sep">◆</span>`)
+      .join("");
+    track.innerHTML = group + group; // iki tur: marquee kesintisiz dönsün
+  }
+
+  const close = document.getElementById("ticker-close");
+  if (close) {
+    close.addEventListener("click", () => {
+      ticker.remove();
+      try { localStorage.setItem("tandir-ticker", "off"); } catch (err) { /* yoksay */ }
+    });
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   fillStatic();
@@ -458,6 +534,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   wireMenuButtons();
   if (order.length) renderOrder();
+  initTicker();
 
   const clear = document.getElementById("order-clear");
   if (clear) {

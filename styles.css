@@ -220,13 +220,17 @@ a { color: inherit; }
   border: 1px solid rgba(255, 255, 255, .18);
   color: var(--on-dark);
   border-radius: 999px;
-  padding: 7px 12px;
+  padding: 7px 10px;
   cursor: pointer;
-  font: inherit;
-  font-size: .9rem;
+  display: inline-flex;
+  align-items: center;
   transition: background .25s, transform .25s var(--ease);
 }
 .theme-toggle:hover { background: rgba(233, 178, 85, .18); transform: translateY(-1px); }
+.theme-toggle .icon { width: 16px; height: 16px; display: none; }
+.theme-toggle .icon-moon { display: block; }
+html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 
 .cart-count {
   display: inline-flex;
@@ -373,26 +377,54 @@ a { color: inherit; }
 /* ---------------- kayan şerit ---------------- */
 
 .ticker {
+  position: relative;
   background: var(--ink-2);
-  color: rgba(246, 240, 228, .85);
+  color: rgba(246, 240, 228, .88);
   border-bottom: 1px solid rgba(255, 255, 255, .06);
   overflow: hidden;
+  padding-right: 44px;
 }
 .ticker-track {
   display: flex;
   gap: 26px;
-  padding: 12px 20px;
+  padding: 14px 20px;
   white-space: nowrap;
-  animation: marquee 26s linear infinite;
-  font-size: .88rem;
+  animation: marquee 34s linear infinite;
+  font-size: .95rem;
 }
 .ticker-track span.sep { color: var(--amber); }
-.ticker:hover .ticker-track { animation-duration: 14s; }
+.ticker:hover .ticker-track { animation-duration: 16s; }
+.ticker-close {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .08);
+  color: var(--on-dark);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .25s, transform .25s var(--ease);
+}
+.ticker-close:hover { background: var(--amber); color: var(--ink); transform: translateY(-50%) scale(1.06); }
 
 /* ---------------- bölümler ---------------- */
 
 .section { padding: 44px 20px; }
 .section h2 { font-size: 1.7rem; }
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.section-head h2 { margin: 0; }
 .section-lede { color: var(--muted); margin: 0 0 20px; font-size: .95rem; }
 
 .cards {
@@ -482,6 +514,7 @@ a { color: inherit; }
   padding: 7px 13px;
   font: inherit;
   font-size: .85rem;
+  color: var(--text);
   cursor: pointer;
   transition: background .25s, border-color .25s, transform .25s var(--ease);
 }
@@ -531,6 +564,7 @@ a { color: inherit; }
   cursor: pointer;
   font: inherit;
   font-size: .85rem;
+  color: var(--text);
   transition: background .25s, border-color .25s, transform .2s var(--ease);
 }
 .mi-add:hover { background: var(--amber); border-color: var(--amber); color: var(--ink); }
@@ -673,8 +707,57 @@ a { color: inherit; }
 .card-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
 
 .hours-table { width: 100%; border-collapse: collapse; font-size: .92rem; }
-.hours-table td { padding: 6px 8px; border-bottom: 1px solid var(--line); }
+.hours-table td { padding: 8px 10px; border-bottom: 1px solid var(--line); }
 .hours-table td:last-child { text-align: right; }
+.hours-table tr:nth-child(even) td { background: rgba(233, 178, 85, .05); }
+.hours-table tr.is-today td {
+  background: rgba(233, 178, 85, .16);
+  color: var(--amber-deep);
+  font-weight: 600;
+  border-bottom-color: var(--amber-deep);
+}
+
+.hours-panel {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 22px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+}
+.hours-today {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.hours-today-label {
+  font-size: .78rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hours-today strong { font-family: var(--font-display); font-size: 1.3rem; }
+.hours-today-time { font-family: var(--font-display); font-size: 1.1rem; color: var(--amber-deep); }
+.hours-notes {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  font-size: .9rem;
+  color: var(--muted);
+}
+.hours-notes li { display: flex; gap: 8px; align-items: center; }
+.hours-notes li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amber);
+  flex: none;
+}
 
 .map-wrap {
   margin-top: 22px;
@@ -750,6 +833,7 @@ footer a:hover { color: var(--amber); }
   .contact-grid { grid-template-columns: 1fr; }
   .story { grid-template-columns: 1fr; }
   .story-img { height: 260px; }
+  .hours-panel { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 860px) {

@@ -146,15 +146,33 @@ const MENU = [
 | `price` | ✅ | Sayı; `₺` otomatik eklenir |
 | `tags` | ❌ | İlk etiket amber, diğerleri yeşil görünür |
 
-**Menü şablonu (mevcut 5 kategori, 23 ürün):**
+**Menü şablonu (mevcut 6 kategori, 42 ürün):**
 
 | Kategori | Ürün sayısı | Örnek fiyat aralığı |
 |---|---|---|
-| Dönerler | 6 | 175 – 320 ₺ |
-| Başlangıçlar | 4 | 95 – 130 ₺ |
-| Yanında İyi Gider | 4 | 70 – 110 ₺ |
-| Tatlılar | 3 | 120 – 190 ₺ |
-| İçecekler | 6 | 25 – 65 ₺ |
+| Dönerler | 10 | 175 – 420 ₺ |
+| Fırından | 4 | 165 – 330 ₺ |
+| Başlangıçlar | 7 | 90 – 135 ₺ |
+| Yanında İyi Gider | 7 | 40 – 150 ₺ |
+| Tatlılar | 5 | 110 – 190 ₺ |
+| İçecekler | 9 | 20 – 80 ₺ |
+
+`tags` verilen ürünler ana sayfadaki **Vitrinden** bölümüne otomatik girir.
+
+### 3) Kayan şerit — `SITE.ticker`
+
+```js
+ticker: ["Odun ateşinde döner", "Her gün taze çekilen et", "Cuma & cumartesi 24:00'a kadar", …]
+```
+
+Şeridin sağındaki **×** düğmesi onu kapatır; tercih `localStorage`'da
+`tandir-ticker = "off"` olarak durur. Geri getirmek için o anahtarı sil.
+
+### 4) Açılış saatleri
+
+`SITE.hours` yedi günü Pazartesi → Pazar sırasıyla tutar. Sayfa bugünün satırını
+`tr.is-today` ile vurgular ve "Bugün / gün / saat" kutusunu doldurur. Not satırları
+("Son sipariş…", "Resmî tatiller…") `index.html` içinde düzenlenir.
 
 ---
 
@@ -216,7 +234,7 @@ internet yoksa `Georgia` / `system-ui`'ye düşer. Kırılma noktaları: **900 p
 | **Scroll reveal** | Kartlar, story, vitrin, harita | `IntersectionObserver` → `.reveal.is-in`, `--d` ile kademeli gecikme |
 | **Ken Burns** | Hero fotoğrafı | `kenburns` 22 s, sürekli ileri-geri zoom |
 | **Köz parçacıkları** | Hero arka planı | `.embers i` — 5 amber nokta, farklı gecikmelerle yükselir |
-| **Kayan şerit** | Hero altındaki ticker | `marquee` 26 s (hover'da 14 s) |
+| **Kayan şerit** | Hero altındaki ticker | `SITE.ticker` yazıları, `marquee` 34 s (hover'da 16 s), × ile kapatılabilir |
 | **Sayaçlar** | İstatistik kartları | `data-count` / `data-suffix`, göründüğünde 0'dan sayılır |
 | **Menü satırları** | Menü sayfası | Her satır `--d` index'iyle sırayla yükselir |
 | **Sepet & toast** | Menü / vitrin | "Eklendi" rozeti, sağ altta sepet, sol altta bildirim |
@@ -327,6 +345,7 @@ python3 -m http.server 8000     # veya nginx ile /var/www/doner
 - [x] Scroll reveal + hero animasyonları (ken burns, köz, ticker, sayaçlar)
 - [x] Sepetin `localStorage` ile sayfa yenilenince korunması
 - [ ] QR menü (masaya basılı QR → `menu.html`)
+- [x] Kayan şeridin düzenlenebilir ve kapatılabilir olması
 - [ ] Menü verisinin Google Sheets / CSV'den okunması (deploy'sız fiyat güncelleme)
 - [ ] KVKK / çerez bildirimi
 - [ ] Instagram galerisi, Google Maps tek tıkla yol tarifi
