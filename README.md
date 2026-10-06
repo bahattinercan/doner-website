@@ -268,6 +268,9 @@ Fotoğraf progressive JPEG, mozjpeg, q75. Hero'da 320 CSS px gösterildiği içi
 - `index.html` içinde `application/ld+json` ile **`schema.org/Restaurant`** yapılandırılmış verisi
   (isim, mutfak, telefon, adres) → Google'ın "yerel işletme" paneli için hazır.
 - Her sayfada `lang="tr"`, `viewport`, sayfaya özel `<title>` ve `meta description`.
+- `index.html`'de **Open Graph + Twitter Card** etiketleri: `og:image` → `docs/preview.jpg`
+  (1400×900), `og:title`, `og:description`, `og:image:alt`, `twitter:card = summary_large_image`.
+  Yayına alınırken `og:image`'i tam domainle yaz (`https://siteniz.com/docs/preview.jpg`).
 - Hamburger butonu `aria-expanded` durumunu takip ediyor.
 - Arama inputu `type="search"` + `aria-label`.
 - `prefers-reduced-motion: reduce` durumunda yumuşak kaydırma kapatılıyor.
@@ -350,7 +353,8 @@ python3 -m http.server 8000     # veya nginx ile /var/www/doner
 - [ ] KVKK / çerez bildirimi
 - [ ] Instagram galerisi, Google Maps tek tıkla yol tarifi
 - [x] Gece modu (`prefers-color-scheme: dark` + üst bar düğmesi)
-- [ ] Gerçek adresin Google Maps linki ve `og:image` / favicon güncellemesi
+- [x] `og:image` / Twitter Card etiketleri ve favicon
+- [ ] Gerçek adresin Google Maps linki
 
 ---
 
