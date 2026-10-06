@@ -18,6 +18,7 @@ programlama bilmesine gerek yok — her şey `site.js` içindeki veri blokların
 ## İçindekiler
 
 - [Özellikler](#özellikler)
+- [Detaylı dokümantasyon](#detaylı-dokümantasyon)
 - [Proje yapısı](#proje-yapısı)
 - [Nasıl çalıştırılır](#nasıl-çalıştırılır)
 - [İçerik yönetimi](#içerik-yönetimi)
@@ -37,27 +38,48 @@ programlama bilmesine gerek yok — her şey `site.js` içindeki veri blokların
 
 ---
 
+## Detaylı dokümantasyon
+
+Bu README özet düzeyindedir. Sistemin nasıl çalıştığı, nerelere dokunabileceğin ve
+nelere dikkat etmen gerektiği **`docs/`** klasörinde anlatılıyor:
+
+| Doküman | Konu |
+|---|---|
+| [docs/README.md](docs/README.md) | Dokümantasyon indeksi + hızlı erişim tablosu |
+| [01 · Mimari](docs/01-mimari.md) | Dosya rolleri, sayfa iskeleti, `site.js` akışı, `data-*` sözleşmesi |
+| [02 · İçerik yönetimi](docs/02-icerik-yonetimi.md) | `SITE`, `MENU`, şerit, saatler, görsel seçimi |
+| [03 · Sepet & sipariş](docs/03-sepet-ve-siparis.md) | Sepet modeli, kalıcılık, WhatsApp mesajı, kenar durumlar |
+| [04 · Tema](docs/04-tema.md) | Gece/gündüz çözümleme sırası, token override'ları |
+| [05 · Tasarım sistemi](docs/05-tasarim-sistemi.md) | Renk tokenları, tipografi, bileşen envanteri, animasyonlar |
+| [06 · Görseller](docs/06-gorseller.md) | SVG sprite, logo/favicon, fotoğraf optimizasyonu, lisans |
+| [07 · SEO & erişilebilirlik](docs/07-seo-ve-erisilebilirlik.md) | JSON-LD, meta, OG, a11y checklist'i |
+| [08 · Yayına alma](docs/08-yayina-alma.md) | Vercel/Netlify/Cloudflare/Pages, domain, cache |
+| [09 · Sorun giderme](docs/09-sorun-giderme.md) | Belirti → neden → çözüm, debug snippet'leri |
+| [10 · Uyarlama rehberi](docs/10-uyarlama-rehberi.md) | Siteyi başka bir dükkana çevirme adımları |
+
+---
+
 ## Özellikler
 
-| Özellik | Açıklama |
-|---|---|
-| **4 sayfa** | Ana sayfa, Menü, Hakkımızda, İletişim |
-| **Menü arama** | Ürün adı + açıklamada anlık filtre (sayfa yenilemeden), kategori chip'leri |
-| **Yatay menü şeritleri** | Vitrin ve her kategori tek satırda, `scroll-snap` ile yana kaydırılabilir |
-| **Ürün illüstrasyonları** | Her kartta düz (flat) SVG çizim — 29 sembol, adıma göre otomatik seçilir |
-| **Sipariş sepeti** | Üst barda sepet düğmesi (simge + adet rozeti), sağ altta panel, adet azalt, toplam, temizle |
-| **Kalıcı sepet** | Sepet `localStorage`'da durur; sayfa yenilense de, sayfalar arası geçişte de korunur |
-| **WhatsApp sipariş** | Sepeti tek tıkla `wa.me` üzerinden hazır mesaj olarak gönderir + sağ altta WhatsApp FAB |
-| **Açık / kapalı rozeti** | Saatlerden otomatik hesaplanır, yeşil/kırmızı nokta ile gösterilir |
-| **Gece modu** | Üst bardaki ay/güneş düğmesi; tercih kaydedilir, seçilmezse sistem ayarı esas alınır |
-| **Açılış saatleri paneli** | "Bugün" kutusu, bugünün satırının vurgulanması, notlar, yol tarifi butonu |
-| **Kayan şerit** | `SITE.ticker` yazıları; × ile kapatılabilir, tercihi kalıcı |
-| **İstatistik sayaçları** | Görünürken 0'dan sayan rakamlar (`data-count`) |
-| **Mobil uyumlu** | 900 / 860 / 640 px kırılımları, hamburger menü, tek kolon hero |
-| **SEO** | Sayfa başlıkları, meta description, `schema.org/Restaurant` JSON-LD, Open Graph + Twitter Card |
-| **Erişilebilirlik** | `aria-label`, `aria-expanded`, `prefers-reduced-motion`, focus outline, `color-scheme` |
-| **Türkçe para formatı** | `285` yaz, `285 ₺` olarak çıkar (`toLocaleString("tr-TR")`) |
-| **Kısa URL dostu** | Build yok, framework yok → CDN'de ~40 KB HTML/CSS/JS + SVG |
+| Özellik                    | Açıklama                                                                                       |
+| -------------------------- | ---------------------------------------------------------------------------------------------- |
+| **4 sayfa**                | Ana sayfa, Menü, Hakkımızda, İletişim                                                          |
+| **Menü arama**             | Ürün adı + açıklamada anlık filtre (sayfa yenilemeden), kategori chip'leri                     |
+| **Yatay menü şeritleri**   | Vitrin ve her kategori tek satırda, `scroll-snap` ile yana kaydırılabilir                      |
+| **Ürün illüstrasyonları**  | Her kartta düz (flat) SVG çizim — 29 sembol, adıma göre otomatik seçilir                       |
+| **Sipariş sepeti**         | Üst barda sepet düğmesi (simge + adet rozeti), sağ altta panel, adet azalt, toplam, temizle    |
+| **Kalıcı sepet**           | Sepet `localStorage`'da durur; sayfa yenilense de, sayfalar arası geçişte de korunur           |
+| **WhatsApp sipariş**       | Sepeti tek tıkla `wa.me` üzerinden hazır mesaj olarak gönderir + sağ altta WhatsApp FAB        |
+| **Açık / kapalı rozeti**   | Saatlerden otomatik hesaplanır, yeşil/kırmızı nokta ile gösterilir                             |
+| **Gece modu**              | Üst bardaki ay/güneş düğmesi; tercih kaydedilir, seçilmezse sistem ayarı esas alınır           |
+| **Açılış saatleri paneli** | "Bugün" kutusu, bugünün satırının vurgulanması, notlar, yol tarifi butonu                      |
+| **Kayan şerit**            | `SITE.ticker` yazıları; × ile kapatılabilir, tercihi kalıcı                                    |
+| **İstatistik sayaçları**   | Görünürken 0'dan sayan rakamlar (`data-count`)                                                 |
+| **Mobil uyumlu**           | 900 / 860 / 640 px kırılımları, hamburger menü, tek kolon hero                                 |
+| **SEO**                    | Sayfa başlıkları, meta description, `schema.org/Restaurant` JSON-LD, Open Graph + Twitter Card |
+| **Erişilebilirlik**        | `aria-label`, `aria-expanded`, `prefers-reduced-motion`, focus outline, `color-scheme`         |
+| **Türkçe para formatı**    | `285` yaz, `285 ₺` olarak çıkar (`toLocaleString("tr-TR")`)                                    |
+| **Kısa URL dostu**         | Build yok, framework yok → CDN'de ~40 KB HTML/CSS/JS + SVG                                     |
 
 ---
 
@@ -77,7 +99,18 @@ doner-website/
 │   ├── doner-photo.jpg    # Hero + hikâye fotoğrafı (640×1137, ~172 KB)
 │   └── doner.svg          # Eski SVG illüstrasyon (yedek, kullanımda değil)
 ├── docs/
-│   └── preview.jpg        # README ekran görüntüsü (1400×900)
+│   ├── README.md               # Dokümantasyon ana sayfası (indeks)
+│   ├── 01-mimari.md            # Dosyaların rolü, sayfa iskeleti, site.js akışı
+│   ├── 02-icerik-yonetimi.md   # SITE, MENU, ticker, hours, illüstrasyonlar
+│   ├── 03-sepet-ve-siparis.md  # Sepet modeli, kalıcılık, WhatsApp
+│   ├── 04-tema.md              # Gece/gündüz çözümleme, token override'ları
+│   ├── 05-tasarim-sistemi.md   # Tokenlar, tipografi, bileşenler, animasyonlar
+│   ├── 06-gorseller.md         # SVG sprite, logo, fotoğraf optimizasyonu
+│   ├── 07-seo-ve-erisilebilirlik.md
+│   ├── 08-yayina-alma.md       # Deploy, domain, cache
+│   ├── 09-sorun-giderme.md     # Belirti → neden → çözüm
+│   ├── 10-uyarlama-rehberi.md   # Başka dükkana uyarlama adımları
+│   └── preview.jpg             # README ekran görüntüsü (1400×900)
 ├── screenshots/           # Yerel test ekran görüntüleri (gitignore'da)
 ├── README.md
 └── .gitignore
@@ -119,17 +152,17 @@ chrome --headless=new --screenshot=shot.png --window-size=1400,900 index.html
 
 ```js
 const SITE = {
-  name:      "Tandır Döner",
-  slogan:    "Ateşte dönen, tabakta eriyen.",
-  intro:     "Her gün taze çekilen et, odun ateşinde dönen tandır…",
-  phone:     "+90 532 123 45 67",
+  name: "Tandır Döner",
+  slogan: "Ateşte dönen, tabakta eriyen.",
+  intro: "Her gün taze çekilen et, odun ateşinde dönen tandır…",
+  phone: "+90 532 123 45 67",
   phoneHref: "tel:+905321234567",
-  whatsapp:  "905321234567",          // ülke kodlu, boşluksuz
-  address:   "İstiklal Caddesi No: 12, Beyoğlu / İstanbul",
+  whatsapp: "905321234567", // ülke kodlu, boşluksuz
+  address: "İstiklal Caddesi No: 12, Beyoğlu / İstanbul",
   mapsQuery: "İstiklal Caddesi 12 Beyoğlu İstanbul",
   instagram: "https://instagram.com/",
-  email:     "info@tandirdoner.com",
-  ticker: ["Odun ateşinde döner", "Her gün taze çekilen et", /* … 12 yazı */ ],
+  email: "info@tandirdoner.com",
+  ticker: ["Odun ateşinde döner", "Her gün taze çekilen et" /* … 12 yazı */],
   hours: [
     { day: "Pazartesi", open: "10:00", close: "23:00" },
     // … Pazar'a kadar 7 satır
@@ -146,36 +179,36 @@ otomatik doldurulur — telefon numarasını bir kez değiştirince **tüm sayfa
 const MENU = [
   {
     category: "Dönerler",
-    note: "Tüm dönerler lavaş dürüm veya porsiyon olarak gelir.",   // opsiyonel alt not
+    note: "Tüm dönerler lavaş dürüm veya porsiyon olarak gelir.", // opsiyonel alt not
     items: [
       { name: "Tandır Dürüm", desc: "…", price: 285, tags: ["Çok satan"] },
-      { name: "Adana Dürüm",  desc: "…", price: 300, tags: ["Acı sever"] },
+      { name: "Adana Dürüm", desc: "…", price: 300, tags: ["Acı sever"] },
     ],
   },
   // …
 ];
 ```
 
-| Alan | Zorunlu | Not |
-|---|---|---|
-| `category` | ✅ | Kategori başlığı (amber çizgili) |
-| `note` | ❌ | Kategori altına küçük gri not |
-| `name` | ✅ | Ürün adı (illüstrasyon buna göre seçilir) |
-| `desc` | ❌ | Açıklama (aramada da aranır) |
-| `price` | ✅ | Sayı; `₺` otomatik eklenir |
-| `tags` | ❌ | İlk etiket amber, diğerleri yeşil görünür |
-| `img` | ❌ | Gerçek fotoğraf yolu; verilirse illüstrasyon yerine o kullanılır |
+| Alan       | Zorunlu | Not                                                              |
+| ---------- | ------- | ---------------------------------------------------------------- |
+| `category` | ✅      | Kategori başlığı (amber çizgili)                                 |
+| `note`     | ❌      | Kategori altına küçük gri not                                    |
+| `name`     | ✅      | Ürün adı (illüstrasyon buna göre seçilir)                        |
+| `desc`     | ❌      | Açıklama (aramada da aranır)                                     |
+| `price`    | ✅      | Sayı; `₺` otomatik eklenir                                       |
+| `tags`     | ❌      | İlk etiket amber, diğerleri yeşil görünür                        |
+| `img`      | ❌      | Gerçek fotoğraf yolu; verilirse illüstrasyon yerine o kullanılır |
 
 **Mevcut menü: 6 kategori, 42 ürün**
 
-| Kategori | Ürün | Fiyat aralığı |
-|---|---|---|
-| Dönerler | 10 | 175 – 420 ₺ |
-| Fırından | 4 | 165 – 330 ₺ |
-| Başlangıçlar | 7 | 90 – 135 ₺ |
-| Yanında İyi Gider | 7 | 40 – 150 ₺ |
-| Tatlılar | 5 | 110 – 190 ₺ |
-| İçecekler | 9 | 20 – 80 ₺ |
+| Kategori          | Ürün | Fiyat aralığı |
+| ----------------- | ---- | ------------- |
+| Dönerler          | 10   | 175 – 420 ₺   |
+| Fırından          | 4    | 165 – 330 ₺   |
+| Başlangıçlar      | 7    | 90 – 135 ₺    |
+| Yanında İyi Gider | 7    | 40 – 150 ₺    |
+| Tatlılar          | 5    | 110 – 190 ₺   |
+| İçecekler         | 9    | 20 – 80 ₺     |
 
 `tags` verilen ürünler ana sayfadaki **Vitrinden** bölümüne otomatik girer.
 
@@ -268,23 +301,23 @@ Toplam: 615 ₺
 
 Renkler `styles.css` → `:root` bloğunda tek yerde tanımlıdır.
 
-| Token | Gündüz | Gece | Kullanım |
-|---|---|---|---|
-| `--ink` | `#14110d` | `#0d0b08` | Üst bar, footer, sepet paneli |
-| `--ink-2` | `#1d1712` | `#16130f` | Koyu yüzeyler, şerit |
-| `--ink-3` | `#2a2219` | `#221c15` | Üçüncül yüzey |
-| `--cream` | `#f6f0e4` | `#12100c` | Sayfa arka planı |
-| `--paper` | `#fffaf3` | `#1b1611` | Kartlar, menü satırları |
-| `--text` | `#14110d` | `#f2ead9` | Metin rengi (butonlar dahil) |
-| `--amber` | `#e9b255` | `#e9b255` | Marka rengi: butonlar, vurgular |
+| Token          | Gündüz    | Gece      | Kullanım                            |
+| -------------- | --------- | --------- | ----------------------------------- |
+| `--ink`        | `#14110d` | `#0d0b08` | Üst bar, footer, sepet paneli       |
+| `--ink-2`      | `#1d1712` | `#16130f` | Koyu yüzeyler, şerit                |
+| `--ink-3`      | `#2a2219` | `#221c15` | Üçüncül yüzey                       |
+| `--cream`      | `#f6f0e4` | `#12100c` | Sayfa arka planı                    |
+| `--paper`      | `#fffaf3` | `#1b1611` | Kartlar, menü satırları             |
+| `--text`       | `#14110d` | `#f2ead9` | Metin rengi (butonlar dahil)        |
+| `--amber`      | `#e9b255` | `#e9b255` | Marka rengi: butonlar, vurgular     |
 | `--amber-deep` | `#c78429` | `#f0c079` | Hover, kategori çizgisi, ilk etiket |
-| `--red` | `#a83a2c` | — | "Kapalı" durumu |
-| `--green` | `#6fbf72` | — | "Eklendi" durumu |
-| `--olive` | `#6b7a5b` | — | İkincil etiketler (Vejetaryen) |
-| `--muted` | `#8d8478` | `#9a9084` | Açıklama metinleri |
-| `--line` | `#e2d7c6` | `#2c241b` | Kenarlıklar, ayırıcılar |
-| `--radius` | `16px` | — | Kart köşeleri |
-| `--max` | `1120px` | — | İçerik genişliği |
+| `--red`        | `#a83a2c` | —         | "Kapalı" durumu                     |
+| `--green`      | `#6fbf72` | —         | "Eklendi" durumu                    |
+| `--olive`      | `#6b7a5b` | —         | İkincil etiketler (Vejetaryen)      |
+| `--muted`      | `#8d8478` | `#9a9084` | Açıklama metinleri                  |
+| `--line`       | `#e2d7c6` | `#2c241b` | Kenarlıklar, ayırıcılar             |
+| `--radius`     | `16px`    | —         | Kart köşeleri                       |
+| `--max`        | `1120px`  | —         | İçerik genişliği                    |
 
 Tipografi: başlıklar **Fraunces** (serif), gövde **Inter** — Google Fonts'tan gelir;
 internet yoksa `Georgia` / `system-ui`'ye düşer.
@@ -296,18 +329,18 @@ Kırılma noktaları: **900 px** (iletişim/saat paneli tek kolon), **860 px** (
 
 ## Animasyonlar
 
-| Animasyon | Nerede | Nasıl |
-|---|---|---|
-| **Scroll reveal** | Kartlar, story, vitrin, harita | `IntersectionObserver` → `.reveal.is-in`, `--d` ile kademeli gecikme |
-| **Ken Burns** | Hero fotoğrafı | `kenburns` 22 s, sürekli ileri-geri zoom |
-| **Köz parçacıkları** | Hero arka planı | `.embers i` — 5 amber nokta, farklı gecikmelerle yükselir |
-| **Kayan şerit** | Hero altındaki ticker | `SITE.ticker`, `marquee` 34 s (hover'da 16 s), × ile kapatılabilir |
-| **Sayaçlar** | İstatistik kartları | `data-count` / `data-suffix`, göründüğünde 0'dan sayılır |
-| **Menü satırları** | Menü sayfası | Her kart `--d` index'iyle sırayla yükselir |
-| **Sepet & toast** | Menü / vitrin | "Eklendi" rozeti, sağ altta sepet, sol altta bildirim |
-| **Üst bar** | Tüm sayfalar | Scroll ilerleme çubuğu + `is-scrolled` koyulaşması |
-| **Logo** | Üst bar | `sway` ile hafif salınım, hover'da yükselme |
-| **Kaydırma ipucu** | Kategori şeritleri | "Yana kaydır →" oku hafifçe hareket eder |
+| Animasyon            | Nerede                         | Nasıl                                                                |
+| -------------------- | ------------------------------ | -------------------------------------------------------------------- |
+| **Scroll reveal**    | Kartlar, story, vitrin, harita | `IntersectionObserver` → `.reveal.is-in`, `--d` ile kademeli gecikme |
+| **Ken Burns**        | Hero fotoğrafı                 | `kenburns` 22 s, sürekli ileri-geri zoom                             |
+| **Köz parçacıkları** | Hero arka planı                | `.embers i` — 5 amber nokta, farklı gecikmelerle yükselir            |
+| **Kayan şerit**      | Hero altındaki ticker          | `SITE.ticker`, `marquee` 34 s (hover'da 16 s), × ile kapatılabilir   |
+| **Sayaçlar**         | İstatistik kartları            | `data-count` / `data-suffix`, göründüğünde 0'dan sayılır             |
+| **Menü satırları**   | Menü sayfası                   | Her kart `--d` index'iyle sırayla yükselir                           |
+| **Sepet & toast**    | Menü / vitrin                  | "Eklendi" rozeti, sağ altta sepet, sol altta bildirim                |
+| **Üst bar**          | Tüm sayfalar                   | Scroll ilerleme çubuğu + `is-scrolled` koyulaşması                   |
+| **Logo**             | Üst bar                        | `sway` ile hafif salınım, hover'da yükselme                          |
+| **Kaydırma ipucu**   | Kategori şeritleri             | "Yana kaydır →" oku hafifçe hareket eder                             |
 
 > `prefers-reduced-motion: reduce` durumunda tüm animasyonlar kapanır, reveal öğleri
 > görünür halde kalır.
@@ -316,13 +349,13 @@ Kırılma noktaları: **900 px** (iletişim/saat paneli tek kolon), **860 px** (
 
 ## Görseller
 
-| Dosya | Boyut | Ağırlık | Nerelerde |
-|---|---|---|---|
-| `assets/doner-photo.jpg` | 640 × 1137 | ~172 KB | Hero (320 px'e ölçeklenir), Hakkımızda (300 × 340 kesim) |
-| `assets/logo.svg` | 64 × 64 viewBox | ~1.2 KB | Tüm sayfalarda üst bar (32 px) |
-| `assets/favicon.svg` | 64 × 64 | ~1 KB | Sekme simgesi (`rel="icon"`) |
-| `assets/doner.svg` | 320 × 320 | 1.7 KB | Yedek illüstrasyon (kullanılmıyor) |
-| `docs/preview.jpg` | 1400 × 900 | ~140 KB | README önizlemesi + `og:image` |
+| Dosya                    | Boyut           | Ağırlık | Nerelerde                                                |
+| ------------------------ | --------------- | ------- | -------------------------------------------------------- |
+| `assets/doner-photo.jpg` | 640 × 1137      | ~172 KB | Hero (320 px'e ölçeklenir), Hakkımızda (300 × 340 kesim) |
+| `assets/logo.svg`        | 64 × 64 viewBox | ~1.2 KB | Tüm sayfalarda üst bar (32 px)                           |
+| `assets/favicon.svg`     | 64 × 64         | ~1 KB   | Sekme simgesi (`rel="icon"`)                             |
+| `assets/doner.svg`       | 320 × 320       | 1.7 KB  | Yedek illüstrasyon (kullanılmıyor)                       |
+| `docs/preview.jpg`       | 1400 × 900      | ~140 KB | README önizlemesi + `og:image`                           |
 
 Fotoğraf progressive JPEG (mozjpeg, q75). Hero'da 320 CSS px gösterildiği için 2x DPR
 ekranlara yakın çözünürlük veriyor.
@@ -353,11 +386,11 @@ ekranlara yakın çözünürlük veriyor.
 
 ## localStorage anahtarları
 
-| Anahtar | Ne tutar | Nasıl sıfırlanır |
-|---|---|---|
-| `tandir-cart` | Sepet: `[{name, price, qty}, …]` | "Sepeti temizle" düğmesi |
-| `tandir-theme` | `"light"` / `"dark"` | Anahtarı sil → sistem ayarına döner |
-| `tandir-ticker` | `"off"` ise kayan şerit gizlidir | Anahtarı sil → şerit geri gelir |
+| Anahtar         | Ne tutar                         | Nasıl sıfırlanır                    |
+| --------------- | -------------------------------- | ----------------------------------- |
+| `tandir-cart`   | Sepet: `[{name, price, qty}, …]` | "Sepeti temizle" düğmesi            |
+| `tandir-theme`  | `"light"` / `"dark"`             | Anahtarı sil → sistem ayarına döner |
+| `tandir-ticker` | `"off"` ise kayan şerit gizlidir | Anahtarı sil → şerit geri gelir     |
 
 > `localStorage` kapalıysa (gizli mod) sepet sadece o sayfa için çalışır, site bozulmaz.
 
@@ -377,29 +410,35 @@ Statik site → herhangi bir statik host çalışır. Build adımı olmadığı 
 "dosyaları koy, çık" şeklinde:
 
 ### Vercel (en hızlı)
+
 ```bash
 vercel deploy --prod --yes
 ```
 
 ### Netlify
+
 ```bash
 netlify deploy --prod --dir .
 ```
 
 ### Cloudflare Pages
+
 Repo'yu bağla, build komutu **yok** → "Static" seç, çıktı kök dizin.
 
 ### GitHub Pages
+
 ```bash
 gh pages setup        # veya Settings → Pages → main branch / root
 ```
 
 ### Kendi sunucun
+
 ```bash
 python3 -m http.server 8000     # veya nginx ile /var/www/doner
 ```
 
 Yayına almadan önce:
+
 1. `og:image` ve JSON-LD'yi gerçek domain/adresle güncelle.
 2. `doner-photo.jpg`'yi kendi fotoğrafınla değiştir.
 3. Harita iframe'ini `SITE.mapsQuery` üzerinden doğrula.
@@ -425,18 +464,18 @@ Yayına almadan önce:
 
 ## Sık sorulanlar / sorun giderme
 
-| Sorun | Neden / Çözüm |
-|---|---|
-| Sepet paneli açılmıyor | Üst bardaki sepet düğmesine bas; panel `×` ile kapatılmış olabilir |
-| Sepet sayfa yenilenince kayboluyor | `localStorage` kapalı olabilir (gizli mod / tarayıcı ayarı) |
-| "Şu an açık" rozeti yanlış | `SITE.hours` sırası Pazartesi → Pazar olmalı; saatler `HH:MM` formatında |
-| Fiyat `285 ₺` değil `285` çıkıyor | `price` string değil **sayı** olmalı |
-| Arama sonuç vermiyor | Arama isim + açıklamada küçük harf arar; `desc` yoksa sadece isim aranır |
-| Ürün kartında görsel yok | Ad, `ART_KEYS` eşleşmesine uymuyor; `img` alanı ver veya `ART_KEYS`'a anahtar ekle |
-| Kayan şerit görünmüyor | Daha önce × ile kapatılmış olabilir → `localStorage.removeItem("tandir-ticker")` |
-| Site koyu açılıyor | Sistem `prefers-color-scheme: dark` kullanıyor; düğmeyle değiştir, tercih kaydedilir |
-| Harita boş geliyor | `file://` ile açma; HTTP sunucu kullan. Adresi değiştirmek için `SITE.mapsQuery` yeterli |
-| Menü kartları kesiliyor gibi | Şerit yatay kaydırmalıdır; kaydırma çubuğu veya parmak/trackpad ile yana git |
+| Sorun                              | Neden / Çözüm                                                                            |
+| ---------------------------------- | ---------------------------------------------------------------------------------------- |
+| Sepet paneli açılmıyor             | Üst bardaki sepet düğmesine bas; panel `×` ile kapatılmış olabilir                       |
+| Sepet sayfa yenilenince kayboluyor | `localStorage` kapalı olabilir (gizli mod / tarayıcı ayarı)                              |
+| "Şu an açık" rozeti yanlış         | `SITE.hours` sırası Pazartesi → Pazar olmalı; saatler `HH:MM` formatında                 |
+| Fiyat `285 ₺` değil `285` çıkıyor  | `price` string değil **sayı** olmalı                                                     |
+| Arama sonuç vermiyor               | Arama isim + açıklamada küçük harf arar; `desc` yoksa sadece isim aranır                 |
+| Ürün kartında görsel yok           | Ad, `ART_KEYS` eşleşmesine uymuyor; `img` alanı ver veya `ART_KEYS`'a anahtar ekle       |
+| Kayan şerit görünmüyor             | Daha önce × ile kapatılmış olabilir → `localStorage.removeItem("tandir-ticker")`         |
+| Site koyu açılıyor                 | Sistem `prefers-color-scheme: dark` kullanıyor; düğmeyle değiştir, tercih kaydedilir     |
+| Harita boş geliyor                 | `file://` ile açma; HTTP sunucu kullan. Adresi değiştirmek için `SITE.mapsQuery` yeterli |
+| Menü kartları kesiliyor gibi       | Şerit yatay kaydırmalıdır; kaydırma çubuğu veya parmak/trackpad ile yana git             |
 
 ---
 
