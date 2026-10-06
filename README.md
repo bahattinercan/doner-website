@@ -41,6 +41,7 @@ her şey `site.js` içindeki iki veri bloğunda.
 | **WhatsApp sipariş** | Sepeti tek tıkla `wa.me` üzerinden hazır mesaj olarak gönderir |
 | **Açık / kapalı rozeti** | Saatlerden otomatik hesaplanır, yeşil/kırmızı nokta ile gösterilir |
 | **Mobil uyumlu** | 640 px altında hamburger menü, sepet tam genişlik, hero tek kolon |
+| **Animasyon** | Scroll-reveal, ken burns, köz parçacıkları, kayan şerit, sayan sayaçlar, toast bildirimi |
 | **SEO** | Sayfa başlıkları, meta description, `schema.org` `Restaurant` JSON-LD (adres + telefon) |
 | **Erişilebilirlik** | `aria-label`, `aria-expanded`, `prefers-reduced-motion`, klavye odaklanma (focus outline) |
 | **Kısa URL dostu** | Build yok, framework yok → CDN'de ~30 KB HTML/CSS/JS + SVG |
@@ -59,8 +60,9 @@ doner-website/
 ├── styles.css          # Tek tasarım dosyası (renk paleti :root içinde)
 ├── site.js             # TÜM İÇERİK VERİSİ: SITE + MENU, sepet & render mantığı
 ├── assets/
-│   ├── logo.svg           # Üst bar logosu (48×48)
-│   ├── doner.svg          # SVG illüstrasyon (yedek, hâlâ kullanımda değil)
+│   ├── logo.svg           # Üst bar logosu: tandır + şiş + köz (64×64 viewBox)
+│   ├── favicon.svg        # Sekme simgesi: koyu rozet içinde aynı işaret
+│   ├── doner.svg          # Eski SVG illüstrasyon (yedek, kullanımda değil)
 │   └── doner-photo.jpg    # Gerçek tandır döner fotoğrafı (640×1137, ~172 KB)
 ├── docs/
 │   └── preview.jpg        # README ekran görüntüsü
@@ -202,15 +204,34 @@ Renkler `styles.css` → `:root` bloğunda tek yerde tanımlı:
 | `--muted` | `#8d8478` | Açıklama metinleri, gri tonlar |
 | `--line` | `#e2d7c6` | Kenarlıklar, ayırıcılar |
 
-Tipografi: başlıklar `Georgia` (serif), gövde `Segoe UI / system-ui`.
-Kırılma noktaları: **860 px** (hero tek kolon), **640 px** (hamburger menü).
+Tipografi: başlıklar `Fraunces` (serif), gövde `Inter` — Google Fonts'tan gelir,
+internet yoksa `Georgia` / `system-ui`'ye düşer. Kırılma noktaları: **900 px** (iletişim/story tek kolon),
+**860 px** (hero tek kolon), **640 px** (hamburger menü).
+
+### Animasyonlar
+
+| Animasyon | Nerede | Nasıl |
+|---|---|---|
+| **Scroll reveal** | Kartlar, story, vitrin, harita | `IntersectionObserver` → `.reveal.is-in`, `--d` ile kademeli gecikme |
+| **Ken Burns** | Hero fotoğrafı | `kenburns` 22 s, sürekli ileri-geri zoom |
+| **Köz parçacıkları** | Hero arka planı | `.embers i` — 5 amber nokta, farklı gecikmelerle yükselir |
+| **Kayan şerit** | Hero altındaki ticker | `marquee` 26 s (hover'da 14 s) |
+| **Sayaçlar** | İstatistik kartları | `data-count` / `data-suffix`, göründüğünde 0'dan sayılır |
+| **Menü satırları** | Menü sayfası | Her satır `--d` index'iyle sırayla yükselir |
+| **Sepet & toast** | Menü / vitrin | "Eklendi" rozeti, sağ altta sepet, sol altta bildirim |
+| **Üst bar** | Tüm sayfalar | Scroll ilerleme çubuğu + `is-scrolled` koyulaşması |
+| **Logo** | Üst bar | `sway` ile hafif salınım, hover'da yükselme |
+
+> `prefers-reduced-motion: reduce` durumunda tüm animasyonlar kapanır,
+> reveal öğleri görünür halde kalır.
 
 ### Görseller
 
 | Dosya | Boyut | Ağırlık | Nerelerde |
 |---|---|---|---|
-| `assets/doner-photo.jpg` | 640 × 1137 | ~172 KB | Hero (320 px'e ölçeklenir), Hakkımızda (260 px) |
-| `assets/logo.svg` | 48 × 48 | 0.4 KB | Tüm sayfalarda üst bar + favicon |
+| `assets/doner-photo.jpg` | 640 × 1137 | ~172 KB | Hero (320 px'e ölçeklenir), Hakkımızda (300 × 340 px kesim) |
+| `assets/logo.svg` | 64 × 64 viewBox | ~1 KB | Tüm sayfalarda üst bar (32 px) |
+| `assets/favicon.svg` | 64 × 64 | ~1 KB | Sekme / sekme simgesi (`rel="icon"`) |
 | `assets/doner.svg` | 320 × 320 | 1.7 KB | Yedek illüstrasyon |
 
 Fotoğraf progressive JPEG, mozjpeg, q75. Hero'da 320 CSS px gösterildiği için
@@ -293,7 +314,7 @@ python3 -m http.server 8000     # veya nginx ile /var/www/doner
 | "Şu an açık" rozeti yanlış | `SITE.hours` sırası Pazartesi→Pazar olmalı; saatler `HH:MM` formatında. |
 | Fiyat `285 ₺` değil `285` çıkıyor | `price` string değil **sayı** olmalı. |
 | Arama sonuç vermiyor | Arama isim + açıklamada küçük harf arar; `desc` yoksa sadece isim aranır. |
-| Harita boş geliyor | `file://` ile açma; HTTP sunucu kullan veya iframe src'ini kontrol et. |
+| Harita boş geliyor | `file://` ile açma; HTTP sunucu kullan. Adresi değiştirmek için `site.js` → `SITE.mapsQuery` yeterli; iframe ve "Yol tarifi" linki otomatik üretilir. |
 | Logo/hero görseli beklenen boyutta değil | `.logo img, .logo svg` ve `.hero-art img` kuralları `styles.css`'te; kendi görselini koyunca `max-width` ayarla. |
 
 ---
@@ -302,6 +323,7 @@ python3 -m http.server 8000     # veya nginx ile /var/www/doner
 
 - [ ] Gerçek ürün fotoğrafları (dürüm, porsiyon, künefe) + `sharp` optimizasyonu
 - [ ] Menü kartlarında küçük thumbnail
+- [x] Scroll reveal + hero animasyonları (ken burns, köz, ticker, sayaçlar)
 - [ ] Sepetin `localStorage` ile sayfa yenilenince korunması
 - [ ] QR menü (masaya basılı QR → `menu.html`)
 - [ ] Menü verisinin Google Sheets / CSV'den okunması (deploy'sız fiyat güncelleme)

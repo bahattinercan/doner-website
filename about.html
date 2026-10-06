@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hakkımızda — Tandır Döner</title>
   <meta name="description" content="Tandır Döner'in hikayesi: odun ateşi, taze et, mahalle dönercisi.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="assets/logo.svg">
+  <link rel="icon" href="assets/favicon.svg">
   <script src="site.js" defer></script>
 </head>
 <body>
@@ -14,8 +17,8 @@
 <header class="topbar">
   <div class="topbar-inner">
     <a class="logo" href="index.html">
-      <img src="assets/logo.svg" alt="">
-      <span>Tandır Döner</span>
+      <span class="logo-mark"><img src="assets/logo.svg" alt="Tandır Döner logosu"></span>
+      <span class="logo-word">Tandır <em>Döner</em></span>
     </a>
     <button class="burger" aria-expanded="false" aria-label="Menüyü aç">Menü ≡</button>
     <nav class="nav-links">
@@ -26,40 +29,69 @@
     </nav>
     <a class="cta-call" href="tel:+905321234567">Ara</a>
   </div>
+  <div class="scroll-progress" id="scroll-progress"></div>
 </header>
 
 <section class="section wrap">
-  <h2>Hikayemiz</h2>
-  <div class="story">
-    <img class="story-img" src="assets/doner-photo.jpg" alt="Ocakta dönen tandır dana döner" width="640" height="1137">
-    <div>
-  <p>
-  Bu dükkân 2004'te bir usta, iki yardımcı ve bir tandırla açıldı. O günden beri
-  aynı yerde, aynı ateşte döner. Etin kesiminden lavaşın açılmasına kadar hiçbir
-  adım dışarıdan gelmiyor; akşam kapanıştan sonra tandır temizlenir, sabah
-  ilk şiş o günün etiyle dizilir.
-  </p>
-  <p>
-  Dönerin sırrı tek bir şey değil: kıyımın inceliği, ateşin sabrı, lavaşın
-  sıcaklığı. Biz üçünü de aynı gün içinde yapıyoruz.
-  </p>
+  <h2>Hikâyemiz</h2>
+  <p class="section-lede">2004'ten beri aynı ocak, aynı usta, aynı mahalle.</p>
+
+  <div class="story reveal">
+    <figure class="story-media">
+      <img class="story-img" src="assets/doner-photo.jpg" alt="Ocakta dönen tandır dana döner" width="640" height="1137">
+      <figcaption>Tandır, odun ateşinde · her sabah ilk şiş o günün etiyle dizilir</figcaption>
+    </figure>
+    <div class="story-text">
+      <p>
+        Bu dükkân 2004'te bir usta, iki yardımcı ve bir tandırla açıldı. O günden beri
+        aynı yerde, aynı ateşte döner. Etin kesiminden lavaşın açılmasına kadar hiçbir
+        adım dışarıdan gelmiyor; akşam kapanıştan sonra tandır temizlenir, sabah
+        ilk şiş o günün etiyle dizilir.
+      </p>
+      <p>
+        Dönerin sırrı tek bir şey değil: kıyımın inceliği, ateşin sabrı, lavaşın
+        sıcaklığı. Biz üçünü de aynı gün içinde yapıyoruz.
+      </p>
+      <blockquote class="quote">
+        “Ateşi acele ettirirsen döner yanar, beklersen erir. İkisi de aynı iş.”
+        <cite>— Kurucu usta</cite>
+      </blockquote>
+    </div>
   </div>
+
+  <div class="stats">
+    <div class="stat reveal"><b data-count="2004">0</b><span>aynı adres, aynı ocak</span></div>
+    <div class="stat reveal"><b data-count="1">0</b><span>tandır, odun ateşi</span></div>
+    <div class="stat reveal"><b data-count="20" data-suffix="+">0</b><span>yıl mahalle hizmeti</span></div>
   </div>
 </section>
 
 <section class="section wrap">
   <h2>Nasıl yapıyoruz</h2>
   <div class="cards">
-    <div class="card"><h3>Et</h3><p>Dana ve tavuk, günlük. Soğuk zincir bozulmaz, et dinlenmeden şişe dizilmez.</p></div>
-    <div class="card"><h3>Ateş</h3><p>Odun ateşi, sabit sıcaklık. Dış çıtır, iç sulu; kıvamı buradan geliyor.</p></div>
-    <div class="card"><h3>Lavaş</h3><p>Günlük açılan lavaş. Bayat lavaş dürüme girmez.</p></div>
-    <div class="card"><h3>Servis</h3><p>Dürüm sıcak gelir, bekletilmez. Sipariş sıraya göre, ocaktan direkt çıkar.</p></div>
+    <div class="card reveal"><h3>Et</h3><p>Dana ve tavuk, günlük. Soğuk zincir bozulmaz, et dinlenmeden şişe dizilmez.</p></div>
+    <div class="card reveal"><h3>Ateş</h3><p>Odun ateşi, sabit sıcaklık. Dış çıtır, iç sulu; kıvamı buradan geliyor.</p></div>
+    <div class="card reveal"><h3>Lavaş</h3><p>Günlük açılan lavaş. Bayat lavaş dürüme girmez.</p></div>
+    <div class="card reveal"><h3>Servis</h3><p>Dürüm sıcak gelir, bekletilmez. Sipariş sıraya göre, ocaktan direkt çıkar.</p></div>
+  </div>
+</section>
+
+<section class="section wrap">
+  <div class="cta-strip reveal">
+    <div>
+      <h3>Yemek istiyorsan</h3>
+      <p>Menüye bak, saatleri gör, telefonla sipariş ver. Akşam son şiş bitince ocak kapanır.</p>
+    </div>
+    <div class="card-actions">
+      <a class="btn btn-primary" href="menu.html">Menüyü gör</a>
+      <a class="btn btn-ghost" href="contact.html">İletişim &amp; yol tarifi</a>
+    </div>
   </div>
 </section>
 
 <footer>
   <div class="footer-inner">
-    <span>© <span data-site="name"></span> · <span data-site="address"></span></span>
+    <span class="footer-brand"><img src="assets/logo.svg" alt=""><span>© <span data-site="name"></span> · <span data-site="address"></span></span></span>
     <span><a href="menu.html">Menü</a> · <a href="contact.html">İletişim</a></span>
   </div>
 </footer>
@@ -70,6 +102,8 @@
   <div class="order-total"></div>
   <a class="order-send" href="#">WhatsApp ile gönder</a>
 </div>
+
+<a class="fab" id="fab" href="https://wa.me/905321234567" aria-label="WhatsApp ile sipariş">WhatsApp ile sipariş</a>
 
 </body>
 </html>

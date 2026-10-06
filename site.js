@@ -1,7 +1,6 @@
 /* ============================================================
-   TANDIR DÖNER — site verisi
-   Buradaki her şeyi kendi dükkanına göre değiştir.
-   Menü ürünlerini düzenlemek için tek yer: MENU dizisi.
+   TANDIR DÖNER — site verisi + etkileşim/animasyon
+   İçerik: SITE + MENU. Sepet, arama, reveal animasyonları.
    ============================================================ */
 
 const SITE = {
@@ -17,7 +16,7 @@ const SITE = {
   mapsQuery: "İstiklal Caddesi 12 Beyoğlu İstanbul",
   instagram: "https://instagram.com/",
   email: "info@tandirdoner.com",
-  // Açılış saatleri: 0 = Pazar ... 6 = Cumartesi
+  // Açılış saatleri: 0 = Pazartesi ... 6 = Pazar
   hours: [
     { day: "Pazartesi", open: "10:00", close: "23:00" },
     { day: "Salı", open: "10:00", close: "23:00" },
@@ -84,6 +83,7 @@ const MENU = [
 /* ---------- yardımcı ---------- */
 
 const TL = (n) => n.toLocaleString("tr-TR") + " ₺";
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function isOpenNow() {
   const now = new Date();
@@ -93,9 +93,7 @@ function isOpenNow() {
   const [oh, om] = h.open.split(":").map(Number);
   const [ch, cm] = h.close.split(":").map(Number);
   const cur = now.getHours() * 60 + now.getMinutes();
-  const openMin = oh * 60 + om;
-  const closeMin = ch * 60 + cm;
-  const isOpen = cur >= openMin && cur < closeMin;
+  const isOpen = cur >= oh * 60 + om && cur < ch * 60 + cm;
   return {
     open: isOpen,
     text: isOpen ? `Şu an açık · ${h.close}'e kadar` : `Kapalı · ${h.open}'te açılıyor`,
@@ -146,22 +144,36 @@ function renderOrder() {
   panel.querySelector(".order-send").href = waLink();
 }
 
+function toast(message) {
+  const t = document.createElement("div");
+  t.className = "toast";
+  t.textContent = message;
+  document.body.appendChild(t);
+  setTimeout(() => {
+    t.classList.add("is-out");
+    setTimeout(() => t.remove(), 320);
+  }, 2200);
+}
+
 function addToOrder(item) {
   const found = order.find((o) => o.name === item.name);
   if (found) found.qty += 1;
   else order.push({ name: item.name, price: item.price, qty: 1 });
   renderOrder();
+  toast(`${item.name} sepete eklendi`);
 }
 
 /* ---------- menü render ---------- */
 
-function renderMenu(target, filter = "") {
+function renderMenu(target, filter = "", category = "Tümü") {
   const el = document.getElementById(target);
   if (!el) return;
   const q = filter.trim().toLowerCase();
   let count = 0;
+  let n = 0;
 
   el.innerHTML = MENU
+    .filter((group) => category === "Tümü" || group.category === category)
     .map((group) => {
       const items = group.items.filter(
         (i) => !q || i.name.toLowerCase().includes(q) || (i.desc || "").toLowerCase().includes(q)
@@ -169,14 +181,14 @@ function renderMenu(target, filter = "") {
       if (!items.length) return "";
       count += items.length;
       return `
-        <section class="menu-group">
+        <section class="menu-group reveal">
           <h3>${group.category}</h3>
           ${group.note ? `<p class="group-note">${group.note}</p>` : ""}
           <ul class="menu-list">
             ${items
               .map(
                 (i) => `
-                <li class="menu-item">
+                <li class="menu-item" style="--d:${n++ % 8}">
                   <div class="mi-main">
                     <div class="mi-name">${i.name}</div>
                     ${i.desc ? `<div class="mi-desc">${i.desc}</div>` : ""}
@@ -193,13 +205,45 @@ function renderMenu(target, filter = "") {
     .join("");
 
   if (!count) el.innerHTML = `<p class="empty">“${filter}” için sonuç yok.</p>`;
+
+  const counter = document.getElementById("menu-count");
+  if (counter) counter.textContent = `${count} ürün`;
+}
+
+function renderPreview(target) {
+  const el = document.getElementById(target);
+  if (!el) return;
+  const all = MENU.flatMap((g) => g.items);
+  const featured = all.filter((i) => i.tags && i.tags.length);
+  const list = (featured.length ? featured : all).slice(0, 6);
+
+  el.innerHTML = list
+    .map(
+      (i, idx) => `
+      <article class="preview-card reveal" style="--d:${idx % 6}">
+        <div class="preview-name">${i.name}</div>
+        <div class="preview-desc">${i.desc || ""}</div>
+        <div class="preview-foot">
+          <span class="preview-price">${TL(i.price)}</span>
+          <button class="mi-add" data-add="${i.name}" aria-label="${i.name} ekle">Sipariş</button>
+        </div>
+      </article>`
+    )
+    .join("");
 }
 
 function wireMenuButtons() {
   document.querySelectorAll("[data-add]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const item = MENU.flatMap((g) => g.items).find((i) => i.name === btn.dataset.add);
-      if (item) addToOrder(item);
+      if (!item) return;
+      addToOrder(item);
+      btn.classList.add("is-added");
+      btn.textContent = "Eklendi";
+      setTimeout(() => {
+        btn.classList.remove("is-added");
+        btn.textContent = "Sipariş";
+      }, 900);
     });
   });
 }
@@ -221,6 +265,90 @@ function fillStatic() {
       .map((h) => `<tr><td>${h.day}</td><td>${h.open} – ${h.close}</td></tr>`)
       .join("");
   });
+
+  // harita: adres tek yerden (SITE.mapsQuery) gelir
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.mapsQuery)}`;
+  document.querySelectorAll("[data-maps-link]").forEach((a) => { a.href = mapsUrl; });
+  const map = document.getElementById("map");
+  if (map) map.src = `https://www.google.com/maps?q=${encodeURIComponent(SITE.mapsQuery)}&output=embed`;
+}
+
+/* ---------- animasyonlar ---------- */
+
+let activeCategory = "Tümü";
+
+function initReveal() {
+  const els = document.querySelectorAll(".reveal");
+  if (!els.length) return;
+  if (!("IntersectionObserver" in window) || reduceMotion) {
+    els.forEach((el) => el.classList.add("is-in"));
+    return;
+  }
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-in");
+          io.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+  );
+  els.forEach((el, i) => {
+    if (!el.style.getPropertyValue("--d")) el.style.setProperty("--d", String(i % 6));
+    io.observe(el);
+  });
+}
+
+function initCounters() {
+  const els = document.querySelectorAll("[data-count]");
+  if (!els.length) return;
+  if (!("IntersectionObserver" in window) || reduceMotion) {
+    els.forEach((el) => { el.textContent = el.dataset.count + (el.dataset.suffix || ""); });
+    return;
+  }
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        io.unobserve(entry.target);
+        const el = entry.target;
+        const target = Number(el.dataset.count);
+        const suffix = el.dataset.suffix || "";
+        const start = performance.now();
+        const duration = 900;
+        const step = (now) => {
+          const p = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.round(target * eased) + (p === 1 ? suffix : "");
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+    },
+    { threshold: 0.4 }
+  );
+  els.forEach((el) => io.observe(el));
+}
+
+function initScrollFx() {
+  const bar = document.getElementById("scroll-progress");
+  const topbar = document.querySelector(".topbar");
+  const fab = document.getElementById("fab");
+  const photo = document.querySelector(".hero-photo");
+
+  const onScroll = () => {
+    const y = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    if (bar) bar.style.width = total > 0 ? `${(y / total) * 100}%` : "0%";
+    if (topbar) topbar.classList.toggle("is-scrolled", y > 12);
+    if (fab) fab.classList.toggle("is-visible", y > 260);
+    if (photo && !reduceMotion) photo.style.transform = `translateY(${Math.min(y * 0.05, 24)}px)`;
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -236,17 +364,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // arama (menü sayfası)
+  // menü sayfası: arama + kategori filtreleri
   const search = document.getElementById("menu-search");
   if (search) {
     renderMenu("menu");
-    search.addEventListener("input", () => renderMenu("menu", search.value));
+    search.addEventListener("input", () => renderMenu("menu", search.value, activeCategory));
+
+    const chips = document.getElementById("menu-chips");
+    if (chips) {
+      chips.innerHTML = ["Tümü", ...MENU.map((g) => g.category)]
+        .map((c, i) => `<button class="chip${i === 0 ? " is-active" : ""}" data-cat="${c}">${c}</button>`)
+        .join("");
+      chips.querySelectorAll(".chip").forEach((b) =>
+        b.addEventListener("click", () => {
+          chips.querySelectorAll(".chip").forEach((x) => x.classList.remove("is-active"));
+          b.classList.add("is-active");
+          activeCategory = b.dataset.cat;
+          renderMenu("menu", search.value, activeCategory);
+        })
+      );
+    }
   }
 
   // ana sayfa vitrin menüsü
-  if (document.getElementById("menu-preview")) {
-    renderMenu("menu-preview");
-  }
+  if (document.getElementById("menu-preview")) renderPreview("menu-preview");
 
   wireMenuButtons();
+  initReveal();
+  initCounters();
+  initScrollFx();
 });

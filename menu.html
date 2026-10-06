@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Menü — Tandır Döner</title>
   <meta name="description" content="Tandır Döner menüsü: dürüm, porsiyon, başlangıç, tatlı ve içecekler.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="assets/logo.svg">
+  <link rel="icon" href="assets/favicon.svg">
   <script src="site.js" defer></script>
 </head>
 <body>
@@ -14,8 +17,8 @@
 <header class="topbar">
   <div class="topbar-inner">
     <a class="logo" href="index.html">
-      <img src="assets/logo.svg" alt="">
-      <span>Tandır Döner</span>
+      <span class="logo-mark"><img src="assets/logo.svg" alt="Tandır Döner logosu"></span>
+      <span class="logo-word">Tandır <em>Döner</em></span>
     </a>
     <button class="burger" aria-expanded="false" aria-label="Menüyü aç">Menü ≡</button>
     <nav class="nav-links">
@@ -26,20 +29,27 @@
     </nav>
     <a class="cta-call" href="tel:+905321234567">Ara</a>
   </div>
+  <div class="scroll-progress" id="scroll-progress"></div>
 </header>
 
 <section class="section wrap">
   <h2>Menü</h2>
+  <p class="section-lede">Arama anlık çalışır; kategori seçip sadece o bölüme bakabilirsin.</p>
+
   <div class="menu-toolbar">
     <input id="menu-search" type="search" placeholder="Ürün ara (dürüm, künefe, ayran…)" aria-label="Menüde ara">
-    <a class="btn btn-ghost" style="color:var(--ink);border-color:var(--line)" href="contact.html">Sipariş için ara</a>
+    <span class="menu-count" id="menu-count"></span>
+    <a class="btn btn-outline" href="contact.html">Sipariş için ara</a>
   </div>
+
+  <div class="chips" id="menu-chips" role="tablist" aria-label="Kategoriler"></div>
+
   <div id="menu"></div>
 </section>
 
 <footer>
   <div class="footer-inner">
-    <span>© <span data-site="name"></span> · <span data-site="address"></span></span>
+    <span class="footer-brand"><img src="assets/logo.svg" alt=""><span>© <span data-site="name"></span> · <span data-site="address"></span></span></span>
     <span><span class="status" id="open-status"><span class="dot"></span><span class="status-text"></span></span></span>
   </div>
 </footer>
@@ -50,6 +60,8 @@
   <div class="order-total"></div>
   <a class="order-send" href="#">WhatsApp ile gönder</a>
 </div>
+
+<a class="fab" id="fab" href="https://wa.me/905321234567" aria-label="WhatsApp ile sipariş">WhatsApp ile sipariş</a>
 
 </body>
 </html>

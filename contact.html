@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>İletişim — Tandır Döner</title>
   <meta name="description" content="Tandır Döner adresi, telefonu, WhatsApp sipariş hattı ve açılış saatleri.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="assets/logo.svg">
+  <link rel="icon" href="assets/favicon.svg">
   <script src="site.js" defer></script>
 </head>
 <body>
@@ -14,8 +17,8 @@
 <header class="topbar">
   <div class="topbar-inner">
     <a class="logo" href="index.html">
-      <img src="assets/logo.svg" alt="">
-      <span>Tandır Döner</span>
+      <span class="logo-mark"><img src="assets/logo.svg" alt="Tandır Döner logosu"></span>
+      <span class="logo-word">Tandır <em>Döner</em></span>
     </a>
     <button class="burger" aria-expanded="false" aria-label="Menüyü aç">Menü ≡</button>
     <nav class="nav-links">
@@ -26,36 +29,58 @@
     </nav>
     <a class="cta-call" href="tel:+905321234567">Ara</a>
   </div>
+  <div class="scroll-progress" id="scroll-progress"></div>
 </header>
 
 <section class="section wrap">
   <h2>İletişim</h2>
-  <div class="info-grid">
-    <div class="card">
-      <h3>Telefon & WhatsApp</h3>
-      <p><a href="tel:+905321234567" data-site="phone"></a></p>
-      <p><a class="btn btn-primary" href="https://wa.me/905321234567">WhatsApp ile sipariş</a></p>
+  <p class="section-lede">Sipariş telefon ve WhatsApp üzerinden. Akşam son şiş bitince ocak kapanır.</p>
+
+  <div class="contact-grid">
+    <div class="contact-col">
+      <div class="card reveal">
+        <h3>Telefon &amp; WhatsApp</h3>
+        <p class="contact-line"><a href="tel:+905321234567" data-site="phone"></a></p>
+        <div class="card-actions">
+          <a class="btn btn-primary" href="https://wa.me/905321234567">WhatsApp ile sipariş</a>
+          <a class="btn btn-outline" href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <h3>Adres</h3>
+        <p data-site="address"></p>
+        <p class="note">İstiklal Caddesi'nin Beyoğlu tarafı; tramvay durağına 2 dakika.</p>
+        <div class="card-actions">
+          <a class="btn btn-outline" data-maps-link href="https://www.google.com/maps" target="_blank" rel="noopener">Yol tarifi</a>
+        </div>
+      </div>
     </div>
-    <div class="card">
-      <h3>Adres</h3>
-      <p data-site="address"></p>
-      <p><a href="https://www.google.com/maps/search/?api=1&query=%C4%B0stiklal%20Caddesi%2012%20Beyo%C4%9Flu" target="_blank" rel="noopener">Yol tarifi</a></p>
-    </div>
-    <div class="card">
-      <h3>Saatler</h3>
-      <table class="hours-table" data-hours></table>
+
+    <div class="contact-col">
+      <div class="card reveal">
+        <h3>Açılış saatleri</h3>
+        <table class="hours-table" data-hours></table>
+        <div class="status" id="open-status"><span class="dot"></span><span class="status-text"></span></div>
+      </div>
     </div>
   </div>
 
-  <!-- Adresi kendi dükkanına göre değiştir: mapsQuery site.js içinde -->
-  <iframe class="map"
-    src="https://www.google.com/maps?q=%C4%B0stiklal%20Caddesi%2012%20Beyo%C4%9Flu%20%C4%B0stanbul&output=embed"
-    title="Konum haritası" loading="lazy"></iframe>
+  <!-- Adresi değiştirmek için tek yer: site.js içindeki SITE.mapsQuery -->
+  <div class="map-wrap reveal">
+    <iframe id="map" class="map"
+      src="https://www.google.com/maps?q=%C4%B0stiklal%20Caddesi%2012%20Beyo%C4%9Flu%20%C4%B0stanbul&output=embed"
+      title="Konum haritası" loading="lazy"></iframe>
+    <div class="map-meta">
+      <span data-site="address"></span>
+      <a data-maps-link href="https://www.google.com/maps" target="_blank" rel="noopener">Haritada aç ↗</a>
+    </div>
+  </div>
 </section>
 
 <footer>
   <div class="footer-inner">
-    <span>© <span data-site="name"></span> · <span data-site="address"></span></span>
+    <span class="footer-brand"><img src="assets/logo.svg" alt=""><span>© <span data-site="name"></span> · <span data-site="address"></span></span></span>
     <span><a href="menu.html">Menü</a> · <a href="index.html">Ana Sayfa</a></span>
   </div>
 </footer>
@@ -66,6 +91,8 @@
   <div class="order-total"></div>
   <a class="order-send" href="#">WhatsApp ile gönder</a>
 </div>
+
+<a class="fab" id="fab" href="https://wa.me/905321234567" aria-label="WhatsApp ile sipariş">WhatsApp ile sipariş</a>
 
 </body>
 </html>
