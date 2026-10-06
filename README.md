@@ -176,6 +176,25 @@ ticker: ["Odun ateşinde döner", "Her gün taze çekilen et", "Cuma & cumartesi
 
 ---
 
+### 5) Menü görselleri — illüstrasyonlar
+
+Her ürün kartının üstünde düz (flat) bir illüstrasyon var. 29 sembol
+`site.js` içindeki `ART_SPRITE` string'inde duruyor ve sayfa açıldığında DOM'a
+enjekte ediliyor; görsel, ürün adına göre otomatik seçiliyor
+(`dürüm → durum`, `çorba → corba`, `kahve → kahve` …).
+
+Gerçek fotoğraf kullanmak istersen ürüne `img` yaz, illüstrasyon otomatik devre dışı kalır:
+
+```js
+{ name: "Künefe", desc: "…", price: 190, img: "assets/menu/kunefe.jpg" }
+```
+
+Fotoğrafları `assets/menu/` altına koyman yeterli. Yeni illüstrasyon eklemek için
+`ART_SPRITE`'a `<symbol id="art-xxx" viewBox="0 0 64 48">…</symbol>` ekle ve
+`ART_KEYS` listesine anahtarını yaz.
+
+---
+
 ## Sipariş akışı
 
 ```

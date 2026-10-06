@@ -580,6 +580,16 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
   transition: transform .25s var(--ease), border-color .25s, box-shadow .25s;
 }
 .menu-item:hover { transform: translateY(-2px); border-color: var(--amber-deep); box-shadow: var(--shadow-sm); }
+
+.mi-art {
+  height: 78px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: linear-gradient(160deg, rgba(233, 178, 85, .26), rgba(107, 122, 91, .20));
+}
+.mi-art svg,
+.mi-art img { width: 100%; height: 100%; display: block; }
+.preview-card .mi-art { height: 64px; }
 .mi-foot {
   display: flex;
   align-items: center;

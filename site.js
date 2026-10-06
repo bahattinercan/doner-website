@@ -126,6 +126,235 @@ const MENU = [
 
 const TL = (n) => n.toLocaleString("tr-TR") + " ₺";
 const BASKET_ICON = `<svg class="icon icon-basket" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14M6.5 8l2 9.5h7l2-9.5M9 4.5v3.5M15 4.5v3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+// Ürün adına göre illüstrasyon seçiyor. Gerçek fotoğraf vermek istersen
+// ürüne img: "assets/menu/kunefe.jpg" yaz — o zaman SVG yerine fotoğraf kullanılır.
+const ART_SPRITE = `<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true">
+  <!-- Tandır Döner menü ikonları — düz (flat) illüstrasyonlar.
+     Gerçek fotoğraf kullanmak istersen: MENU içindeki ürüne
+     img: "assets/menu/kunefe.jpg" yaz, SVG otomatik devre dışı kalır. -->
+
+  <symbol id="art-durum" viewBox="0 0 64 48">
+    <g transform="rotate(-16 32 24)">
+      <rect x="12" y="14" width="40" height="20" rx="10" fill="#e9b255"/>
+      <path d="M22 14v20M34 14v20" stroke="#b9853f" stroke-width="2"/>
+    </g>
+    <circle cx="26" cy="20" r="2.4" fill="#6b7a5b"/>
+    <circle cx="36" cy="26" r="2.4" fill="#b4534a"/>
+  </symbol>
+
+  <symbol id="art-porsiyon" viewBox="0 0 64 48">
+    <ellipse cx="32" cy="26" rx="25" ry="15" fill="#f4ead9"/>
+    <ellipse cx="32" cy="26" rx="18" ry="10" fill="#e9b255"/>
+    <path d="M17 22h30M17 26h30M17 30h30" stroke="#b9853f" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="art-sandvic" viewBox="0 0 64 48">
+    <path d="M10 14h44l-6 22H16z" fill="#e9b255"/>
+    <path d="M16 22h32M16 28h32" stroke="#b9853f" stroke-width="2"/>
+    <circle cx="24" cy="18" r="2" fill="#6b7a5b"/>
+  </symbol>
+
+  <symbol id="art-pide" viewBox="0 0 64 48">
+    <path d="M10 16h44l-6 16H16z" fill="#e9b255"/>
+    <path d="M16 21h32l-4 9H20z" fill="#f4ead9"/>
+    <circle cx="26" cy="24" r="2.2" fill="#b4534a"/>
+    <circle cx="36" cy="22" r="2.2" fill="#6b7a5b"/>
+  </symbol>
+
+  <symbol id="art-lahmacun" viewBox="0 0 64 48">
+    <circle cx="32" cy="24" r="20" fill="#e9b255"/>
+    <circle cx="32" cy="24" r="15" fill="#b4534a"/>
+    <circle cx="26" cy="20" r="2" fill="#6b7a5b"/>
+    <circle cx="38" cy="28" r="2" fill="#6b7a5b"/>
+    <circle cx="34" cy="18" r="1.6" fill="#f4ead9"/>
+  </symbol>
+
+  <symbol id="art-borek" viewBox="0 0 64 48">
+    <path d="M12 34 32 12l20 22z" fill="#e9b255"/>
+    <path d="M20 30l12-14 12 14" stroke="#b9853f" stroke-width="2" fill="none"/>
+    <circle cx="32" cy="26" r="2.4" fill="#f4ead9"/>
+  </symbol>
+
+  <symbol id="art-corba" viewBox="0 0 64 48">
+    <path d="M12 22a20 20 0 0 0 40 0z" fill="#e9b255"/>
+    <path d="M12 22h40" stroke="#b9853f" stroke-width="2"/>
+    <path d="M22 12c2-4 4-4 6-8M34 12c2-4 4-4 6-8" stroke="#6b7a5b" stroke-width="2" fill="none"/>
+    <circle cx="26" cy="28" r="2" fill="#b4534a"/>
+  </symbol>
+
+  <symbol id="art-salata" viewBox="0 0 64 48">
+    <path d="M12 24a20 20 0 0 0 40 0z" fill="#f4ead9"/>
+    <path d="M16 20c6-8 14-8 20-4 6-6 12-2 12 4" stroke="#6b7a5b" stroke-width="2.5" fill="none"/>
+    <circle cx="24" cy="26" r="3" fill="#b4534a"/>
+    <circle cx="36" cy="28" r="3" fill="#b4534a"/>
+  </symbol>
+
+  <symbol id="art-humus" viewBox="0 0 64 48">
+    <path d="M14 22a18 18 0 0 0 36 0z" fill="#f4ead9"/>
+    <path d="M20 20c4-4 12-4 16 0" stroke="#e9b255" stroke-width="3" fill="none"/>
+    <circle cx="32" cy="26" r="2.5" fill="#6b7a5b"/>
+  </symbol>
+
+  <symbol id="art-biber" viewBox="0 0 64 48">
+    <path d="M14 12c10 2 16 10 14 22-8 4-16-6-14-22z" fill="#b4534a"/>
+    <path d="M36 14c10 2 14 10 12 20-8 4-14-6-12-20z" fill="#6b7a5b"/>
+    <path d="M14 12l4-4M36 14l4-4" stroke="#6b7a5b" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="art-patates" viewBox="0 0 64 48">
+    <path d="M14 18h36l-4 18H18z" fill="#e9b255"/>
+    <path d="M20 18v18M28 18v18M36 18v18" stroke="#b9853f" stroke-width="2"/>
+    <path d="M12 14h40" stroke="#b9853f" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="art-sogan" viewBox="0 0 64 48">
+    <circle cx="22" cy="24" r="9" fill="none" stroke="#e9b255" stroke-width="4"/>
+    <circle cx="42" cy="20" r="7" fill="none" stroke="#b9853f" stroke-width="4"/>
+    <circle cx="36" cy="32" r="6" fill="none" stroke="#6b7a5b" stroke-width="4"/>
+  </symbol>
+
+  <symbol id="art-turshu" viewBox="0 0 64 48">
+    <rect x="18" y="12" width="28" height="28" rx="6" fill="#f4ead9"/>
+    <rect x="22" y="8" width="20" height="6" rx="3" fill="#6b7a5b"/>
+    <path d="M24 20c4 2 4 8 0 10M34 18c4 2 4 8 0 10" stroke="#6b7a5b" stroke-width="2.5" fill="none"/>
+  </symbol>
+
+  <symbol id="art-pilav" viewBox="0 0 64 48">
+    <path d="M12 30c6-14 34-14 40 0z" fill="#e9b255"/>
+    <circle cx="24" cy="24" r="2" fill="#f4ead9"/>
+    <circle cx="32" cy="22" r="2" fill="#f4ead9"/>
+    <circle cx="40" cy="24" r="2" fill="#f4ead9"/>
+    <path d="M12 30h40" stroke="#b9853f" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="art-lavas" viewBox="0 0 64 48">
+    <ellipse cx="32" cy="30" rx="22" ry="6" fill="#e9b255"/>
+    <ellipse cx="32" cy="24" rx="20" ry="6" fill="#f4ead9"/>
+    <ellipse cx="32" cy="18" rx="18" ry="6" fill="#e9b255"/>
+  </symbol>
+
+  <symbol id="art-misir" viewBox="0 0 64 48">
+    <path d="M22 10c12 0 18 8 16 20-6 8-16 6-18-4z" fill="#e9b255"/>
+    <path d="M24 14h14M24 20h14M24 26h14" stroke="#b9853f" stroke-width="2"/>
+    <path d="M22 10c-6 4-8 12-4 18" stroke="#6b7a5b" stroke-width="2.5" fill="none"/>
+  </symbol>
+
+  <symbol id="art-kunefe" viewBox="0 0 64 48">
+    <path d="M12 30a20 20 0 0 1 40 0z" fill="#e9b255"/>
+    <path d="M16 24c8-8 24-8 32 0" stroke="#b9853f" stroke-width="2" fill="none"/>
+    <circle cx="24" cy="26" r="2.4" fill="#6b7a5b"/>
+    <circle cx="34" cy="24" r="2.4" fill="#6b7a5b"/>
+    <circle cx="42" cy="28" r="2.4" fill="#6b7a5b"/>
+  </symbol>
+
+  <symbol id="art-baklava" viewBox="0 0 64 48">
+    <path d="M12 24 22 12l10 12-10 12z" fill="#e9b255"/>
+    <path d="M26 24 36 12l10 12-10 12z" fill="#b9853f"/>
+    <path d="M40 24 50 12l10 12-10 12z" fill="#e9b255"/>
+    <circle cx="22" cy="24" r="2" fill="#6b7a5b"/>
+    <circle cx="36" cy="24" r="2" fill="#6b7a5b"/>
+  </symbol>
+
+  <symbol id="art-sutlac" viewBox="0 0 64 48">
+    <path d="M18 14h28l-4 22H22z" fill="#f4ead9"/>
+    <path d="M22 20h20" stroke="#b4534a" stroke-width="3"/>
+    <ellipse cx="32" cy="14" rx="14" ry="4" fill="#f4ead9"/>
+  </symbol>
+
+  <symbol id="art-kazandibi" viewBox="0 0 64 48">
+    <ellipse cx="32" cy="26" rx="22" ry="12" fill="#f4ead9"/>
+    <path d="M14 30c8 6 28 6 36 0" stroke="#b9853f" stroke-width="3" fill="none"/>
+    <circle cx="32" cy="22" r="3" fill="#b4534a"/>
+  </symbol>
+
+  <symbol id="art-sekerpare" viewBox="0 0 64 48">
+    <circle cx="20" cy="26" r="8" fill="#e9b255"/>
+    <circle cx="34" cy="22" r="8" fill="#b9853f"/>
+    <circle cx="46" cy="28" r="7" fill="#e9b255"/>
+    <circle cx="20" cy="22" r="2" fill="#6b7a5b"/>
+  </symbol>
+
+  <symbol id="art-ayran" viewBox="0 0 64 48">
+    <path d="M22 8h20l-3 32H25z" fill="#f4ead9"/>
+    <path d="M22 16h20" stroke="#6b7a5b" stroke-width="2"/>
+    <ellipse cx="32" cy="8" rx="10" ry="3" fill="#f4ead9"/>
+  </symbol>
+
+  <symbol id="art-salgam" viewBox="0 0 64 48">
+    <path d="M22 8h20l-3 32H25z" fill="#b4534a"/>
+    <ellipse cx="32" cy="8" rx="10" ry="3" fill="#b4534a"/>
+    <path d="M26 20h12" stroke="#f4ead9" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="art-limonata" viewBox="0 0 64 48">
+    <path d="M22 8h20l-3 32H25z" fill="#e9b255"/>
+    <circle cx="42" cy="14" r="6" fill="#f4ead9"/>
+    <path d="M36 14h12" stroke="#b9853f" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="art-soda" viewBox="0 0 64 48">
+    <path d="M28 6h8v8l6 6v18H22V20l6-6z" fill="#6b7a5b"/>
+    <rect x="28" y="2" width="8" height="4" rx="2" fill="#e9b255"/>
+    <path d="M24 30h16" stroke="#f4ead9" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="art-su" viewBox="0 0 64 48">
+    <path d="M26 6h12v6l4 6v22H22V18l4-6z" fill="#f4ead9"/>
+    <rect x="28" y="2" width="8" height="4" rx="2" fill="#6b7a5b"/>
+    <path d="M24 28h16" stroke="#6b7a5b" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="art-maden" viewBox="0 0 64 48">
+    <path d="M26 6h12v6l4 6v22H22V18l4-6z" fill="#f4ead9"/>
+    <circle cx="28" cy="26" r="2" fill="#e9b255"/>
+    <circle cx="34" cy="30" r="2" fill="#e9b255"/>
+    <circle cx="32" cy="22" r="1.6" fill="#e9b255"/>
+  </symbol>
+
+  <symbol id="art-cay" viewBox="0 0 64 48">
+    <path d="M24 10h16l-4 26H28z" fill="#b4534a"/>
+    <path d="M22 12h20" stroke="#f4ead9" stroke-width="2"/>
+    <path d="M20 18c4 4 8 4 12 0" stroke="#e9b255" stroke-width="2" fill="none"/>
+  </symbol>
+
+  <symbol id="art-kahve" viewBox="0 0 64 48">
+    <path d="M20 16h24v12a6 6 0 0 1-6 6H26a6 6 0 0 1-6-6z" fill="#f4ead9"/>
+    <path d="M44 18a6 6 0 0 1 0 10" stroke="#f4ead9" stroke-width="2.5" fill="none"/>
+    <ellipse cx="32" cy="38" rx="18" ry="4" fill="#e9b255"/>
+    <path d="M26 12c2-4 4-4 6-8M34 12c2-4 4-4 6-8" stroke="#6b7a5b" stroke-width="2" fill="none"/>
+  </symbol>
+</svg>`;
+
+const ART_KEYS = [
+  ["dürüm", "durum"], ["porsiyon", "porsiyon"], ["çeyrek", "porsiyon"],
+  ["sandviç", "sandvic"], ["burger", "sandvic"], ["pide", "pide"],
+  ["lahmacun", "lahmacun"], ["börek", "borek"], ["çorba", "corba"],
+  ["salata", "salata"], ["humus", "humus"], ["haydari", "humus"],
+  ["biber", "biber"], ["patates", "patates"], ["soğan", "sogan"],
+  ["turşu", "turshu"], ["pilav", "pilav"], ["lavaş", "lavas"],
+  ["mısır", "misir"], ["künefe", "kunefe"], ["baklava", "baklava"],
+  ["sütlaç", "sutlac"], ["kazandibi", "kazandibi"], ["şekerpare", "sekerpare"],
+  ["ayran", "ayran"], ["şalgam", "salgam"], ["limonata", "limonata"],
+  ["soda", "soda"], ["maden", "maden"], ["su", "su"], ["çay", "cay"],
+  ["kahve", "kahve"],
+];
+
+function artFor(item) {
+  if (item.img) return `<img src="${item.img}" alt="${item.name}">`;
+  const n = item.name.toLowerCase();
+  const key = ART_KEYS.find(([w]) => n.includes(w))?.[1] || "porsiyon";
+  return `<svg viewBox="0 0 64 48" aria-hidden="true"><use href="#art-${key}"/></svg>`;
+}
+
+function injectSprite() {
+  if (document.getElementById("menu-art-sprite")) return;
+  const wrap = document.createElement("div");
+  wrap.id = "menu-art-sprite";
+  wrap.style.display = "none";
+  wrap.innerHTML = ART_SPRITE;
+  document.body.appendChild(wrap);
+}
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function isOpenNow() {
@@ -276,6 +505,7 @@ function renderMenu(target, filter = "", category = "Tümü") {
               .map(
                 (i) => `
                 <li class="menu-item" style="--d:${n++ % 8}">
+                  <div class="mi-art">${artFor(i)}</div>
                   <div class="mi-main">
                     <div class="mi-name">${i.name}</div>
                     ${i.desc ? `<div class="mi-desc">${i.desc}</div>` : ""}
@@ -312,6 +542,7 @@ function renderPreview(target) {
     .map(
       (i, idx) => `
       <article class="preview-card reveal" style="--d:${idx % 6}">
+        <div class="mi-art">${artFor(i)}</div>
         <div class="preview-name">${i.name}</div>
         <div class="preview-desc">${i.desc || ""}</div>
         <div class="preview-foot">
@@ -507,6 +738,7 @@ function initTicker() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  injectSprite();
   initTheme();
   fillStatic();
 
