@@ -78,6 +78,7 @@ a { color: inherit; }
   text-decoration: none;
 }
 
+.logo img,
 .logo svg { width: 30px; height: 30px; }
 
 .nav-links {
@@ -197,6 +198,7 @@ a { color: inherit; }
   display: grid;
   place-items: center;
 }
+.hero-art img,
 .hero-art svg { width: 100%; max-width: 320px; }
 
 /* ---------------- vitrin / kartlar ---------------- */
@@ -380,6 +382,7 @@ footer a { text-decoration: none; }
 @media (max-width: 860px) {
   .hero-inner { grid-template-columns: 1fr; }
   .hero-art { order: -1; }
+  .hero-art img,
   .hero-art svg { max-width: 220px; }
 }
 
