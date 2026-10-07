@@ -159,9 +159,13 @@
   <h4>Sipariş listesi</h4>
   <button class="order-close" id="order-close" aria-label="Sepeti kapat">×</button>
   <ul class="order-items"></ul>
-  <div class="order-total"></div>
-  <a class="order-send" href="#">WhatsApp ile gönder</a>
-  <button class="order-clear" id="order-clear">Sepeti temizle</button>
+  <div class="order-total"><span>Toplam</span><b>0 ₺</b></div>
+  <div class="order-actions">
+    <button class="order-clear" id="order-clear" aria-label="Sepeti temizle" title="Sepeti temizle">
+      <svg class="icon icon-trash" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9.5 7V4.5h5V7M6.8 7l1.2 12.6h6L15.2 7M10 10.6v5M14 10.6v5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <a class="order-send" href="#">WhatsApp ile gönder</a>
+  </div>
 </div>
 
 <a class="fab" id="fab" href="https://wa.me/905321234567" aria-label="WhatsApp ile sipariş">WhatsApp ile sipariş</a>

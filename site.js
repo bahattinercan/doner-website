@@ -222,10 +222,10 @@ const ART_KEYS = [
 ];
 
 function artFor(item) {
-  if (item.img) return `<img src="${item.img}" alt="${item.name}">`;
+  if (item.img) return `<img src="${item.img}" alt="${item.name}" loading="lazy">`;
   const n = item.name.toLowerCase();
   const key = ART_KEYS.find(([w]) => n.includes(w))?.[1] || "porsiyon";
-  return `<svg viewBox="0 0 64 48" aria-hidden="true"><use href="#art-${key}"/></svg>`;
+  return `<svg viewBox="0 0 64 48" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#art-${key}"/></svg>`;
 }
 
 function injectSprite() {
@@ -242,14 +242,14 @@ function isOpenNow() {
   const now = new Date();
   const idx = (now.getDay() + 6) % 7; // Pazartesi = 0
   const h = SITE.hours[idx];
-  if (!h) return { open: false, text: "Saat bilgisi yok", day: "", time: "", idx: 0 };
+  if (!h) return { open: false, text: "Saat bilgisi yok; usta da emin değil", day: "", time: "", idx: 0 };
   const [oh, om] = h.open.split(":").map(Number);
   const [ch, cm] = h.close.split(":").map(Number);
   const cur = now.getHours() * 60 + now.getMinutes();
   const isOpen = cur >= oh * 60 + om && cur < ch * 60 + cm;
   return {
     open: isOpen,
-    text: isOpen ? `Şu an açık · ${h.close}'e kadar` : `Kapalı · ${h.open}'te açılıyor`,
+    text: isOpen ? `Şu an açık · ${h.close}'e kadar (ocak yanıyor)` : `Kapalı · ${h.open}'te açılıyor (usta uyuyor)`,
     day: h.day,
     time: `${h.open} – ${h.close}`,
     idx,
@@ -260,6 +260,7 @@ function isOpenNow() {
 
 const CART_KEY = "tandir-cart";
 const THEME_KEY = "tandir-theme";
+const MAX_QTY = 20; // ocak bu kadar büyük değil
 
 const order = loadOrder();
 let orderOpen = false;
@@ -318,23 +319,35 @@ function renderOrder() {
         .map(
           (o) =>
             `<li><span>${o.qty} × ${o.name}</span><b>${TL(o.price * o.qty)}</b>` +
-            `<button class="qty" data-name="${o.name}" data-qty="${o.qty - 1}" aria-label="Azalt">−</button></li>`
+            `<div class="qty-controls">` +
+            `<button class="qty" data-name="${o.name}" data-op="dec" aria-label="${o.name} adetini azalt">−</button>` +
+            `<button class="qty" data-name="${o.name}" data-op="inc" aria-label="${o.name} adetini arttır">+</button>` +
+            `</div></li>`
         )
         .join("")
-    : '<li class="empty">Sepet henüz boş — menüden ürün ekle.</li>';
+    : '<li class="empty">Sepet henüz boş. Menüden bir şey ekle, aç kalma.</li>';
   panel.querySelector(".order-send").hidden = !order.length;
+  panel.querySelector(".order-clear").hidden = !order.length;
   panel.querySelectorAll(".qty").forEach((b) =>
     b.addEventListener("click", () => {
-      const q = Number(b.dataset.qty);
       const found = order.find((o) => o.name === b.dataset.name);
       if (!found) return;
-      if (q <= 0) order.splice(order.indexOf(found), 1);
-      else found.qty = q;
+      if (b.dataset.op === "inc") {
+        if (found.qty >= MAX_QTY) {
+          toast(`${found.name} için sınır ${MAX_QTY}. O kadarını telefonda konuşalım, ocak o kadar büyük değil.`);
+          return;
+        }
+        found.qty += 1;
+      } else {
+        found.qty -= 1;
+        if (found.qty <= 0) order.splice(order.indexOf(found), 1);
+      }
       renderOrder();
       saveOrder();
     })
   );
-  panel.querySelector(".order-total").textContent = TL(total);
+  const totalEl = panel.querySelector(".order-total");
+  if (totalEl) totalEl.innerHTML = `<span>Toplam</span><b>${TL(total)}</b>`;
   panel.querySelector(".order-send").href = waLink();
 }
 
@@ -349,14 +362,142 @@ function toast(message) {
   }, 2200);
 }
 
-function addToOrder(item) {
+function addToOrder(item, qty = 1) {
   const found = order.find((o) => o.name === item.name);
-  if (found) found.qty += 1;
-  else order.push({ name: item.name, price: item.price, qty: 1 });
+  const current = found ? found.qty : 0;
+  const add = Math.min(qty, MAX_QTY - current);
+  if (add <= 0) {
+    toast(`${item.name} için sınır ${MAX_QTY}. O kadarını telefonda konuşalım, ocak o kadar büyük değil.`);
+    return;
+  }
+  if (found) found.qty += add;
+  else order.push({ name: item.name, price: item.price, qty: add });
   orderOpen = true;
   renderOrder();
   saveOrder();
-  toast(`${item.name} sepete eklendi`);
+  toast(`${item.name} sepete eklendi${add > 1 ? ` × ${add}` : ""}. İyi seçim.`);
+}
+
+/* ---------- ürün detay modalı ---------- */
+
+let modalItem = null;
+let modalQty = 1;
+
+function findItem(name) {
+  for (const group of MENU) {
+    const item = group.items.find((i) => i.name === name);
+    if (item) return { item, group };
+  }
+  return null;
+}
+
+function renderModalQty() {
+  const num = document.getElementById("modal-qty");
+  if (num) num.textContent = modalQty;
+}
+
+function openItemModal(name) {
+  const found = findItem(name);
+  if (!found) return;
+  const modal = document.getElementById("item-modal");
+  if (!modal) return;
+  const { item, group } = found;
+  modalItem = item;
+  modalQty = 1;
+
+  modal.querySelector("#modal-art").innerHTML = artFor(item);
+  modal.querySelector("#modal-cat").textContent = group.category;
+  modal.querySelector("#modal-title").textContent = item.name;
+  modal.querySelector("#modal-desc").textContent = item.desc || "Detayı ocakta sor; biz anlatırız.";
+  modal.querySelector("#modal-tags").innerHTML = (item.tags || []).map((t) => `<span>${t}</span>`).join("");
+  modal.querySelector("#modal-price").textContent = TL(item.price);
+  modal.querySelector("#modal-note").textContent =
+    (group.note ? group.note + " " : "") + "Fiyata KDV dâhildir. Son şiş bitince ocak kapanır.";
+
+  const side = MENU.find((g) => g.category === "Yanında İyi Gider");
+  const pairs = (side ? side.items : []).filter((i) => i.name !== item.name).slice(0, 3);
+  modal.querySelector("#modal-pairs").innerHTML = pairs.length
+    ? `<b>Yanına ne alırız?</b>` + pairs.map((p) => `<button class="pair" data-item="${p.name}">${p.name} · ${TL(p.price)}</button>`).join("")
+    : "";
+
+  renderModalQty();
+  modal.hidden = false;
+  const close = modal.querySelector(".modal-close");
+  if (close) close.focus();
+}
+
+function closeItemModal() {
+  const modal = document.getElementById("item-modal");
+  if (!modal || modal.hidden) return;
+  modal.hidden = true;
+  modalItem = null;
+  modalQty = 1;
+}
+
+function initModal() {
+  if (document.getElementById("item-modal")) return;
+
+  const modal = document.createElement("div");
+  modal.id = "item-modal";
+  modal.className = "modal";
+  modal.hidden = true;
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
+  modal.setAttribute("aria-labelledby", "modal-title");
+  modal.innerHTML = `
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card">
+      <button class="modal-close" data-close aria-label="Detayları kapat">×</button>
+      <div class="modal-art" id="modal-art"></div>
+      <div class="modal-body">
+        <p class="modal-cat" id="modal-cat"></p>
+        <h3 class="modal-title" id="modal-title"></h3>
+        <p class="modal-desc" id="modal-desc"></p>
+        <div class="modal-tags" id="modal-tags"></div>
+        <div class="modal-foot">
+          <span class="modal-price" id="modal-price"></span>
+          <div class="modal-qty">
+            <button class="qty" id="modal-dec" aria-label="Adet azalt">−</button>
+            <span class="modal-qty-num" id="modal-qty">1</span>
+            <button class="qty" id="modal-inc" aria-label="Adet arttır">+</button>
+          </div>
+          <button class="btn btn-primary" id="modal-add">Sepete ekle</button>
+        </div>
+        <p class="modal-note" id="modal-note"></p>
+        <div class="modal-pairs" id="modal-pairs"></div>
+        <div class="modal-actions">
+          <a class="btn btn-outline" href="${SITE.phoneHref}">Telefonla sipariş</a>
+          <a class="btn btn-outline" href="https://wa.me/${SITE.whatsapp}" target="_blank" rel="noopener">WhatsApp ile yaz</a>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+
+  modal.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", closeItemModal));
+  modal.querySelector("#modal-dec").addEventListener("click", () => {
+    modalQty = Math.max(1, modalQty - 1);
+    renderModalQty();
+  });
+  modal.querySelector("#modal-inc").addEventListener("click", () => {
+    if (modalQty >= MAX_QTY) {
+      toast(`${modalItem.name} için sınır ${MAX_QTY}. O kadarını telefonda konuşalım.`);
+      return;
+    }
+    modalQty += 1;
+    renderModalQty();
+  });
+  modal.querySelector("#modal-add").addEventListener("click", () => {
+    if (!modalItem) return;
+    addToOrder(modalItem, modalQty);
+    closeItemModal();
+  });
+  modal.querySelector("#modal-pairs").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-item]");
+    if (btn) openItemModal(btn.dataset.item);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeItemModal();
+  });
 }
 
 /* ---------- menü render ---------- */
@@ -380,15 +521,15 @@ function renderMenu(target, filter = "", category = "Tümü") {
         <section class="menu-group reveal">
           <h3>${group.category}</h3>
           ${group.note ? `<p class="group-note">${group.note}</p>` : ""}
-          ${items.length > 3 ? `<p class="scroll-hint">Yana kaydır</p>` : ""}
+          ${items.length > 3 ? `<p class="scroll-hint">Yana kaydır (evet, kaydırılıyor)</p>` : ""}
           <ul class="menu-list">
             ${items
               .map(
                 (i) => `
-                <li class="menu-item" style="--d:${n++ % 8}">
+                <li class="menu-item" data-item="${i.name}" style="--d:${n++ % 8}">
                   <div class="mi-art">${artFor(i)}</div>
                   <div class="mi-main">
-                    <div class="mi-name">${i.name}</div>
+                    <div class="mi-name"><button class="mi-open" data-item="${i.name}">${i.name}</button></div>
                     ${i.desc ? `<div class="mi-desc">${i.desc}</div>` : ""}
                     ${i.tags ? `<div class="mi-tags">${i.tags.map((t) => `<span>${t}</span>`).join("")}</div>` : ""}
                   </div>
@@ -406,7 +547,7 @@ function renderMenu(target, filter = "", category = "Tümü") {
     })
     .join("");
 
-  if (!count) el.innerHTML = `<p class="empty">“${filter}” için sonuç yok.</p>`;
+  if (!count) el.innerHTML = `<p class="empty">“${filter}” için sonuç yok. Menüde bu yok; belki başka bir şey canın çeker.</p>`;
 
   const counter = document.getElementById("menu-count");
   if (counter) counter.textContent = `${count} ürün`;
@@ -422,9 +563,9 @@ function renderPreview(target) {
   el.innerHTML = list
     .map(
       (i, idx) => `
-      <article class="preview-card reveal" style="--d:${idx % 6}">
+      <article class="preview-card reveal" data-item="${i.name}" style="--d:${idx % 6}">
         <div class="mi-art">${artFor(i)}</div>
-        <div class="preview-name">${i.name}</div>
+        <div class="preview-name"><button class="mi-open" data-item="${i.name}">${i.name}</button></div>
         <div class="preview-desc">${i.desc || ""}</div>
         <div class="preview-foot">
           <span class="preview-price">${TL(i.price)}</span>
@@ -450,6 +591,14 @@ function wireMenuButtons() {
         btn.classList.remove("is-added");
         if (label) label.textContent = btn.dataset.label || "Sepete ekle";
       }, 900);
+    });
+  });
+
+  // ürüne tıklayınca detay modalı açılır (sepet butonu hariç)
+  document.querySelectorAll(".menu-item, .preview-card").forEach((card) => {
+    card.addEventListener("click", (e) => {
+      if (e.target.closest("[data-add]")) return;
+      openItemModal(card.dataset.item);
     });
   });
 }
@@ -645,6 +794,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initTheme();
   fillStatic();
   initConsent();
+  initModal();
 
   // mobil menü
   const burger = document.querySelector(".burger");
@@ -706,7 +856,7 @@ document.addEventListener("DOMContentLoaded", () => {
       order.length = 0;
       saveOrder();
       renderOrder();
-      toast("Sepet temizlendi");
+      toast("Sepet temizlendi. Sıfırdan başlıyoruz.");
     });
   }
 
