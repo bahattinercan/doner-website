@@ -1356,6 +1356,8 @@ footer .status {
   border: 1px solid var(--line);
   border-radius: 10px;
   background: var(--cream);
+  /* hover arka planı yuvarlak köşenin taşmasın */
+  overflow: hidden;
 }
 .modal-qty .qty {
   border: 0;
