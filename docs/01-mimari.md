@@ -9,10 +9,12 @@
 | `about.html` | Hikâye, üretim tarzı, fotoğraf | `.story-img` |
 | `contact.html` | Adres, telefon, harita iframe'i, saatler | `#map` iframe'i |
 | `styles.css` | Tüm tasarım: tokenlar, layout, animasyon, tema override'ları | `:root` + `html[data-theme="dark"]` |
-| `site.js` | **İçerik verisi + tüm davranış** | `SITE`, `MENU`, `ART_SPRITE` |
-| `assets/` | Logo, favicon, hero fotoğrafı, (gelecekte) ürün fotoğrafları | İsimler sabit; üzerine yazmak yeterli |
+| `content.js` | **Dükkân ayarları**: `SITE` + `MENU` | Ürün/fiyat/saat burada |
+| `site.js` | Davranış: sepet, arama, tema, animasyon, render | `ART_SPRITE`, `ART_KEYS` burada |
+| `assets/` | Logo, favicon, hero illüstrasyonu, (gelecekte) ürün fotoğrafları | İsimler sabit; üzerine yazmak yeterli |
 
-> İlke: **veri → `site.js`, görünüm → `styles.css`, iskelet → `*.html`.**
+> İlke: **veri → `content.js`, görünüm → `styles.css`, iskelet → `*.html`,**
+> **davranış → `site.js`.**
 > Ürün/fiyat/saat değişimi için HTML'e dokunmak gerekmez.
 
 ---
@@ -59,11 +61,12 @@ Her sayfada ortak parçalar:
 
 ---
 
-## 1.3 `site.js` çalışma sırası
+## 1.3 `site.js` çalışma sırası (content.js önce yüklenir)
 
 ```
-Dosya yüklenir
-  ├─ SITE, MENU, TL, BASKET_ICON, ART_SPRITE, ART_KEYS tanımlanır
+content.js yüklenir → SITE, MENU tanımlanır
+site.js yüklenir
+  ├─ TL, BASKET_ICON, ART_SPRITE, ART_KEYS tanımlanır
   ├─ artFor(), injectSprite()
   ├─ reduceMotion, isOpenNow()
   ├─ CART_KEY / THEME_KEY, order = loadOrder(), orderOpen = false

@@ -6,8 +6,8 @@
 |---|---|---|---|---|
 | `assets/logo.svg` | SVG | 64×64 viewBox | ~1.2 KB | Üst bar (32 px), footer |
 | `assets/favicon.svg` | SVG | 64×64 | ~1 KB | Sekme simgesi |
-| `assets/doner-photo.jpg` | JPEG (progressive) | 640×1137 | ~172 KB | Hero + Hakkımızda |
-| `assets/doner.svg` | SVG | 320×320 | 1.7 KB | Yedek, kullanılmıyor |
+| `assets/doner.svg` | SVG | 320×460 | ~2 KB | Hero + Hakkımızda (kendi üretimimiz) |
+
 | `docs/preview.jpg` | JPEG | 1400×900 | ~140 KB | README + `og:image` |
 
 ---
@@ -73,10 +73,17 @@ sharp -i assets/menu/kunefe.jpg -o assets/menu/kunefe.jpg -quality 72
 
 ---
 
-## 6.4 Hero fotoğrafını değiştirme
+## 6.4 Hero görselini değiştirme
 
-Dosya adını koru: `assets/doner-photo.jpg` üzerine yeni fotoğrafı aynı adla yaz.
-Kod değişikliği gerekmez. En az **640 px genişlik** önerilir.
+`index.html` içinde:
+
+```html
+<img src="assets/doner.svg" alt="…" width="320" height="460">
+```
+
+Kendi fotoğrafını kullanmak için `assets/hero.jpg` koy ve `src`ı değiştir;
+`.hero-photo img` kuralı 340×460 px’lik bir alan tanımlar, `object-fit: cover` ile
+otomatik kırpılır. En az **640 px genişlik** önerilir.
 
 ---
 

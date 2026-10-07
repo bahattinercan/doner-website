@@ -27,13 +27,13 @@ nelerin bozulabileceği madde madde anlatılır.
 
 | İstediğin | Dosya | Nereye |
 |---|---|---|
-| Telefon / adres / Instagram | `site.js` | `SITE` nesnesi |
-| Fiyat / ürün / kategori | `site.js` | `MENU` dizisi |
+| Telefon / adres / Instagram | `content.js` | `SITE` nesnesi |
+| Fiyat / ürün / kategori | `content.js` | `MENU` dizisi |
 | Açılış saatleri | `site.js` | `SITE.hours` |
 | Kayan şerit yazıları | `site.js` | `SITE.ticker` |
 | Renkler | `styles.css` | `:root` ve `html[data-theme="dark"]` |
 | Ürün fotoğrafı | `assets/menu/…jpg` | ürüne `img: "…"` ekle |
-| Hero fotoğrafı | `assets/doner-photo.jpg` | aynı adla üzerine yaz |
+| Hero görseli | `assets/doner.svg` (veya kendi JPG’in) | `index.html` içindeki `src` |
 
 ---
 

@@ -1,6 +1,6 @@
 # 2 · İçerik yönetimi
 
-Tüm içerik `site.js`'in başındaki iki blokta durur: `SITE` ve `MENU`.
+Tüm içerik `content.js`'in başındaki iki blokta durur: `SITE` ve `MENU`.
 Bir de yardımcı veri: `ART_KEYS` (illüstrasyon eşleşmeleri).
 
 ---

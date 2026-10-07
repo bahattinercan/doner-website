@@ -1,15 +1,21 @@
-# 🌗 Tandır Döner — Mahalle Dönercisi Websitesi
+# 🌗 Tandır Döner — Dönerci Website Şablonu
 
 [![HTML5 + CSS3 + JS](https://img.shields.io/badge/HTML5%20%2B%20CSS3%20%2B%20JS-14110d?style=flat-square)](#özellikler)
 ![bağımlılık: 0](https://img.shields.io/badge/ba%C4%9F%C4%B1ml%C4%B1l%C4%B1k-0-brightgreen?style=flat-square)
 ![build adımı: yok](https://img.shields.io/badge/build%20ad%C4%B1m%C4%B1-yok-brightgreen?style=flat-square)
+[![Lisans: MIT](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![gece modu](https://img.shields.io/badge/gece%20modu-var-e9b255?style=flat-square)](#tema-gece--gündüz)
 [![mobil öncelikli](https://img.shields.io/badge/mobil%20%C3%B6ncelikli-responsive-e9b255?style=flat-square)](#tasarım-sistemi)
 [![sipariş: WhatsApp](https://img.shields.io/badge/sipari%C5%9F-WhatsApp-e9b255?style=flat-square)](#sepet--sipariş-akışı)
 
-Mahalle dönercisi için **sıfır bağımlılıklı, build adımı olmayan** tanıtım + menü sitesi.
-Dosyaları tarayıcıya sür, çalışır. Ürün, fiyat, saat ve tema değişikliği için
-programlama bilmesine gerek yok — her şey `site.js` içindeki veri bloklarında.
+**Sıfır bağımlılıklı, build adımı olmayan bir dönerci / lokanta website şablonu.**
+Buradaki "Tandır Döner" örnek bir dükkandır; isim, telefon, adres ve menü birkaç
+satır değişerek **herhangi bir işletmeye** uyarlanabilir.
+
+Dosyaları tarayıcıya sür, çalışır. Menü, fiyat, saat ve tema değişikliği için
+programlama bilmesine gerek yok — her şey `content.js` içinde.
+
+> **Demo:** https://bahattinercan.github.io/doner-website/
 
 ![Site önizleme](docs/preview.jpg)
 
@@ -18,6 +24,7 @@ programlama bilmesine gerek yok — her şey `site.js` içindeki veri blokların
 ## İçindekiler
 
 - [Özellikler](#özellikler)
+- [Hızlı başlangıç](#hızlı-başlangıç-5-dakika)
 - [Detaylı dokümantasyon](#detaylı-dokümantasyon)
 - [Proje yapısı](#proje-yapısı)
 - [Nasıl çalıştırılır](#nasıl-çalıştırılır)
@@ -35,6 +42,7 @@ programlama bilmesine gerek yok — her şey `site.js` içindeki veri blokların
 - [Yol haritası](#yol-haritası)
 - [Katkı & commit kuralları](#katkı--commit-kuralları)
 - [Lisans](#lisans)
+- [Kaynaklar](#kaynaklar)
 
 ---
 
@@ -56,6 +64,26 @@ nelere dikkat etmen gerektiği **`docs/`** klasörinde anlatılıyor:
 | [08 · Yayına alma](docs/08-yayina-alma.md) | Vercel/Netlify/Cloudflare/Pages, domain, cache |
 | [09 · Sorun giderme](docs/09-sorun-giderme.md) | Belirti → neden → çözüm, debug snippet'leri |
 | [10 · Uyarlama rehberi](docs/10-uyarlama-rehberi.md) | Siteyi başka bir dükkana çevirme adımları |
+
+---
+
+## Hızlı başlangıç (5 dakika)
+
+1. **Forkla / indir**
+   ```bash
+   git clone https://github.com/bahattinercan/doner-website.git
+   cd doner-website
+   ```
+2. **`content.js`'i kendi dükkanına göre değiştir** — isim, telefon, adres, saatler, menü.
+3. **İstersen renkleri değiştir** — `styles.css` içindeki `:root`.
+4. **Yerel olarak gör**
+   ```bash
+   python3 -m http.server 8000   # http://localhost:8000
+   ```
+5. **Yayına al** — Vercel / Netlify / Cloudflare Pages / GitHub Pages (build yok).
+
+Kendi fotoğrafını koymak isteyenler `assets/` içine görsel koyup ürüne
+`img: "assets/menu/x.jpg"` yazabilir (bkz. [docs/06-gorseller.md](docs/06-gorseller.md)).
 
 ---
 
@@ -91,13 +119,13 @@ doner-website/
 ├── menu.html           # Tüm menü + arama + kategori chip'leri + sepet
 ├── about.html          # Hikâye, üretim tarzı
 ├── contact.html        # Adres, telefon, WhatsApp, harita iframe, saatler
+├── content.js          # DÜKKAN AYARLARI: SITE + MENU (isim, telefon, saat, ürünler)
 ├── styles.css          # Tek tasarım dosyası (tokenlar :root içinde, koyu tema override'ı altta)
-├── site.js             # TÜM İÇERİK VERİSİ: SITE, MENU, ART_SPRITE + sepet/tema/render mantığı
+├── site.js             # Davranış: sepet, arama, tema, animasyon, render (ART_SPRITE burada)
 ├── assets/
 │   ├── logo.svg           # Üst bar logosu: tandır + şiş + köz (64×64 viewBox)
 │   ├── favicon.svg        # Sekme simgesi: koyu rozet içinde aynı işaret
-│   ├── doner-photo.jpg    # Hero + hikâye fotoğrafı (640×1137, ~172 KB)
-│   └── doner.svg          # Eski SVG illüstrasyon (yedek, kullanımda değil)
+│   └── doner.svg          # Hero/hikâye illüstrasyonu (320×460, kendi üretimimiz)
 ├── docs/
 │   ├── README.md               # Dokümantasyon ana sayfası (indeks)
 │   ├── 01-mimari.md            # Dosyaların rolü, sayfa iskeleti, site.js akışı
@@ -111,13 +139,18 @@ doner-website/
 │   ├── 09-sorun-giderme.md     # Belirti → neden → çözüm
 │   ├── 10-uyarlama-rehberi.md   # Başka dükkana uyarlama adımları
 │   └── preview.jpg             # README ekran görüntüsü (1400×900)
+├── LICENSE            # MIT
+├── CONTRIBUTING.md
+├── CHANGELOG.md
+├── CREDITS.md         # Görsel ve yazı tipi kaynakları
 ├── screenshots/           # Yerel test ekran görüntüleri (gitignore'da)
 ├── README.md
 └── .gitignore
 ```
 
-> **Kural:** İçerik `site.js`'te, tasarım `styles.css`'te, iskelet `*.html`'de.
-> Ürün / fiyat / saat / şerit değiştirmek için sadece `site.js`'e dokunman yeterli.
+> **Kural:** İçerik `content.js`'te, tasarım `styles.css`'te, iskelet `*.html`'de,
+> davranış `site.js`'te. Ürün / fiyat / saat / şerit değiştirmek için sadece
+> `content.js`'e dokunman yeterli.
 
 ---
 
@@ -351,18 +384,17 @@ Kırılma noktaları: **900 px** (iletişim/saat paneli tek kolon), **860 px** (
 
 | Dosya                    | Boyut           | Ağırlık | Nerelerde                                                |
 | ------------------------ | --------------- | ------- | -------------------------------------------------------- |
-| `assets/doner-photo.jpg` | 640 × 1137      | ~172 KB | Hero (320 px'e ölçeklenir), Hakkımızda (300 × 340 kesim) |
+| `assets/doner.svg`       | 320 × 460       | ~2 KB   | Hero illüstrasyonu + Hakkımızda görseli                  |
 | `assets/logo.svg`        | 64 × 64 viewBox | ~1.2 KB | Tüm sayfalarda üst bar (32 px)                           |
 | `assets/favicon.svg`     | 64 × 64         | ~1 KB   | Sekme simgesi (`rel="icon"`)                             |
-| `assets/doner.svg`       | 320 × 320       | 1.7 KB  | Yedek illüstrasyon (kullanılmıyor)                       |
 | `docs/preview.jpg`       | 1400 × 900      | ~140 KB | README önizlemesi + `og:image`                           |
 
-Fotoğraf progressive JPEG (mozjpeg, q75). Hero'da 320 CSS px gösterildiği için 2x DPR
-ekranlara yakın çözünürlük veriyor.
+Tüm görseller **bu projenin kendi üretimidir** (SVG) — üçüncü parti stok
+fotoğraf yoktur, lisans riski yoktur. Detay: [CREDITS.md](CREDITS.md).
 
-> ⚠️ **Lisans uyarısı:** `doner-photo.jpg` Yandex görsel aramasından alındı, dükkana
-> ait değil. Gerçek yayına geçerken **kendi çektiğin fotoğraf** ile değiştir
-> (`assets/doner-photo.jpg` üzerine aynı adla yaz, kod değişikliği gerekmez).
+> Kendi fotoğrafını kullanmak isteyen: `assets/` içine `hero.jpg` koy ve
+> `index.html`'de `src="assets/doner.svg"` yerine `src="assets/hero.jpg"` yaz.
+> Ürün fotoğrafları için ise ürüne `img: "assets/menu/x.jpg"` yeterli.
 
 ---
 
@@ -499,7 +531,8 @@ Yayına almadan önce:
 
 ## Katkı & commit kuralları
 
-- Repo: `bahattinercan/doner-website`
+- Repo herkese açık: **`bahattinercan/doner-website`** — forkla, katkı ver, kendi
+  dükkanına uyarla. Detaylar: [CONTRIBUTING.md](CONTRIBUTING.md)
 - Commit'ler [Conventional Commits](https://www.conventionalcommits.org/) formatında:
   `feat: …`, `fix: …`, `chore: …`, `docs: …`
 - Bir commit = bir mantıksal değişiklik. Menü fiyat değişikliği ile CSS değişikliğini ayır.
@@ -519,5 +552,20 @@ feat: sepet düğmesi üst barda, vitrin ve menü yatay kaydırılabilir
 
 ## Lisans
 
-Özel kullanım. Site içeriği ve görseller dükkana aittir; kaynak kodu yalnızca
-işletme sahibi tarafından kullanılabilir.
+**MIT** — serbestçe kullan, değiştir, dağıt, ticari projeye koy; telif notunu
+koruman yeterli (bkz. [LICENSE](LICENSE)).
+
+Yazı tipleri (Fraunces, Inter) SIL Open Font License ile gelir. Görsellerin
+tümü bu projenin kendi üretimidir; kaynak ve lisans detayı için
+[CREDITS.md](CREDITS.md).
+
+---
+
+## Kaynaklar
+
+| Ne | Kaynak | Lisans |
+|---|---|---|
+| Kod | Bu proje | MIT |
+| Logo / favicon / illüstrasyon / menü ikonları | Bu proje | MIT |
+| Fraunces, Inter yazı tipleri | Google Fonts | OFL 1.1 |
+| Harita | Google Maps embed | — |

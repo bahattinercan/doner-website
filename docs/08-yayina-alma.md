@@ -27,7 +27,7 @@ git push origin main
 ## 8.3 Yayına almadan önce son kontroller
 
 - [ ] `SITE.phone`, `SITE.whatsapp`, `SITE.address` gerçek
-- [ ] `doner-photo.jpg` kendi fotoğrafın
+- [ ] Hero görseli kendi fotoğrafın (varsayılan: kendi SVG illüstrasyonumuz)
 - [ ] Ürünlerde `img` alanı dolduruldu (gerçek fotoğraflar)
 - [ ] `og:image` tam domain: `https://siteniz.com/docs/preview.jpg`
 - [ ] `og:url` eklendi
