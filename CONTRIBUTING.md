@@ -23,14 +23,16 @@ istersen geri katkı ver.
 - 2 boşluk girinti
 - Türkçe yorum, İngilizce değişken adı karışımı kabul edilir (mevcut tarz bu)
 - Renk hex'leri yerine CSS token'ları (`var(--amber)`)
-- Gereksiz dependency **eklemeyin** — projenin temel iddiası sıfır bağımlılık
+- Gereksiz dependency **eklemeyin** — projenin temel iddiası sıfır bağımlılık.
+  Site çalışırken hiçbir bağımlılık yok; `package.json` yalnızca geliştirme araçları
+  (`scripts/`, `tests/`) içindir.
 
 ## Test
 
 ```bash
 python3 -m http.server 8000
-node --check site.js content.js
-node docs/security-tests.js
+npm test          # node tests/security-tests.js
+node --check js/site.js js/content.js
 ```
 
 Kontrol listesi:
@@ -39,8 +41,8 @@ Kontrol listesi:
 - [ ] Sepete ekle → WhatsApp linki doğru
 - [ ] Gece/gündüz düğmesi çalışıyor
 - [ ] Mobilde (500 px) üst bar taşmıyor
-- [ ] `node --check site.js content.js` hatasız
-- [ ] `node docs/security-tests.js` tüm testleri geçiyor
+- [ ] `node --check js/site.js js/content.js` hatasız
+- [ ] `npm test` (`tests/security-tests.js`) tüm testleri geçiyor
 
 ## Yeni özellik eklerken
 

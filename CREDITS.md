@@ -10,12 +10,12 @@
 | `assets/doner-photo.jpg`             | Proje tarafından sağlanan örnek fotoğraf                                     | MIT (örnek)          |
 | Menü illüstrasyonları (`ART_SPRITE`) | Bu projenin üretimi                                                          | MIT                  |
 | `assets/menu/*-generated.jpg`        | OpenAI yerleşik image_gen ile bu proje için üretilen temsili ürün görselleri | Yapay zekâ üretimi   |
-| `docs/preview.jpg`                   | Bu projenin ekran görüntüsü                                                  | MIT                  |
+| `assets/preview.jpg`                 | Bu projenin ekran görüntüsü                                                  | MIT                  |
 
 **Stok/üçüncü parti görsel yoktur.** Menüdeki 42 ürün fotoğrafı (`assets/menu/*-generated.jpg`)
 yapay zekâ ile ayrı ayrı üretilmiştir; gerçek ürün çekimi değildir. Kullanılan istemler
-`docs/menu-image-prompts.json` dosyasındadır. Bu görseller 640 px genişliğinde progressive
-JPEG (q72) olarak optimize edildi (`node docs/optimize-menu-images.js`).
+`scripts/menu-image-prompts.json` dosyasındadır. Bu görseller 640 px genişliğinde progressive
+JPEG (q72) olarak optimize edildi (`npm run images` → `scripts/optimize-menu-images.js`).
 
 Kendi işletmenizin fotoğraflarıyla değiştirmeniz önerilir (bkz. `docs/06-gorseller.md`).
 
@@ -27,7 +27,7 @@ Kendi işletmenizin fotoğraflarıyla değiştirmeniz önerilir (bkz. `docs/06-g
 | **Inter**    | `assets/fonts/` (self-hosted)       | SIL Open Font License 1.1 |
 
 Yazı tipleri Google Fonts'tan **bir kez indirilip repo'ya gömülmüştür**; site çalışırken
-hiçbir üçüncü tarafa istek gitmez. Yenilemek için: `node docs/prepare-fonts.js`.
+hiçbir üçüncü tarafa istek gitmez. Yenilemek için: `npm run fonts` (`scripts/prepare-fonts.mjs`).
 İnternet/woff2 yoksa `Georgia` / `system-ui` fallback'leri devreye giriyor.
 
 ## Harita
