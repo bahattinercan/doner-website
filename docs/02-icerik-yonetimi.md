@@ -24,19 +24,19 @@ const SITE = {
 };
 ```
 
-| Alan | Kullanıldığı yer | Not |
-|---|---|---|
-| `name` | Başlıklar, footer, JSON-LD | |
-| `slogan` | Hero altındaki italik satır | |
-| `intro` | Hero paragrafı | |
-| `phone` | Görünen metin | `data-site="phone"` |
-| `phoneHref` | `tel:` linki | Numara değişince **iki** alanı da değiştir |
-| `whatsapp` | `wa.me/<no>` ve sipariş linki | Boşluksuz, ülke kodlu |
-| `address` | Görünen adres | |
-| `mapsQuery` | Harita iframe'i + "Yol tarifi" linki | Tek noktadan değişir |
-| `instagram`, `email` | Footer | |
-| `ticker` | Kayan şerit | Aşağıda |
-| `hours` | Saat paneli + açık/kapalı rozeti | Aşağıda |
+| Alan                 | Kullanıldığı yer                     | Not                                        |
+| -------------------- | ------------------------------------ | ------------------------------------------ |
+| `name`               | Başlıklar, footer, JSON-LD           |                                            |
+| `slogan`             | Hero altındaki italik satır          |                                            |
+| `intro`              | Hero paragrafı                       |                                            |
+| `phone`              | Görünen metin                        | `data-site="phone"`                        |
+| `phoneHref`          | `tel:` linki                         | Numara değişince **iki** alanı da değiştir |
+| `whatsapp`           | `wa.me/<no>` ve sipariş linki        | Boşluksuz, ülke kodlu                      |
+| `address`            | Görünen adres                        |                                            |
+| `mapsQuery`          | Harita iframe'i + "Yol tarifi" linki | Tek noktadan değişir                       |
+| `instagram`, `email` | Footer                               |                                            |
+| `ticker`             | Kayan şerit                          | Aşağıda                                    |
+| `hours`              | Saat paneli + açık/kapalı rozeti     | Aşağıda                                    |
 
 `fillStatic()` şu attribute'ları otomatik doldurur:
 
@@ -64,26 +64,30 @@ const MENU = [
 ];
 ```
 
-| Alan | Zorunlu | Davranış |
-|---|---|---|
-| `category` | ✅ | Chip'te ve `<h3>`'te görünür |
-| `note` | ❌ | Başlık altına gri not |
-| `name` | ✅ | Kart başlığı; arama ve illüstrasyon seçimi buna göre yapılır |
-| `desc` | ❌ | Açıklama; aramada da aranır |
-| `price` | ✅ | **Sayı** olmalı; `₺` otomatik eklenir |
-| `tags` | ❌ | İlk etiket amber, diğerleri yeşil; vitrine alma kriteri |
-| `img` | ❌ | Verilirse illüstrasyon yerine fotoğraf kullanılır |
+| Alan       | Zorunlu | Davranış                                                     |
+| ---------- | ------- | ------------------------------------------------------------ |
+| `category` | ✅      | Chip'te ve `<h3>`'te görünür                                 |
+| `note`     | ❌      | Başlık altına gri not                                        |
+| `name`     | ✅      | Kart başlığı; arama ve illüstrasyon seçimi buna göre yapılır |
+| `desc`     | ❌      | Açıklama; aramada da aranır                                  |
+| `price`    | ✅      | **Sayı** olmalı; `₺` otomatik eklenir                        |
+| `tags`     | ❌      | İlk etiket amber, diğerleri yeşil; vitrine alma kriteri      |
+| `img`      | ❌      | Verilirse illüstrasyon yerine fotoğraf kullanılır            |
 
 ### Kategori sırası
+
 Chip'ler `MENU` dizisinin sırasını takip eder. Yeni kategori eklemek için
 `MENU`'ya yeni nesne ekle — chip otomatik çıkar.
 
 ### Vitrin (ana sayfa)
+
 `renderPreview()` `tags`'ı olan ürünleri alır; hiç yoksa ilk ürünleri. En fazla **6** kart gösterilir.
 Yani vitrine çıkmak isteyen ürünün `tags` alanı dolu olmalı.
 
 ### Arama ve filtre
+
 `renderMenu(target, filter, category)`:
+
 - `filter` ürün adı **veya** açıklamada küçük harf araması yapar,
 - `category` `"Tümü"` ise tüm kategoriler gösterilir.
 - Sonuç yoksa: `“kelime” için sonuç bulunamadı.`
@@ -93,7 +97,11 @@ Yani vitrine çıkmak isteyen ürünün `tags` alanı dolu olmalı.
 ## 2.3 Kayan şerit — `SITE.ticker`
 
 ```js
-ticker: ["Odun ateşinde döner", "Cuma ve cumartesi 24:00'a kadar açığız", "Günlük üretim tamamlandığında satış kapanır"]
+ticker: [
+  "Odun ateşinde döner",
+  "Cuma ve cumartesi 24:00'a kadar açığız",
+  "Günlük üretim tamamlandığında satış kapanır",
+];
 ```
 
 - Her yazının ardına `◆` ayracı konur.
@@ -118,7 +126,7 @@ hours: [
 **Kural:** sıralama **Pazartesi → Pazar**. `isOpenNow()` şu hesabı yapar:
 
 ```js
-const idx = (new Date().getDay() + 6) % 7;   // Pazartesi = 0 … Pazar = 6
+const idx = (new Date().getDay() + 6) % 7; // Pazartesi = 0 … Pazar = 6
 ```
 
 - `open ≤ şimdi < close` → açık.
@@ -135,6 +143,7 @@ Not satırları ("Son sipariş…", "Resmî tatiller…") sabit metindir; `index
 ## 2.5 Ürün görselleri
 
 ### Otomatik illüstrasyon (yedek)
+
 Şu an 42 ürünün **tamamında** `img` tanımlı, dolayısıyla kartlarda fotoğraf görünüyor.
 `img` yoksa ya da yolu geçersizse `artFor(item)` ürün adını küçük harfe çevirip
 `ART_KEYS` listesinde arar:
@@ -155,6 +164,7 @@ const ART_KEYS = [
 Eşleşme yoksa `porsiyon` simgesi kullanılır.
 
 ### Yeni illüstrasyon ekleme
+
 1. `ART_SPRITE` içine sembol ekle:
    ```html
    <symbol id="art-makarna" viewBox="0 0 64 48">…</symbol>
@@ -162,9 +172,11 @@ Eşleşme yoksa `porsiyon` simgesi kullanılır.
 2. `ART_KEYS`'a yaz: `["makarna", "makarna"]`
 
 ### Gerçek fotoğraf
+
 ```js
 { name: "Künefe", price: 190, img: "assets/menu/kunefe-generated.jpg" }
 ```
+
 `img` varsa SVG kullanılmaz; `<img src="…" alt="Künefe" loading="lazy">` basılır.
 Fotoğraflar `assets/menu/` klasöründe durmalı. Mevcut set **640 px genişlik**,
 progressive JPEG, q72 (kartlar `object-fit: cover` ile kırpıyor).

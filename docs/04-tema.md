@@ -32,18 +32,18 @@ sistem tercihi devreye girmez.
 
 ## 4.3 Gece değişen tokenlar
 
-| Token | Gündüz | Gece |
-|---|---|---|
-| `--ink` | `#14110d` | `#0d0b08` |
-| `--ink-2` | `#1d1712` | `#16130f` |
-| `--ink-3` | `#2a2219` | `#221c15` |
-| `--cream` | `#f6f0e4` | `#12100c` |
-| `--paper` | `#fffaf3` | `#1b1611` |
-| `--text` | `#14110d` | `#f2ead9` |
-| `--amber-deep` | `#c78429` | `#f0c079` |
-| `--muted` | `#8d8478` | `#9a9084` |
-| `--line` | `#e2d7c6` | `#2c241b` |
-| `--shadow*` | hafif | koyu/yoğun |
+| Token          | Gündüz    | Gece       |
+| -------------- | --------- | ---------- |
+| `--ink`        | `#14110d` | `#0d0b08`  |
+| `--ink-2`      | `#1d1712` | `#16130f`  |
+| `--ink-3`      | `#2a2219` | `#221c15`  |
+| `--cream`      | `#f6f0e4` | `#12100c`  |
+| `--paper`      | `#fffaf3` | `#1b1611`  |
+| `--text`       | `#14110d` | `#f2ead9`  |
+| `--amber-deep` | `#c78429` | `#f0c079`  |
+| `--muted`      | `#8d8478` | `#9a9084`  |
+| `--line`       | `#e2d7c6` | `#2c241b`  |
+| `--shadow*`    | hafif     | koyu/yoğun |
 
 `--amber`, `--red`, `--green`, `--olive` iki temada da aynıdır.
 
@@ -87,9 +87,9 @@ Doğal koyu harita istersen bu kuralı sil.
 Tarayıcıda konsol:
 
 ```js
-localStorage.setItem("tandir-theme", "dark");  // zorla gece
-localStorage.removeItem("tandir-theme");       // sistem tercihine dön
-document.documentElement.dataset.theme;        // şu anki tema
+localStorage.setItem("tandir-theme", "dark"); // zorla gece
+localStorage.removeItem("tandir-theme"); // sistem tercihine dön
+document.documentElement.dataset.theme; // şu anki tema
 ```
 
 Headless Chrome ile gündüz ekran görüntüsü almak için:

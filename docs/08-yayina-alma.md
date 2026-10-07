@@ -2,13 +2,13 @@
 
 ## 8.1 Host seçimi
 
-| Host | Komut | Not |
-|---|---|---|
-| **Vercel** | `vercel deploy --prod --yes` | En hızlı; otomatik HTTPS |
-| **Netlify** | `netlify deploy --prod --dir .` | Sürdürülebilir, deploy logu var |
-| **Cloudflare Pages** | Repo bağla → build: **yok** → çıktı: kök | Ücretsiz, hızlı |
-| **GitHub Pages** | Settings → Pages → `main` / root | Zaten repo GitHub'da |
-| **Kendi sunucu** | `python3 -m http.server 8000` / nginx | En kontrolcü |
+| Host                 | Komut                                    | Not                             |
+| -------------------- | ---------------------------------------- | ------------------------------- |
+| **Vercel**           | `vercel deploy --prod --yes`             | En hızlı; otomatik HTTPS        |
+| **Netlify**          | `netlify deploy --prod --dir .`          | Sürdürülebilir, deploy logu var |
+| **Cloudflare Pages** | Repo bağla → build: **yok** → çıktı: kök | Ücretsiz, hızlı                 |
+| **GitHub Pages**     | Settings → Pages → `main` / root         | Zaten repo GitHub'da            |
+| **Kendi sunucu**     | `python3 -m http.server 8000` / nginx    | En kontrolcü                    |
 
 Build adımı **yoktur**: dosyalar olduğu gibi servis edilir.
 
@@ -84,14 +84,14 @@ script yüklenmez.
 Statik sitede de enjekte edilmiş içerik / iframe istismarı riski vardır. Site şu
 katmanlarla korunuyor:
 
-| Katman | Nerede |
-|---|---|
+| Katman                | Nerede                                                                            |
+| --------------------- | --------------------------------------------------------------------------------- |
 | HTML kaçışı (`esc()`) | `site.js` — tüm `innerHTML` dolguları (sepet, menü, modal, arama, şerit, saatler) |
-| Sepet doğrulaması | `loadOrder()` — `name` string, `price` sayı, `qty` 1–20 |
-| href şeması | `safeHref()` — yalnızca `http(s):`, `tel:`, `mailto:` |
-| CSP | Her HTML'de `<meta http-equiv="Content-Security-Policy">` |
-| Referrer politikası | `<meta name="referrer">` + host header'ı |
-| Harita rızası | iframe `src` yok; `data-src` üzerinden rıza sonrası yüklenir |
+| Sepet doğrulaması     | `loadOrder()` — `name` string, `price` sayı, `qty` 1–20                           |
+| href şeması           | `safeHref()` — yalnızca `http(s):`, `tel:`, `mailto:`                             |
+| CSP                   | Her HTML'de `<meta http-equiv="Content-Security-Policy">`                         |
+| Referrer politikası   | `<meta name="referrer">` + host header'ı                                          |
+| Harita rızası         | iframe `src` yok; `data-src` üzerinden rıza sonrası yüklenir                      |
 
 GitHub Pages özel header kabul etmediği için CSP **meta etiketiyle** veriliyor
 (`frame-ancestors` meta'da çalışmaz). Vercel'e geçersen `vercel.json`, Netlify'ye
