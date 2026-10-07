@@ -17,7 +17,7 @@ programlama bilmesine gerek yok — her şey `content.js` içinde.
 
 > **Demo:** https://bahattinercan.github.io/doner-website/
 
-![Site önizleme](docs/preview.jpg)
+![Site önizleme](assets/preview.jpg)
 
 ---
 
@@ -131,7 +131,7 @@ doner-website/
 │   ├── doner.svg          # Yedek SVG illüstrasyon (320×460)
 │   ├── fonts.css          # Self-hosted @font-face tanımları
 │   ├── fonts/             # Fraunces + Inter woff2 (Google Fonts'tan bir kez indirildi)
-│   └── menu/              # 42 ürün fotoğrafı (800×533, ~90–140 KB)
+│   └── menu/              # 42 ürün fotoğrafı (640×426, ~43–64 KB)
 │       ├── tandir-durum-generated.jpg
 │       ├── adana-durum-generated.jpg
 │       └── …              # content.js'teki `img` alanları bu dosyaları gösterir
@@ -150,6 +150,7 @@ doner-website/
 │   ├── security-tests.js        # XSS / kaçış / sepet doğrulama testleri (14 test)
 │   ├── prepare-fonts.js         # Yazı tiplerini Google Fonts'tan indirip assets/fonts/'e koyar
 │   ├── prepare-menu-images.ps1  # Ham menü görsellerini optimize eder
+│   ├── optimize-menu-images.js  # assets/menu'yi 640 px / q72 progressive'e indirir
 │   ├── menu-image-prompts.json  # Menü görselleri için üretim listesi
 │   └── preview.jpg             # README ekran görüntüsü (1400×900)
 ├── gizlilik.html      # KVKK / gizlilik sayfası
@@ -412,12 +413,12 @@ Kırılma noktaları: **900 px** (iletişim/saat paneli tek kolon), **860 px** (
 | Dosya                    | Boyut           | Ağırlık | Nerelerde                             |
 | ------------------------ | --------------- | ------- | ------------------------------------- |
 | `assets/doner-photo.jpg` | 640 × 960       | ~115 KB | Hero (Ken Burns) + Hakkımızda görseli |
-| `assets/menu/*-generated.jpg` | 800 × 533  | ~90–140 KB (toplam ~5 MB) | Ürün kartları (42 ürün)         |
+| `assets/menu/*-generated.jpg` | 640 × 426  | ~43–64 KB (toplam ~2.2 MB) | Ürün kartları (42 ürün)         |
 | `assets/fonts/*.woff2`   | —               | ~254 KB | Fraunces + Inter (self-hosted)        |
 | `assets/doner.svg`       | 320 × 460       | ~2 KB   | Yedek illüstrasyon (logo benzeri)     |
 | `assets/logo.svg`        | 64 × 64 viewBox | ~1.2 KB | Tüm sayfalarda üst bar (32 px)        |
 | `assets/favicon.svg`     | 64 × 64         | ~1 KB   | Sekme simgesi (`rel="icon"`)          |
-| `docs/preview.jpg`       | 1400 × 900      | ~140 KB | README önizlemesi + `og:image`        |
+| `assets/preview.jpg`       | 1400 × 900      | ~140 KB | README önizlemesi + `og:image`        |
 
 Menü fotoğrafları bu proje için **yapay zekâ ile üretilmiş temsili** görsellerdir;
 gerçek ürün çekimi değildir. Yayına almadan önce kendi dükkânının fotoğraflarıyla
@@ -434,9 +435,9 @@ değiştirmek gerekir. Detay: [CREDITS.md](CREDITS.md).
 - `index.html` içinde `application/ld+json` ile **`schema.org/Restaurant`** verisi
   (isim, mutfak, telefon, adres) → Google'ın "yerel işletme" paneli için hazır.
 - Her sayfada `lang="tr"`, `viewport`, sayfaya özel `<title>` ve `meta description`.
-- **Open Graph + Twitter Card**: `og:image` → `docs/preview.jpg` (1400×900),
+- **Open Graph + Twitter Card**: `og:image` → `assets/preview.jpg` (1400×900),
   `og:title`, `og:description`, `og:image:alt`, `twitter:card = summary_large_image`.
-  Yayına alınırken `og:image`'i tam domainle yaz: `https://siteniz.com/docs/preview.jpg`.
+  Yayına alınırken `og:image`'i tam domainle yaz: `https://siteniz.com/assets/preview.jpg`.
 - Hamburger butonu `aria-expanded` durumunu takip ediyor.
 - Arama inputu `type="search"` + `aria-label`; sepet/tema düğmelerinde `aria-label`.
 - `prefers-reduced-motion: reduce` durumunda kaydırma ve animasyonlar kapanır.
@@ -575,7 +576,7 @@ Yayına almadan önce:
 - [x] Ürün illüstrasyonları (29 flat SVG)
 - [x] Vitrin ve menü şeritlerinin yana kaydırılabilir olması
 - [x] `og:image` / Twitter Card etiketleri ve favicon
-- [x] Ürün fotoğrafları (42 ürün, yapay zekâ ile üretildi, 800 px JPEG)
+- [x] Ürün fotoğrafları (42 ürün, yapay zekâ ile üretildi, 640 px progressive JPEG)
 - [ ] QR menü (masaya basılı QR → `menu.html`)
 - [ ] Menü verisinin Google Sheets / CSV'den okunması (deploy'sız fiyat güncelleme)
 - [x] KVKK / gizlilik notu (`gizlilik.html` + kapatılabilir uyarı bandı)

@@ -31,11 +31,11 @@ git push origin main
       tanımadıkları bir numaraya yönlendirilir
 - [ ] Hero görseli kendi fotoğrafın (varsayılan: örnek `assets/doner-photo.jpg`)
 - [ ] Ürünlerde `img` alanı dolduruldu (gerçek fotoğraflar)
-- [ ] `og:image` tam domain: `https://siteniz.com/docs/preview.jpg`
+- [ ] `og:image` tam domain: `https://siteniz.com/assets/preview.jpg`
 - [ ] `og:url` eklendi
 - [ ] JSON-LD güncellendi (`openingHours`, `geo`, `image`)
 - [ ] Harita iframe'i doğru adresi gösteriyor
-- [ ] `docs/preview.jpg` güncel ekran görüntüsü
+- [ ] `assets/preview.jpg` güncel ekran görüntüsü
 - [ ] Mobilde (500 px) üst bar taşmıyor
 - [ ] Gece modunda tüm buton yazıları okunuyor
 

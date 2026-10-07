@@ -42,7 +42,7 @@ Doğrulama: https://validator.schema.org/
 | `<title>` | Her sayfa | Sayfaya özel |
 | `meta description` | Her sayfa | 150–160 karakter ideal |
 | `og:title`, `og:description`, `og:type`, `og:site_name` | **Her sayfa** (5 sayfa) | | 
-| `og:image` + width/height/alt | **Her sayfa** | `docs/preview.jpg` → kendi domain'ine taşı |
+| `og:image` + width/height/alt | **Her sayfa** | `assets/preview.jpg` → kendi domain'ine taşı |
 | `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image` | **Her sayfa** | |
 | `link rel="icon"` | Her sayfa | `assets/favicon.svg` |
 
@@ -80,8 +80,8 @@ Doğrulama: https://validator.schema.org/
 - **Fonts:** self-hosted (`assets/fonts.css` + 4 woff2, ~254 KB) → üçüncü tarafa istek yok,
   `font-display: swap` ile fallback çalışıyor.
 - **JS:** `content.js` + `site.js`, `defer`, ~960 satır.
-- **Menü fotoğrafları:** 42 × ~90–140 KB ≈ 5 MB. Kartlar `loading="lazy"` yüklüyor; yine de
-  yayına almadan önce kendi fotoğraflarınla ve daha sıkıştırılmış hâlle değiştirmek LCP'yi düşürür.
+- **Menü fotoğrafları:** 42 × ~43–64 KB ≈ 2.2 MB, 640 px progressive JPEG. Kartlar
+  `loading="lazy"` yüklüyor; yine de kendi fotoğraflarınla değiştirmek LCP'yi düşürür.
 
 Hız ölçümü:
 

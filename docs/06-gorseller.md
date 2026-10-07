@@ -8,9 +8,9 @@
 | `assets/favicon.svg` | SVG | 64×64 | ~1 KB | Sekme simgesi |
 | `assets/doner.svg` | SVG | 320×460 | ~2 KB | Yedek illüstrasyon |
 | `assets/doner-photo.jpg` | JPEG | 640×960 | ~115 KB | Hero (Ken Burns) + Hakkımızda görseli |
-| `assets/menu/*-generated.jpg` | JPEG | 800×533 | ~90–140 KB (toplam ~5 MB) | Ürün kartları (42 ürün) |
+| `assets/menu/*-generated.jpg` | JPEG | 640×426 | ~43–64 KB (toplam ~2.2 MB) | Ürün kartları (42 ürün) |
 | `assets/fonts/*.woff2` | woff2 | — | ~254 KB | Fraunces + Inter (self-hosted) |
-| `docs/preview.jpg` | JPEG | 1400×900 | ~140 KB | README + `og:image` |
+| `assets/preview.jpg` | JPEG | 1400×900 | ~140 KB | README + `og:image` |
 
 > `content.js` 42 ürünün tamamında `assets/menu/<id>-generated.jpg` kullanıyor. Bir ürün
 > görselsiz bırakılırsa ya da yolu geçersizse SVG illüstrasyon (6.2) otomatik devreye girer.
@@ -66,18 +66,24 @@ ardından `ART_KEYS`'a `["makarna", "makarna"]` yaz.
 
 | Ölçü | Neden |
 |---|---|
-| 800×533 (4:3) | Kart genişliğine oturur, `object-fit` ile kesilir |
-| q72–85 progressive JPEG | ~90–140 KB |
-| `alt` metni | Erişilebilirlik + SEO (otomatik üretilir) |
+| 640 px genişlik (mevcut set: 640×426) | Kart içinde `object-fit: cover` ile kırpılır, retina'da net kalır |
+| q72 progressive JPEG | ~43–64 KB |
+| `alt` metni | Erişilebilirlik + SEO (ürün adından otomatik üretilir) |
 
-Optimize etmek için (Node + `sharp` kuruluysa). `sharp` bir CLI **değildir**, bir Node
-kütüphanesidir:
+Hazır script (Node + `sharp` kuruluysa):
+
+```bash
+npm i sharp
+node docs/optimize-menu-images.js   # 640 px, q72, progressive
+```
+
+`sharp` bir CLI **değildir**, bir Node kütüphanesidir; tek dosya için:
 
 ```bash
 npm i sharp
 node -e "require('sharp')('assets/menu/kunefe-generated.jpg')
-  .resize(800)
-  .jpeg({ quality: 78, progressive: true })
+  .resize(640)
+  .jpeg({ quality: 72, progressive: true })
   .toFile('assets/menu/kunefe-generated.jpg')"
 ```
 

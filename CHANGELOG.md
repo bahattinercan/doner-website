@@ -24,6 +24,16 @@
 - **gizlilik.html / contact.html**: "Google Fonts üçüncü taraftır" çelişkisi giderildi,
   harita yorumundaki `site.js` atfı `content.js` oldu
 
+### Sağlamlık & performans
+
+- **localStorage kapıları**: `site.js`'e `lsGet()` / `lsSet()` helper'ları eklendi; tema,
+  şerit ve rıza okumaları artık try/catch'siz doğrudan `localStorage`'a dokunmuyor.
+  Böylece "localStorage kapalıysa site çalışmaya devam eder" iddiası gerçekten doğru.
+- **Menü fotoğrafları**: 42 görsel 640 px / q72 progressive JPEG'e indirildi
+  (4.75 MB → 2.22 MB, %53 azalma). Yeniden üretmek için `docs/optimize-menu-images.js`.
+- **`og:image`**: `docs/preview.jpg` → `assets/preview.jpg` taşındı; 5 sayfadaki
+  `og:image` / `twitter:image` ve README bağlantıları güncellendi.
+
 ## v1.2.2 — güvenlik sertleştirme (2026-10-07)
 
 - **HTML kaçışı**: `site.js` içine `esc()` helper'ı eklendi; sepet, menü, modal, arama
@@ -36,8 +46,8 @@
 - **CSP**: beş sayfaya da `Content-Security-Policy` meta etiketi ve `referrer` politikası eklendi
 - **Harita rızası**: `contact.html`'deki Maps iframe'i artık `src` yerine `data-src` taşıyor;
   iframe yalnızca çerez uyarısı onaylandığında yükleniyor (KVKK tutarlılığı)
-- **Gizlilik metni**: "çerez kullanılmaz" ifadesi üçüncü tarafları (Google Fonts, Maps)
-  açıklayacak şekilde düzeltildi
+- **Gizlilik metni**: "çerez kullanılmaz" ifadesi üçüncü taraf harita embed'i
+  (Google Maps) açıklanacak şekilde düzeltildi
 - **Yayına alma**: `vercel.json` ve `netlify.toml` güvenlik header'ları; `docs/08` içine
   nginx header örneği eklendi
 - **İçerik**: `docs/menu-image-prompts.json` içindeki yerel makine yolları

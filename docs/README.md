@@ -43,7 +43,7 @@ nelerin bozulabileceği madde madde anlatılır.
 |---|---|
 | Sayfa sayısı | 5 (`index`, `menu`, `about`, `contact`, `gizlilik`) |
 | Menü | 6 kategori, 42 ürün |
-| Ürün fotoğrafı | 42 (`assets/menu/*-generated.jpg`, 800×533) |
+| Ürün fotoğrafı | 42 (`assets/menu/*-generated.jpg`, 640×426) |
 | İllüstrasyon | 29 SVG sembol (`ART_SPRITE`) — `img` yoksa yedek |
 | Şerit yazısı | 13 ifade |
 | Bağımlılık | 0 (framework, npm, build yok) |

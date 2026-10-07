@@ -14,8 +14,8 @@
 
 **Stok/üçüncü parti görsel yoktur.** Menüdeki 42 ürün fotoğrafı (`assets/menu/*-generated.jpg`)
 yapay zekâ ile ayrı ayrı üretilmiştir; gerçek ürün çekimi değildir. Kullanılan istemler
-`docs/menu-image-prompts.json` dosyasındadır. Bu görseller 800 px genişliğinde JPEG (q85)
-olarak optimize edildi.
+`docs/menu-image-prompts.json` dosyasındadır. Bu görseller 640 px genişliğinde progressive
+JPEG (q72) olarak optimize edildi (`node docs/optimize-menu-images.js`).
 
 Kendi işletmenizin fotoğraflarıyla değiştirmeniz önerilir (bkz. `docs/06-gorseller.md`).
 

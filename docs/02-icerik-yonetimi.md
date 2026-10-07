@@ -166,8 +166,8 @@ Eşleşme yoksa `porsiyon` simgesi kullanılır.
 { name: "Künefe", price: 190, img: "assets/menu/kunefe-generated.jpg" }
 ```
 `img` varsa SVG kullanılmaz; `<img src="…" alt="Künefe" loading="lazy">` basılır.
-Fotoğraflar `assets/menu/` klasöründe durmalı. Önerilen: **800 px genişlik**
-(kartlar `object-fit: cover` ile kırpıyor), progressive JPEG, q72–85.
+Fotoğraflar `assets/menu/` klasöründe durmalı. Mevcut set **640 px genişlik**,
+progressive JPEG, q72 (kartlar `object-fit: cover` ile kırpıyor).
 
 > `artFor()` yalnızca `http(s)://`, `/`, `./`, `assets/` veya `images/` ile başlayan
 > yolları kabul eder; `javascript:` ve `data:` gibi değerler reddedilir.
