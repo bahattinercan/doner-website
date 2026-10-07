@@ -2,19 +2,19 @@
 
 ## 1.1 Dosyaların rolü
 
-| Dosya          | Rol                                                                   | Değiştirirken dikkat                                            |
-| -------------- | --------------------------------------------------------------------- | --------------------------------------------------------------- |
-| `index.html`   | Hero, "neden buraya geliyorsun", vitrin, saat paneli, CTA             | Vitrin/sepet paneli `id`'leri `site.js` tarafından kullanılıyor |
-| `menu.html`    | Arama + kategori chip'leri + tüm menü + sepet paneli                  | `#menu`, `#menu-search`, `#menu-count`                          |
-| `about.html`   | Hikâye, üretim tarzı, fotoğraf                                        | `.story-img`                                                    |
-| `contact.html` | Adres, telefon, harita iframe'i, saatler                              | `#map` iframe'i                                                 |
-| `css/styles.css`   | Tüm tasarım: tokenlar, layout, animasyon, tema override'ları          | `:root` + `html[data-theme="dark"]`                             |
-| `css/fonts.css`  | Self-hosted `@font-face` tanımları (`assets/fonts/`'e işaret eder)    | Yeniden üretim: `scripts/prepare-fonts.mjs`                      |
+| Dosya            | Rol                                                                   | Değiştirirken dikkat                                            |
+| ---------------- | --------------------------------------------------------------------- | --------------------------------------------------------------- |
+| `index.html`     | Hero, "neden buraya geliyorsun", vitrin, saat paneli, CTA             | Vitrin/sepet paneli `id`'leri `site.js` tarafından kullanılıyor |
+| `menu.html`      | Arama + kategori chip'leri + tüm menü + sepet paneli                  | `#menu`, `#menu-search`, `#menu-count`                          |
+| `about.html`     | Hikâye, üretim tarzı, fotoğraf                                        | `.story-img`                                                    |
+| `contact.html`   | Adres, telefon, harita iframe'i, saatler                              | `#map` iframe'i                                                 |
+| `css/styles.css` | Tüm tasarım: tokenlar, layout, animasyon, tema override'ları          | `:root` + `html[data-theme="dark"]`                             |
+| `css/fonts.css`  | Self-hosted `@font-face` tanımları (`assets/fonts/`'e işaret eder)    | Yeniden üretim: `scripts/prepare-fonts.mjs`                     |
 | `js/content.js`  | **Dükkân ayarları**: `SITE` + `MENU`                                  | Ürün/fiyat/saat burada                                          |
 | `js/site.js`     | Davranış: sepet, arama, tema, animasyon, render                       | `ART_SPRITE`, `ART_KEYS` burada                                 |
-| `assets/`      | Logo, favicon, hero fotoğrafı, 42 ürün fotoğrafı, self-hosted fontlar | İsimler sabit; üzerine yazmak yeterli                           |
-| `scripts/`     | Geliştirme araçları (font indirme, görsel optimizasyonu)              | Site çalışırken kullanılmaz, HTML'e karışmaz                    |
-| `tests/`       | XSS / kaçış / sepet doğrulama testleri (`npm test`)                   | CI her push'ta koşuyor                                          |
+| `assets/`        | Logo, favicon, hero fotoğrafı, 42 ürün fotoğrafı, self-hosted fontlar | İsimler sabit; üzerine yazmak yeterli                           |
+| `scripts/`       | Geliştirme araçları (font indirme, görsel optimizasyonu)              | Site çalışırken kullanılmaz, HTML'e karışmaz                    |
+| `tests/`         | XSS / kaçış / sepet doğrulama testleri (`npm test`)                   | CI her push'ta koşuyor                                          |
 
 > İlke: **veri → `js/content.js`, görünüm → `css/styles.css`, iskelet → `*.html`,**
 > **davranış → `js/site.js`.**
