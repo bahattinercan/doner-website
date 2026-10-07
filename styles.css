@@ -659,17 +659,20 @@ footer .status {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.08);
   color: var(--on-dark);
+  display: grid;
+  place-items: center;
   font-size: 1rem;
   line-height: 1;
   cursor: pointer;
-  transition:
-    background 0.25s,
-    transform 0.25s var(--ease);
+  transition: background 0.25s, color 0.25s;
+}
+.ticker-close .icon {
+  width: 15px;
+  height: 15px;
 }
 .ticker-close:hover {
   background: var(--amber);
   color: var(--ink);
-  transform: translateY(-50%) scale(1.06);
 }
 
 /* ---------------- bölümler ---------------- */
@@ -1096,19 +1099,22 @@ footer .status {
   width: 26px;
   height: 26px;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  display: grid;
+  place-items: center;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.08);
   color: var(--on-dark);
   cursor: pointer;
   line-height: 1;
-  transition:
-    background 0.25s,
-    transform 0.25s var(--ease);
+  transition: background 0.25s, color 0.25s;
+}
+.order-close .icon {
+  width: 14px;
+  height: 14px;
 }
 .order-close:hover {
   background: var(--amber);
   color: var(--ink);
-  transform: scale(1.06);
 }
 .order-items {
   list-style: none;
@@ -1269,14 +1275,15 @@ footer .status {
   cursor: pointer;
   line-height: 1;
   font-size: 1.1rem;
-  transition:
-    background 0.2s,
-    transform 0.2s var(--ease);
+  transition: background 0.2s, color 0.2s;
+}
+.modal-close .icon {
+  width: 15px;
+  height: 15px;
 }
 .modal-close:hover {
   background: var(--amber);
   color: var(--ink);
-  transform: scale(1.06);
 }
 .modal-close:focus-visible {
   outline: 2px solid var(--amber);

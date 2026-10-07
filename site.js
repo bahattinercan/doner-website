@@ -29,6 +29,7 @@ const safeHref = (href) => {
 
 const waNumber = () => String(SITE.whatsapp || "").replace(/\D/g, "");
 const BASKET_ICON = `<svg class="icon icon-basket" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14M6.5 8l2 9.5h7l2-9.5M9 4.5v3.5M15 4.5v3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const CLOSE_ICON = `<svg class="icon icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
 
 // Ürün adına göre illüstrasyon seçilir. Gerçek fotoğraf kullanmak için ürüne img alanı eklenir.
 // Ürüne img alanı eklendiğinde (ör. "assets/menu/kunefe.jpg") SVG yerine fotoğraf kullanılır.
@@ -488,7 +489,7 @@ function initModal() {
   modal.innerHTML = `
     <div class="modal-backdrop" data-close></div>
     <div class="modal-card">
-      <button class="modal-close" data-close aria-label="Detayları kapat">×</button>
+      <button class="modal-close" data-close aria-label="Detayları kapat">${CLOSE_ICON}</button>
       <div class="modal-art" id="modal-art"></div>
       <div class="modal-body">
         <p class="modal-cat" id="modal-cat"></p>
