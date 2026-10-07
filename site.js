@@ -8,12 +8,12 @@
 const TL = (n) => n.toLocaleString("tr-TR") + " ₺";
 const BASKET_ICON = `<svg class="icon icon-basket" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14M6.5 8l2 9.5h7l2-9.5M9 4.5v3.5M15 4.5v3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-// Ürün adına göre illüstrasyon seçiyor. Gerçek fotoğraf vermek istersen
-// ürüne img: "assets/menu/kunefe.jpg" yaz — o zaman SVG yerine fotoğraf kullanılır.
+// Ürün adına göre illüstrasyon seçilir. Gerçek fotoğraf kullanmak için ürüne img alanı eklenir.
+// Ürüne img alanı eklendiğinde (ör. "assets/menu/kunefe.jpg") SVG yerine fotoğraf kullanılır.
 const ART_SPRITE = `<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true">
   <!-- Tandır Döner menü ikonları — düz (flat) illüstrasyonlar.
-     Gerçek fotoğraf kullanmak istersen: MENU içindeki ürüne
-     img: "assets/menu/kunefe.jpg" yaz, SVG otomatik devre dışı kalır. -->
+     Gerçek fotoğraf kullanmak için MENU içindeki ürüne img alanı eklenir
+     (ör. img: "assets/menu/kunefe.jpg"); SVG otomatik olarak devre dışı kalır. -->
 
   <symbol id="art-durum" viewBox="0 0 64 48">
     <g transform="rotate(-16 32 24)">
@@ -242,14 +242,14 @@ function isOpenNow() {
   const now = new Date();
   const idx = (now.getDay() + 6) % 7; // Pazartesi = 0
   const h = SITE.hours[idx];
-  if (!h) return { open: false, text: "Saat bilgisi yok; usta da emin değil", day: "", time: "", idx: 0 };
+  if (!h) return { open: false, text: "Açılış saati bilgisi bulunmuyor.", day: "", time: "", idx: 0 };
   const [oh, om] = h.open.split(":").map(Number);
   const [ch, cm] = h.close.split(":").map(Number);
   const cur = now.getHours() * 60 + now.getMinutes();
   const isOpen = cur >= oh * 60 + om && cur < ch * 60 + cm;
   return {
     open: isOpen,
-    text: isOpen ? `Şu an açık · ${h.close}'e kadar (ocak yanıyor)` : `Kapalı · ${h.open}'te açılıyor (usta uyuyor)`,
+    text: isOpen ? `Şu an açık · ${h.close}'e kadar` : `Kapalı · ${h.open}'te açılıyor`,
     day: h.day,
     time: `${h.open} – ${h.close}`,
     idx,
@@ -260,7 +260,7 @@ function isOpenNow() {
 
 const CART_KEY = "tandir-cart";
 const THEME_KEY = "tandir-theme";
-const MAX_QTY = 20; // ocak bu kadar büyük değil
+const MAX_QTY = 20; // ürün başına maksimum adet
 
 const order = loadOrder();
 let orderOpen = false;
@@ -325,7 +325,7 @@ function renderOrder() {
             `</div></li>`
         )
         .join("")
-    : '<li class="empty">Sepet henüz boş. Menüden bir şey ekle, aç kalma.</li>';
+    : '<li class="empty">Sepet henüz boş. Menüden ürün ekleyebilirsiniz.</li>';
   panel.querySelector(".order-send").hidden = !order.length;
   panel.querySelector(".order-clear").hidden = !order.length;
   panel.querySelectorAll(".qty").forEach((b) =>
@@ -334,7 +334,7 @@ function renderOrder() {
       if (!found) return;
       if (b.dataset.op === "inc") {
         if (found.qty >= MAX_QTY) {
-          toast(`${found.name} için sınır ${MAX_QTY}. O kadarını telefonda konuşalım, ocak o kadar büyük değil.`);
+          toast(`${found.name} için maksimum adet ${MAX_QTY}.`);
           return;
         }
         found.qty += 1;
@@ -367,7 +367,7 @@ function addToOrder(item, qty = 1) {
   const current = found ? found.qty : 0;
   const add = Math.min(qty, MAX_QTY - current);
   if (add <= 0) {
-    toast(`${item.name} için sınır ${MAX_QTY}. O kadarını telefonda konuşalım, ocak o kadar büyük değil.`);
+    toast(`${item.name} için maksimum adet ${MAX_QTY}.`);
     return;
   }
   if (found) found.qty += add;
@@ -375,7 +375,7 @@ function addToOrder(item, qty = 1) {
   orderOpen = true;
   renderOrder();
   saveOrder();
-  toast(`${item.name} sepete eklendi${add > 1 ? ` × ${add}` : ""}. İyi seçim.`);
+  toast(`${item.name} sepete eklendi${add > 1 ? ` × ${add}` : ""}.`);
 }
 
 /* ---------- ürün detay modalı ---------- */
@@ -410,16 +410,16 @@ function openItemModal(name) {
   modal.querySelector("#modal-art").innerHTML = artFor(item);
   modal.querySelector("#modal-cat").textContent = group.category;
   modal.querySelector("#modal-title").textContent = item.name;
-  modal.querySelector("#modal-desc").textContent = item.desc || "Detayı ocakta sor; biz anlatırız.";
+  modal.querySelector("#modal-desc").textContent = item.desc || "Bu ürün hakkında bilgi bulunmuyor.";
   modal.querySelector("#modal-tags").innerHTML = (item.tags || []).map((t) => `<span>${t}</span>`).join("");
   modal.querySelector("#modal-price").textContent = TL(item.price);
   modal.querySelector("#modal-note").textContent =
-    (group.note ? group.note + " " : "") + "Fiyata KDV dâhildir. Son şiş bitince ocak kapanır.";
+    (group.note ? group.note + " " : "") + "Fiyatlara KDV dahildir.";
 
-  const side = MENU.find((g) => g.category === "Yanında İyi Gider");
+  const side = MENU.find((g) => g.category === "Yan Ürünler");
   const pairs = (side ? side.items : []).filter((i) => i.name !== item.name).slice(0, 3);
   modal.querySelector("#modal-pairs").innerHTML = pairs.length
-    ? `<b>Yanına ne alırız?</b><div class="pair-list">` + pairs.map((p) => `<button class="pair" data-item="${p.name}">${p.name} · ${TL(p.price)}</button>`).join("") + `</div>`
+    ? `<b>Yan ürün önerileri</b><div class="pair-list">` + pairs.map((p) => `<button class="pair" data-item="${p.name}">${p.name} · ${TL(p.price)}</button>`).join("") + `</div>`
     : "";
 
   renderModalQty();
@@ -523,7 +523,7 @@ function renderMenu(target, filter = "", category = "Tümü") {
         <section class="menu-group reveal">
           <h3>${group.category}</h3>
           ${group.note ? `<p class="group-note">${group.note}</p>` : ""}
-          ${items.length > 3 ? `<p class="scroll-hint">Yana kaydır (evet, kaydırılıyor)</p>` : ""}
+          ${items.length > 3 ? `<p class="scroll-hint">Yana kaydırın</p>` : ""}
           <ul class="menu-list">
             ${items
               .map(
@@ -549,7 +549,7 @@ function renderMenu(target, filter = "", category = "Tümü") {
     })
     .join("");
 
-  if (!count) el.innerHTML = `<p class="empty">“${filter}” için sonuç yok. Menüde bu yok; belki başka bir şey canın çeker.</p>`;
+  if (!count) el.innerHTML = `<p class="empty">“${filter}” için sonuç bulunamadı.</p>`;
 
   const counter = document.getElementById("menu-count");
   if (counter) counter.textContent = `${count} ürün`;
@@ -858,7 +858,7 @@ document.addEventListener("DOMContentLoaded", () => {
       order.length = 0;
       saveOrder();
       renderOrder();
-      toast("Sepet temizlendi. Sıfırdan başlıyoruz.");
+      toast("Sepet temizlendi.");
     });
   }
 

@@ -51,19 +51,19 @@ programlama bilmesine gerek yok — her şey `content.js` içinde.
 Bu README özet düzeyindedir. Sistemin nasıl çalıştığı, nerelere dokunabileceğin ve
 nelere dikkat etmen gerektiği **`docs/`** klasörinde anlatılıyor:
 
-| Doküman | Konu |
-|---|---|
-| [docs/README.md](docs/README.md) | Dokümantasyon indeksi + hızlı erişim tablosu |
-| [01 · Mimari](docs/01-mimari.md) | Dosya rolleri, sayfa iskeleti, `site.js` akışı, `data-*` sözleşmesi |
-| [02 · İçerik yönetimi](docs/02-icerik-yonetimi.md) | `SITE`, `MENU`, şerit, saatler, görsel seçimi |
-| [03 · Sepet & sipariş](docs/03-sepet-ve-siparis.md) | Sepet modeli, kalıcılık, WhatsApp mesajı, kenar durumlar |
-| [04 · Tema](docs/04-tema.md) | Gece/gündüz çözümleme sırası, token override'ları |
-| [05 · Tasarım sistemi](docs/05-tasarim-sistemi.md) | Renk tokenları, tipografi, bileşen envanteri, animasyonlar |
-| [06 · Görseller](docs/06-gorseller.md) | SVG sprite, logo/favicon, fotoğraf optimizasyonu, lisans |
-| [07 · SEO & erişilebilirlik](docs/07-seo-ve-erisilebilirlik.md) | JSON-LD, meta, OG, a11y checklist'i |
-| [08 · Yayına alma](docs/08-yayina-alma.md) | Vercel/Netlify/Cloudflare/Pages, domain, cache |
-| [09 · Sorun giderme](docs/09-sorun-giderme.md) | Belirti → neden → çözüm, debug snippet'leri |
-| [10 · Uyarlama rehberi](docs/10-uyarlama-rehberi.md) | Siteyi başka bir dükkana çevirme adımları |
+| Doküman                                                         | Konu                                                                |
+| --------------------------------------------------------------- | ------------------------------------------------------------------- |
+| [docs/README.md](docs/README.md)                                | Dokümantasyon indeksi + hızlı erişim tablosu                        |
+| [01 · Mimari](docs/01-mimari.md)                                | Dosya rolleri, sayfa iskeleti, `site.js` akışı, `data-*` sözleşmesi |
+| [02 · İçerik yönetimi](docs/02-icerik-yonetimi.md)              | `SITE`, `MENU`, şerit, saatler, görsel seçimi                       |
+| [03 · Sepet & sipariş](docs/03-sepet-ve-siparis.md)             | Sepet modeli, kalıcılık, WhatsApp mesajı, kenar durumlar            |
+| [04 · Tema](docs/04-tema.md)                                    | Gece/gündüz çözümleme sırası, token override'ları                   |
+| [05 · Tasarım sistemi](docs/05-tasarim-sistemi.md)              | Renk tokenları, tipografi, bileşen envanteri, animasyonlar          |
+| [06 · Görseller](docs/06-gorseller.md)                          | SVG sprite, logo/favicon, fotoğraf optimizasyonu, lisans            |
+| [07 · SEO & erişilebilirlik](docs/07-seo-ve-erisilebilirlik.md) | JSON-LD, meta, OG, a11y checklist'i                                 |
+| [08 · Yayına alma](docs/08-yayina-alma.md)                      | Vercel/Netlify/Cloudflare/Pages, domain, cache                      |
+| [09 · Sorun giderme](docs/09-sorun-giderme.md)                  | Belirti → neden → çözüm, debug snippet'leri                         |
+| [10 · Uyarlama rehberi](docs/10-uyarlama-rehberi.md)            | Siteyi başka bir dükkana çevirme adımları                           |
 
 ---
 
@@ -89,26 +89,26 @@ Kendi fotoğrafını koymak isteyenler `assets/` içine görsel koyup ürüne
 
 ## Özellikler
 
-| Özellik                    | Açıklama                                                                                       |
-| -------------------------- | ---------------------------------------------------------------------------------------------- |
-| **4 sayfa**                | Ana sayfa, Menü, Hakkımızda, İletişim                                                          |
-| **Menü arama**             | Ürün adı + açıklamada anlık filtre (sayfa yenilemeden), kategori chip'leri                     |
-| **Yatay menü şeritleri**   | Vitrin ve her kategori tek satırda, `scroll-snap` ile yana kaydırılabilir                      |
-| **Ürün illüstrasyonları**  | Her kartta düz (flat) SVG çizim — 29 sembol, adıma göre otomatik seçilir                       |
-| **Sipariş sepeti**         | Üst barda sepet düğmesi (simge + adet rozeti), sağ altta panel, adet azalt, toplam, temizle    |
-| **Kalıcı sepet**           | Sepet `localStorage`'da durur; sayfa yenilense de, sayfalar arası geçişte de korunur           |
-| **WhatsApp sipariş**       | Sepeti tek tıkla `wa.me` üzerinden hazır mesaj olarak gönderir + sağ altta WhatsApp FAB        |
-| **Açık / kapalı rozeti**   | Saatlerden otomatik hesaplanır, yeşil/kırmızı nokta ile gösterilir                             |
-| **Gece modu**              | Üst bardaki ay/güneş düğmesi; tercih kaydedilir, seçilmezse sistem ayarı esas alınır           |
-| **Açılış saatleri paneli** | "Bugün" kutusu, bugünün satırının vurgulanması, notlar, yol tarifi butonu                      |
-| **Kayan şerit**            | `SITE.ticker` yazıları; × ile kapatılabilir, tercihi kalıcı                                    |
-| **İstatistik sayaçları**   | Görünürken 0'dan sayan rakamlar (`data-count`)                                                 |
-| **Mobil uyumlu**           | 900 / 860 / 640 px kırılımları, hamburger menü, tek kolon hero                                 |
+| Özellik                    | Açıklama                                                                                                              |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| **4 sayfa**                | Ana sayfa, Menü, Hakkımızda, İletişim                                                                                 |
+| **Menü arama**             | Ürün adı + açıklamada anlık filtre (sayfa yenilemeden), kategori chip'leri                                            |
+| **Yatay menü şeritleri**   | Vitrin ve her kategori tek satırda, `scroll-snap` ile yana kaydırılabilir                                             |
+| **Ürün illüstrasyonları**  | Her kartta düz (flat) SVG çizim — 29 sembol, adıma göre otomatik seçilir                                              |
+| **Sipariş sepeti**         | Üst barda sepet düğmesi (simge + adet rozeti), sağ altta panel, adet azalt, toplam, temizle                           |
+| **Kalıcı sepet**           | Sepet `localStorage`'da durur; sayfa yenilense de, sayfalar arası geçişte de korunur                                  |
+| **WhatsApp sipariş**       | Sepeti tek tıkla `wa.me` üzerinden hazır mesaj olarak gönderir + sağ altta WhatsApp FAB                               |
+| **Açık / kapalı rozeti**   | Saatlerden otomatik hesaplanır, yeşil/kırmızı nokta ile gösterilir                                                    |
+| **Gece modu**              | Üst bardaki ay/güneş düğmesi; tercih kaydedilir, seçilmezse sistem ayarı esas alınır                                  |
+| **Açılış saatleri paneli** | "Bugün" kutusu, bugünün satırının vurgulanması, notlar, yol tarifi butonu                                             |
+| **Kayan şerit**            | `SITE.ticker` yazıları; × ile kapatılabilir, tercihi kalıcı                                                           |
+| **İstatistik sayaçları**   | Görünürken 0'dan sayan rakamlar (`data-count`)                                                                        |
+| **Mobil uyumlu**           | 900 / 860 / 640 px kırılımları, hamburger menü, tek kolon hero                                                        |
 | **SEO**                    | Sayfa başlıkları, meta description, `schema.org/Restaurant` JSON-LD, sayfa bazlı Open Graph (`og:url`) + Twitter Card |
-| **Gizlilik**              | Çerez yok; kapatılabilir KVKK/gizlilik bandı + `gizlilik.html` sayfası |
-| **Erişilebilirlik**        | `aria-label`, `aria-expanded`, `prefers-reduced-motion`, focus outline, `color-scheme`         |
-| **Türkçe para formatı**    | `285` yaz, `285 ₺` olarak çıkar (`toLocaleString("tr-TR")`)                                    |
-| **Kısa URL dostu**         | Build yok, framework yok → CDN'de ~40 KB HTML/CSS/JS + SVG                                     |
+| **Gizlilik**               | Çerez yok; kapatılabilir KVKK/gizlilik bandı + `gizlilik.html` sayfası                                                |
+| **Erişilebilirlik**        | `aria-label`, `aria-expanded`, `prefers-reduced-motion`, focus outline, `color-scheme`                                |
+| **Türkçe para formatı**    | `285` yaz, `285 ₺` olarak çıkar (`toLocaleString("tr-TR")`)                                                           |
+| **Kısa URL dostu**         | Build yok, framework yok → CDN'de ~40 KB HTML/CSS/JS + SVG                                                            |
 
 ---
 
@@ -200,7 +200,7 @@ chrome --headless=new --screenshot=shot.png --window-size=1400,900 index.html
 ```js
 const SITE = {
   name: "Tandır Döner",
-  slogan: "Ateşte dönen, tabakta eriyen.",
+  slogan: "Odun ateşinde, her gün taze döner.",
   intro: "Her gün taze çekilen et, odun ateşinde dönen tandır…",
   phone: "+90 532 123 45 67",
   phoneHref: "tel:+905321234567",
@@ -209,7 +209,7 @@ const SITE = {
   mapsQuery: "İstiklal Caddesi 12 Beyoğlu İstanbul",
   instagram: "https://instagram.com/",
   email: "info@tandirdoner.com",
-  ticker: ["Odun ateşinde döner", "Her gün taze çekilen et" /* … 12 yazı */],
+  ticker: ["Odun ateşinde döner", "Et günlük olarak hazırlanır" /* … 13 yazı */],
   hours: [
     { day: "Pazartesi", open: "10:00", close: "23:00" },
     // … Pazar'a kadar 7 satır
@@ -251,18 +251,18 @@ const MENU = [
 | Kategori          | Ürün | Fiyat aralığı |
 | ----------------- | ---- | ------------- |
 | Dönerler          | 10   | 175 – 420 ₺   |
-| Fırından          | 4    | 165 – 330 ₺   |
+| Fırın Ürünleri    | 4    | 165 – 330 ₺   |
 | Başlangıçlar      | 7    | 90 – 135 ₺    |
-| Yanında İyi Gider | 7    | 40 – 150 ₺    |
+| Yan Ürünler       | 7    | 40 – 150 ₺    |
 | Tatlılar          | 5    | 110 – 190 ₺   |
 | İçecekler         | 9    | 20 – 80 ₺     |
 
-`tags` verilen ürünler ana sayfadaki **Vitrinden** bölümüne otomatik girer.
+`tags` verilen ürünler ana sayfadaki **Öne Çıkan Ürünler** bölümüne otomatik girer.
 
 ### 3) Kayan şerit — `SITE.ticker`
 
 ```js
-ticker: ["Odun ateşinde döner", "Cuma & cumartesi 24:00'a kadar", "Son şiş bitince ocak kapanır", …]
+ticker: ["Odun ateşinde döner", "Cuma ve cumartesi 24:00'a kadar açığız", "Günlük üretim tamamlandığında satış kapanır", …]
 ```
 
 Şeridin sağındaki **×** onu kapatır ve tercih `localStorage`'da
@@ -317,7 +317,7 @@ Menüde "Sepete ekle" tıkla
 
 - Üst bardaki **sepet düğmesi** (sepet simgesi + adet rozeti) paneli açar/kapatır.
 - Panelin sağ üstündeki **×** de kapatır.
-- Sepet boşken panel açılırsa "Sepet henüz boş — menüden ürün ekle." görünür.
+- Sepet boşken panel açılırsa "Sepet henüz boş. Menüden ürün ekleyebilirsiniz." görünür.
 
 Gönderilen mesaj formatı:
 
@@ -396,14 +396,14 @@ Kırılma noktaları: **900 px** (iletişim/saat paneli tek kolon), **860 px** (
 
 ## Görseller
 
-| Dosya                    | Boyut           | Ağırlık | Nerelerde                                                |
-| ------------------------ | --------------- | ------- | -------------------------------------------------------- |
-| `assets/doner-photo.jpg` | 640 × 960       | ~115 KB | Hero (Ken Burns) + Hakkımızda görseli                    |
-| `assets/menu/*.jpg`      | 640 × 480       | ~60 KB  | Ürün kartları (7 ürün)                                   |
-| `assets/doner.svg`       | 320 × 460       | ~2 KB   | Yedek illüstrasyon (logo benzeri)                        |
-| `assets/logo.svg`        | 64 × 64 viewBox | ~1.2 KB | Tüm sayfalarda üst bar (32 px)                           |
-| `assets/favicon.svg`     | 64 × 64         | ~1 KB   | Sekme simgesi (`rel="icon"`)                             |
-| `docs/preview.jpg`       | 1400 × 900      | ~140 KB | README önizlemesi + `og:image`                           |
+| Dosya                    | Boyut           | Ağırlık | Nerelerde                             |
+| ------------------------ | --------------- | ------- | ------------------------------------- |
+| `assets/doner-photo.jpg` | 640 × 960       | ~115 KB | Hero (Ken Burns) + Hakkımızda görseli |
+| `assets/menu/*.jpg`      | 640 × 480       | ~60 KB  | Ürün kartları (7 ürün)                |
+| `assets/doner.svg`       | 320 × 460       | ~2 KB   | Yedek illüstrasyon (logo benzeri)     |
+| `assets/logo.svg`        | 64 × 64 viewBox | ~1.2 KB | Tüm sayfalarda üst bar (32 px)        |
+| `assets/favicon.svg`     | 64 × 64         | ~1 KB   | Sekme simgesi (`rel="icon"`)          |
+| `docs/preview.jpg`       | 1400 × 900      | ~140 KB | README önizlemesi + `og:image`        |
 
 Fotoğraflar projeye ait örnek görsellerdir; ürün kartlarında illüstrasyon yerine
 otomatik kullanılırlar. Detay: [CREDITS.md](CREDITS.md).
@@ -434,12 +434,12 @@ otomatik kullanılırlar. Detay: [CREDITS.md](CREDITS.md).
 
 ## localStorage anahtarları
 
-| Anahtar         | Ne tutar                         | Nasıl sıfırlanır                    |
-| --------------- | -------------------------------- | ----------------------------------- |
-| `tandir-cart`   | Sepet: `[{name, price, qty}, …]` | "Sepeti temizle" düğmesi            |
-| `tandir-theme`  | `"light"` / `"dark"`             | Anahtarı sil → sistem ayarına döner |
-| `tandir-ticker` | `"off"` ise kayan şerit gizlidir | Anahtarı sil → şerit geri gelir     |
-| `tandir-consent`  | Gizlilik uyarısı kapatıldıysa `"ok"` | Anahtarı sil → uyarı tekrar çıkar   |
+| Anahtar          | Ne tutar                             | Nasıl sıfırlanır                    |
+| ---------------- | ------------------------------------ | ----------------------------------- |
+| `tandir-cart`    | Sepet: `[{name, price, qty}, …]`     | "Sepeti temizle" düğmesi            |
+| `tandir-theme`   | `"light"` / `"dark"`                 | Anahtarı sil → sistem ayarına döner |
+| `tandir-ticker`  | `"off"` ise kayan şerit gizlidir     | Anahtarı sil → şerit geri gelir     |
+| `tandir-consent` | Gizlilik uyarısı kapatıldıysa `"ok"` | Anahtarı sil → uyarı tekrar çıkar   |
 
 > `localStorage` kapalıysa (gizli mod) sepet sadece o sayfa için çalışır, site bozulmaz.
 
@@ -580,9 +580,9 @@ tümü bu projenin kendi üretimidir; kaynak ve lisans detayı için
 
 ## Kaynaklar
 
-| Ne | Kaynak | Lisans |
-|---|---|---|
-| Kod | Bu proje | MIT |
-| Logo / favicon / illüstrasyon / menü ikonları | Bu proje | MIT |
-| Fraunces, Inter yazı tipleri | Google Fonts | OFL 1.1 |
-| Harita | Google Maps embed | — |
+| Ne                                            | Kaynak            | Lisans  |
+| --------------------------------------------- | ----------------- | ------- |
+| Kod                                           | Bu proje          | MIT     |
+| Logo / favicon / illüstrasyon / menü ikonları | Bu proje          | MIT     |
+| Fraunces, Inter yazı tipleri                  | Google Fonts      | OFL 1.1 |
+| Harita                                        | Google Maps embed | —       |

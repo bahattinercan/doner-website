@@ -1,5 +1,17 @@
 # Değişiklik günlüğü
 
+## v1.2.1 — 2026-10-07 (metin tonu)
+
+- **Metin tonu**: site genelindeki espri ve sohbet cümleleri kurumsal, bilgi odaklı dille
+  yeniden yazıldı (slogan, tanıtım, kayan şerit, 42 ürün açıklaması, kategori notları,
+  açılış saatleri notları, gizlilik metni, sepet/toast ve modal yazıları)
+- **Kategori adları**: "Fırından" → "Fırın Ürünleri", "Yanında İyi Gider" → "Yan Ürünler",
+  ana sayfa "Vitrinden" → "Öne Çıkan Ürünler"
+- **Ürün adı**: "Yönüm Dürüm" → "Kıyım Dürüm" (görsel dosya adı değişmedi)
+- **Arayüz metinleri**: "Yanına ne alırız?" → "Yan ürün önerileri", sepet boş mesajı,
+  arama sonucu mesajı, adet üst sınırı uyarısı ve durum yazıları sadeleştirildi
+- **Dokümantasyon**: `README.md` ve `docs/` içindeki örnek metinler yeni içerikle eşitlendi
+
 ## v1.2.0 — ürün detay modalı + metin revizyonu
 
 - **Ürün detay modalı**: ürün kartına/adına tıklayınca `#item-modal` açılır
@@ -29,6 +41,7 @@
 ## v1.0.0 — 2026-10-07 (ilk açık sürüm)
 
 ### Yeni
+
 - **4 sayfalık statik site**: ana sayfa, menü, hakkımızda, iletişim
 - **İçerik verisi ayrı dosyada**: `content.js` (`SITE` + `MENU`)
 - **Menü arama + kategori filtreleri** (sayfa yenilemeden)
@@ -47,11 +60,13 @@
 - **Dokümantasyon**: `docs/` altında 10 bölüm
 
 ### Düzeltilenler
+
 - Buton yazılarının koyu temada görünmemesi (renk token'ları eklendi)
 - Tema düğmesinin metin yerine simge ile çalışması
 - Harici SVG `<use>` referanslarının Chrome'da render edilmemesi (sprite DOM'a enjekte ediliyor)
 
 ### Kaldırılan
+
 - Üçüncü parti stok fotoğraf (lisans riski) → yerine kendi SVG illüstrasyonumuz
 
 ---

@@ -10,8 +10,8 @@ Bir de yardımcı veri: `ART_KEYS` (illüstrasyon eşleşmeleri).
 ```js
 const SITE = {
   name:      "Tandır Döner",
-  slogan:    "Ateşte dönen, tabakta eriyen.",
-  intro:     "Her gün taze çekilen et, odun ateşinde dönen tandır…",
+  slogan:    "Odun ateşinde, her gün taze döner.",
+  intro:     "Et her sabah kendi mutfağımızda hazırlanır, lavaş günlük açılır…",
   phone:     "+90 532 123 45 67",
   phoneHref: "tel:+905321234567",
   whatsapp:  "905321234567",
@@ -19,7 +19,7 @@ const SITE = {
   mapsQuery: "İstiklal Caddesi 12 Beyoğlu İstanbul",
   instagram: "https://instagram.com/",
   email:     "info@tandirdoner.com",
-  ticker: [ … 12 yazı … ],
+  ticker: [ … 13 yazı … ],
   hours:    [ … 7 satır … ],
 };
 ```
@@ -57,7 +57,7 @@ const MENU = [
     note: "Tüm dönerler lavaş dürüm veya porsiyon olarak gelir.",
     items: [
       { name: "Tandır Dürüm", desc: "Odun ateşinde dönen dana tandır…", price: 285, tags: ["Çok satan"] },
-      { name: "Adana Dürüm",  desc: "Acılı kıyım, çift lavaş…",        price: 300, tags: ["Acı sever"] },
+      { name: "Adana Dürüm",  desc: "Acılı kıyım, çift lavaş…",        price: 300, tags: ["Acılı"] },
     ],
   },
   …
@@ -86,14 +86,14 @@ Yani vitrine çıkmak isteyen ürünün `tags` alanı dolu olmalı.
 `renderMenu(target, filter, category)`:
 - `filter` ürün adı **veya** açıklamada küçük harf araması yapar,
 - `category` `"Tümü"` ise tüm kategoriler gösterilir.
-- Sonuç yoksa: `“kelime” için sonuç yok.`
+- Sonuç yoksa: `“kelime” için sonuç bulunamadı.`
 
 ---
 
 ## 2.3 Kayan şerit — `SITE.ticker`
 
 ```js
-ticker: ["Odun ateşinde döner", "Cuma & cumartesi 24:00'a kadar", "Son şiş bitince ocak kapanır"]
+ticker: ["Odun ateşinde döner", "Cuma ve cumartesi 24:00'a kadar açığız", "Günlük üretim tamamlandığında satış kapanır"]
 ```
 
 - Her yazının ardına `◆` ayracı konur.

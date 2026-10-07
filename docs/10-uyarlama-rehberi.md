@@ -38,7 +38,7 @@ Ayrıca `<title>` ve üst bar logo metni:
 
 ```js
 const MENU = [
-  { category: "Pideler", note: "İçine istediğini seçebilirsin.", items: [ … ] },
+  { category: "Pideler", note: "İçine istediğiniz malzemeyi seçebilirsiniz.", items: [ … ] },
   { category: "Çorbalar", items: [ … ] },
 ];
 ```

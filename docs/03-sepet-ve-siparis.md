@@ -44,7 +44,7 @@ localStorage.removeItem("tandir-cart");
 | Üst bardaki **sepet düğmesi** (`#cart-btn`) | `orderOpen`ı ters çevirir → panel açılır/kapanır |
 | Ürün "Sepete ekle" | `orderOpen = true` → panel otomatik açılır |
 | Panelin **×**'u (`#order-close`) | `orderOpen = false` → panel kapanır (ürünler silinmez) |
-| Sepet boş ve panel açılır | "Sepet henüz boş — menüden ürün ekle." + WhatsApp butonu gizli |
+| Sepet boş ve panel açılır | "Sepet henüz boş. Menüden ürün ekleyebilirsiniz." + WhatsApp butonu gizli |
 
 Rozet her `renderOrder()` çağrısında güncellenir ve `is-pop` animasyonu yeniden tetiklenir
 (`void counter.offsetWidth` trick'iyle).
