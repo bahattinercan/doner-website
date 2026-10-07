@@ -1,5 +1,18 @@
 # Değişiklik günlüğü
 
+## v1.2.0 — ürün detay modalı + metin revizyonu
+
+- **Ürün detay modalı**: ürün kartına/adına tıklayınca `#item-modal` açılır
+  (kategori, tam açıklama, etiket, fiyat, adet seçimi, sepete ekle, "yanına ne alırız?",
+  telefon & WhatsApp bağlantıları). `role="dialog"`, `aria-modal`, Esc / arka plan
+  tıklaması ile kapanma.
+- **Sepet adedi artırma**: `−` ve `+` düğmeleri, üst sınır 20 adet (aşınca toast uyarısı)
+- **Toplam satırı**: "Toplam" etiketi solda, tutar sağa hizalı
+- **"Sepeti temizle" → çöp kutusu simgesi** (aynı satırda, WhatsApp düğmesinin solunda;
+  sepet boşken gizlenir)
+- **Metin revizyonu**: slogan, tanıtım, kayan şerit, 42 ürün açıklaması, saat notları,
+  gizlilik metni ve durum yazıları gerçekçi/esnaf tonunda yeniden yazıldı
+
 ## v1.1.0 — 2026-10-07 (halka açılma)
 
 - **GitHub Issues / PR şablonları** (`.github/ISSUE_TEMPLATE/…`, `PULL_REQUEST_TEMPLATE.md`)
