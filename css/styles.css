@@ -1290,15 +1290,23 @@ footer .status {
   outline-offset: 2px;
 }
 .modal-art {
-  height: 200px;
+  /* Fotoğraflar 640×426 (3:2): kutu aynı oranlarda, kırpma yok — görsel tam görünür. */
+  aspect-ratio: 3 / 2;
+  max-height: 45vh;
   background: var(--cream);
+  display: grid;
+  place-items: center;
 }
-.modal-art svg,
+.modal-art svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
 .modal-art img {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
 }
 .modal-body {
   display: grid;
@@ -1447,7 +1455,7 @@ footer .status {
     padding: 12px;
   }
   .modal-art {
-    height: 160px;
+    max-height: 34vh;
   }
   .modal-title {
     font-size: 1.2rem;
