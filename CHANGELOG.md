@@ -1,6 +1,30 @@
 # Değişiklik günlüğü
 
-## v1.2.2 — güvenlik sertleştirme
+## v1.2.3 — dokümantasyon doğrulaması
+
+- **Gerçek veriyle eşitleme**: README ve `docs/` içindeki sayılar güncellendi
+  (5 sayfa, 42 ürün fotoğrafı, 13 şerit yazısı, ~960 satır JS / ~1950 satır CSS,
+  kırılımlara 560 px eklendi), `SITE`/`MENU` için yanlış dosya atıfları
+  (`site.js` → `content.js`) düzeltildi
+- **Yazı tipi tutarlılığı**: fontlar self-hosted olduğu halde "Google Fonts'tan geliyor"
+  diyen cümleler kaldırıldı; `gizlilik.html` içindeki kendi kendine çelişen ifade düzeltildi
+- **CSP**: `vercel.json` ve `netlify.toml`'daki gereksiz `fonts.googleapis.com` /
+  `fonts.gstatic.com` izinleri kaldırıldı, `_headers` ile aynı hizaya getirildi;
+  `docs/08`'deki nginx örneği de temizlendi
+- **CI**: `.github/workflows/security-check.yml`'deki kopuk yinelenen adlandırma
+  satırı (adım adı, `run`'ı olmadan) silindi — dosya Actions'ta hatalı parse ediliyordu
+- **docs/06**: `sharp` bir CLI değil; doğru Node snippet'i yazıldı, asset tablosuna
+  hero fotoğrafı ve self-hosted font satırları eklendi
+- **docs/07 / docs/08**: OG etiketlerinin beş sayfada da olduğu, harita `title`'ının
+  eklendiği, hero'nun ~115 KB olduğu, hikâye görselinin zaten `lazy` olduğu düzeltildi;
+  nginx CSP örneğinden font izinleri çıkarıldı, `_headers` dosyası anıldı
+- **docs/01 / docs/09 / docs/10**: `DOMContentLoaded` listesindeki yinelenen `initModal()`
+  satırı kaldırıldı, modal arıza satırları ve 560 px kırılımı eklendi, `SITE` atfı
+  `content.js`'e düzeltildi
+- **gizlilik.html / contact.html**: "Google Fonts üçüncü taraftır" çelişkisi giderildi,
+  harita yorumundaki `site.js` atfı `content.js` oldu
+
+## v1.2.2 — güvenlik sertleştirme (2026-10-07)
 
 - **HTML kaçışı**: `site.js` içine `esc()` helper'ı eklendi; sepet, menü, modal, arama
   sonucu, kategori çipleri, kayan şerit ve saat tablosu gibi tüm `innerHTML` dolguları

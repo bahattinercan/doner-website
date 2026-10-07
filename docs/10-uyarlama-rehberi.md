@@ -6,7 +6,7 @@ Bu siteyi başka bir dükkana (kahvaltıcı, pideci, tatlıcı…) uyarlamak iç
 
 ## Adım 1 — Metinleri değiştir
 
-`site.js` → `SITE`:
+`content.js` → `SITE` (aynı dosyada `MENU` da durur):
 
 ```js
 const SITE = {
@@ -127,4 +127,3 @@ Kontrol listesi:
 | Gerçek galeri | `about.html`'e `<img>` grid'i |
 | Fiyat güncelleme | `MENU`'yu bir JSON dosyasından `fetch` et |
 | Çoklu şube | `SITE.branches` dizisi + harita pin'leri |
-| Çerez bildirimi | Küçük bir `.cookie-banner` + kabul butonu |

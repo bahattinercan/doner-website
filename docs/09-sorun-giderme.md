@@ -9,7 +9,8 @@
 | "Şu an açık" rozeti yanlış | `SITE.hours` sırası Pazartesi→Pazar değil | Sırayı düzelt; saatler `HH:MM` |
 | Fiyat `285 ₺` değil `285` | `price` string girildi | Sayı yaz: `price: 285` |
 | Arama sonuç vermiyor | `desc` yok, isim farklı yazılıyor | Arama küçük harfle yapılır; `desc` ekle |
-| Ürün kartında görsel yok | Ad, `ART_KEYS`'a uymuyor | `img` ver veya `ART_KEYS`'a anahtar ekle |
+| Ürün kartında fotoğraf yerine SVG çıkıyor | Üründe `img` yok ya da dosya adı yanlış | `img: "assets/menu/<id>-generated.jpg"` ekle, dosyanın varlığına bak |
+| Ürün modalı açılmıyor | Kart tıklaması `data-item` üzerinden çalışıyor | `site.js` yüklendi mi? `node --check site.js` ile sözdizimini doğrula |
 | Kayan şerit yok | Daha önce × ile kapatıldı | `localStorage.removeItem("tandir-ticker")` |
 | Site koyu açılıyor | Sistem `prefers-color-scheme: dark` | Düğmeyle değiştir; tercih kaydedilir |
 | Harita boş | `file://` ile açıldı | HTTP sunucu kullan (`python3 -m http.server 8000`) |
@@ -44,9 +45,17 @@ document.querySelectorAll("#menu-art-sprite symbol").length;   // 29 olmalı
 
 ## 9.3 Headless Chrome ile görsel test
 
+> Bu makinede `chrome --headless=new ... index.html` `net::ERR_NAME_NOT_RESOLVED` ile
+> başarısız oluyor; önce yerel bir sunucu başlatıp URL ile aç:
+>
+> ```bash
+> python3 -m http.server 8000   # ayrı terminalde
+> chrome --headless=new --screenshot=shot.png --window-size=1400,900 http://localhost:8000/index.html
+> ```
+
 ```bash
-# ana sayfa (gece temasıyla)
-chrome --headless=new --screenshot=shot.png --window-size=1400,900 index.html
+# ana sayfa (sistem temasına göre gündüz/gece)
+chrome --headless=new --screenshot=shot.png --window-size=1400,900 http://localhost:8000/index.html
 
 # mobil görünüm
 chrome --headless=new --screenshot=mobile.png --window-size=500,900 index.html

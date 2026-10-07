@@ -7,9 +7,13 @@
 | `assets/logo.svg` | SVG | 64×64 viewBox | ~1.2 KB | Üst bar (32 px), footer |
 | `assets/favicon.svg` | SVG | 64×64 | ~1 KB | Sekme simgesi |
 | `assets/doner.svg` | SVG | 320×460 | ~2 KB | Yedek illüstrasyon |
-
-| `assets/menu/*-generated.jpg` | JPEG | 800×533 | ~90–140 KB | Ürün kartları (42 ürün) |
+| `assets/doner-photo.jpg` | JPEG | 640×960 | ~115 KB | Hero (Ken Burns) + Hakkımızda görseli |
+| `assets/menu/*-generated.jpg` | JPEG | 800×533 | ~90–140 KB (toplam ~5 MB) | Ürün kartları (42 ürün) |
+| `assets/fonts/*.woff2` | woff2 | — | ~254 KB | Fraunces + Inter (self-hosted) |
 | `docs/preview.jpg` | JPEG | 1400×900 | ~140 KB | README + `og:image` |
+
+> `content.js` 42 ürünün tamamında `assets/menu/<id>-generated.jpg` kullanıyor. Bir ürün
+> görselsiz bırakılırsa ya da yolu geçersizse SVG illüstrasyon (6.2) otomatik devreye girer.
 
 ---
 
@@ -66,10 +70,15 @@ ardından `ART_KEYS`'a `["makarna", "makarna"]` yaz.
 | q72–85 progressive JPEG | ~90–140 KB |
 | `alt` metni | Erişilebilirlik + SEO (otomatik üretilir) |
 
-Optimize etmek için (Node + sharp kuruluysa):
+Optimize etmek için (Node + `sharp` kuruluysa). `sharp` bir CLI **değildir**, bir Node
+kütüphanesidir:
 
 ```bash
-sharp -i assets/menu/kunefe-generated.jpg -o assets/menu/kunefe-generated.jpg -quality 72
+npm i sharp
+node -e "require('sharp')('assets/menu/kunefe-generated.jpg')
+  .resize(800)
+  .jpeg({ quality: 78, progressive: true })
+  .toFile('assets/menu/kunefe-generated.jpg')"
 ```
 
 ---
@@ -95,7 +104,8 @@ otomatik kırpılır. En az **640 px genişlik** önerilir.
 
 ## 6.5 Lisans
 
-Sitede **üçüncü parti stok görsel yoktur**. Logo, favicon, SVG illüstrasyon ve
-ürün fotoğrafları projeye aittir (MIT). Yine de yayına almadan önce ürün
-fotoğraflarını **kendi dükkânının çekimleriyle** değiştirmen önerilir — menü
-fotoğrafları örnek amaçlıdır. Detay: [CREDITS.md](../CREDITS.md).
+Sitede **üçüncü parti stok görsel yoktur**. Logo, favicon ve SVG illüstrasyonlar bu
+projenin üretimidir (MIT). Menüdeki 42 ürün fotoğrafı ise bu proje için **yapay zekâ ile
+üretilmiş temsili** görsellerdir; gerçek ürün çekimi değildir. Yayına almadan önce
+ürün fotoğraflarını **kendi dükkânının çekimleriyle** değiştirmen kuvvetle önerilir.
+Detay: [CREDITS.md](../CREDITS.md).

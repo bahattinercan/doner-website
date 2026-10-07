@@ -12,11 +12,12 @@
 | `assets/menu/*-generated.jpg`        | OpenAI yerleşik image_gen ile bu proje için üretilen temsili ürün görselleri | Yapay zekâ üretimi   |
 | `docs/preview.jpg`                   | Bu projenin ekran görüntüsü                                                  | MIT                  |
 
-**Stok/üçüncü parti görsel yoktur.** Menüdeki 42 ürün fotoğrafı yapay zekâ ile ayrı ayrı üretilmiştir; gerçek ürün çekimi değildir. Kullanılan istemler `docs/menu-image-prompts.json` dosyasındadır. Yeni menü görselleri 800 px genişlikte JPEG (q85) olarak optimize edilmiştir.
+**Stok/üçüncü parti görsel yoktur.** Menüdeki 42 ürün fotoğrafı (`assets/menu/*-generated.jpg`)
+yapay zekâ ile ayrı ayrı üretilmiştir; gerçek ürün çekimi değildir. Kullanılan istemler
+`docs/menu-image-prompts.json` dosyasındadır. Bu görseller 800 px genişliğinde JPEG (q85)
+olarak optimize edildi.
 
-Diğer fotoğraflar projeye ait örnek görsellerdir;
-kendi işletmenizin fotoğraflarıyla değiştirmeniz önerilir (bkz. `docs/06-gorseller.md`).
-Fotoğraflar `sharp` ile 640 px'e indirilip progressive JPEG (q72–74) olarak optimize edildi.
+Kendi işletmenizin fotoğraflarıyla değiştirmeniz önerilir (bkz. `docs/06-gorseller.md`).
 
 ## Yazı tipleri
 

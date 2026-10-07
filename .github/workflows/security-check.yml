@@ -49,5 +49,3 @@ jobs:
 
       - name: XSS / kaçış testleri
         run: node docs/security-tests.js
-
-      - name: Gizli değer / yerel yol ifşası

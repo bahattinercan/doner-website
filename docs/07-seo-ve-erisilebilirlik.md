@@ -41,16 +41,14 @@ Doğrulama: https://validator.schema.org/
 |---|---|---|
 | `<title>` | Her sayfa | Sayfaya özel |
 | `meta description` | Her sayfa | 150–160 karakter ideal |
-| `og:title`, `og:description`, `og:type`, `og:site_name` | `index.html` | |
-| `og:image` + width/height/alt | `index.html` | `docs/preview.jpg` → domain'e taşı |
-| `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image` | `index.html` | |
+| `og:title`, `og:description`, `og:type`, `og:site_name` | **Her sayfa** (5 sayfa) | | 
+| `og:image` + width/height/alt | **Her sayfa** | `docs/preview.jpg` → kendi domain'ine taşı |
+| `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image` | **Her sayfa** | |
 | `link rel="icon"` | Her sayfa | `assets/favicon.svg` |
 
 `og:url` her sayfada tanımlı (demo domain üzerinden; kendi domain'ine taşırken
-`https://siteniz.com/...` şeklinde değiştir).
-
-**Öneri:** `menu.html`, `about.html`, `contact.html`'de de en az `og:title` +
-`og:image` bulunmalı; paylaşılınca görselsiz görünmesinler.
+`https://siteniz.com/...` şeklinde değiştir). Beş sayfanın tamamında `og:title`,
+`og:image` ve `twitter:*` etiketleri mevcut — paylaşım kartları görselsiz görünmez.
 
 ---
 
@@ -69,17 +67,21 @@ Doğrulama: https://validator.schema.org/
 | Kontrast | ✅ koyu metin/açık zemin (gece modunda tersi) |
 | Klavye ile sepet erişimi | ✅ düğmeler gerçek `<button>` |
 | Gizlilik uyarısı | ✅ `role="dialog"` + `aria-label`, tek tıkla kapatılır |
-| Harita iframe'i | `title` attribute'u eklenmeli (yapılacak) |
+| Harita iframe'i | ✅ `title="Konum haritası"` + `referrerpolicy` |
+| Ürün modalı | ✅ `role="dialog"`, `aria-modal`, Esc ile kapanma, kapatma düğmesine odaklanma |
 
 ---
 
 ## 7.4 Performans (Core Web Vitals'a notlar)
 
-- **LCP:** hero fotoğrafı 172 KB. `loading="lazy"` hero için mantıklı değil (LCP),
-  ama hikâye görseli `loading="lazy"` alabilir.
+- **LCP:** hero fotoğrafı ~115 KB (640×960). Hero için `loading="lazy"` mantıklı değil
+  (LCP adayı o); Hakkımızda'daki hikâye görseli zaten `loading="lazy"` taşıyor.
 - **CLS:** scroll reveal animasyonları yükseklik değiştirmiyor; şerit sabit yükseklikte.
-- **Fonts:** `preconnect` + tek CSS isteği. İnternet yoksa fallback çalışıyor.
-- **JS:** tek dosya, `defer`, ~810 satır.
+- **Fonts:** self-hosted (`assets/fonts.css` + 4 woff2, ~254 KB) → üçüncü tarafa istek yok,
+  `font-display: swap` ile fallback çalışıyor.
+- **JS:** `content.js` + `site.js`, `defer`, ~960 satır.
+- **Menü fotoğrafları:** 42 × ~90–140 KB ≈ 5 MB. Kartlar `loading="lazy"` yüklüyor; yine de
+  yayına almadan önce kendi fotoğraflarınla ve daha sıkıştırılmış hâlle değiştirmek LCP'yi düşürür.
 
 Hız ölçümü:
 
@@ -99,8 +101,9 @@ Site statik olduğu için sunucu tarafında hiçbir ziyaret verisi toplamaz:
 - `localStorage`'da tutulanlar: `tandir-cart`, `tandir-theme`, `tandir-ticker`, `tandir-consent`.
 - Sipariş listesi WhatsApp'a **kullanıcının cihazından** gönderilir; site isim,
 telefon veya adres vermez.
-- Üçüncü taraflar: Google Fonts (yazı tipi) ve iletişim sayfasındaki Google Maps
-  embed'i — kendi gizlilik politikalarına tabidir.
+- Üçüncü taraf: yalnızca iletişim sayfasındaki Google Maps embed'i — kendi gizlilik
+  politikasına tabidir ve **gizlilik bandı onaylanmadan yüklenmez**. Yazı tipleri
+  self-hosted; Google Fonts'a istek gitmiyor.
 
 Kullanıcıya bunu anlatmak için her sayfada kapatılabilir bir **gizlilik bandı**
 (`.cookie-note`) ve ayrıntılı bir **`gizlilik.html`** sayfası var. Bandı kapatmak

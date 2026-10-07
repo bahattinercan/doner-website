@@ -29,7 +29,7 @@ git push origin main
 - [ ] `SITE.phone`, `SITE.whatsapp`, `SITE.address` gerçek — varsayılan `+90 555 555 55 55`
       ve `ornek@example.com` örnek değerlerdir; olduğu gibi yayına alırsan ziyaretçiler
       tanımadıkları bir numaraya yönlendirilir
-- [ ] Hero görseli kendi fotoğrafın (varsayılan: kendi SVG illüstrasyonumuz)
+- [ ] Hero görseli kendi fotoğrafın (varsayılan: örnek `assets/doner-photo.jpg`)
 - [ ] Ürünlerde `img` alanı dolduruldu (gerçek fotoğraflar)
 - [ ] `og:image` tam domain: `https://siteniz.com/docs/preview.jpg`
 - [ ] `og:url` eklendi
@@ -95,13 +95,17 @@ katmanlarla korunuyor:
 
 GitHub Pages özel header kabul etmediği için CSP **meta etiketiyle** veriliyor
 (`frame-ancestors` meta'da çalışmaz). Vercel'e geçersen `vercel.json`, Netlify'ye
-geçersen `netlify.toml` hazır: `X-Content-Type-Options: nosniff`, `X-Frame-Options`,
-`Referrer-Policy`, `Strict-Transport-Security` ve header olarak CSP oradan geliyor.
+geçersen `netlify.toml`, Cloudflare Pages için `_headers` hazır: `X-Content-Type-Options:
+nosniff`, `X-Frame-Options`, `Referrer-Policy`, `Strict-Transport-Security`,
+`Permissions-Policy` ve header olarak CSP oradan geliyor.
+
+> Yazı tipleri self-hosted olduğu için CSP'de `fonts.googleapis.com` / `fonts.gstatic.com`
+> iznine gerek yok; `vercel.json`, `netlify.toml` ve `_headers` buna göre temizlendi.
 
 Kendi sunucunda (nginx) eşdeğer:
 
 ```nginx
-add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https:; frame-src https://www.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'" always;
+add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https:; frame-src https://www.google.com https://maps.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests" always;
 add_header X-Content-Type-Options "nosniff" always;
 add_header Referrer-Policy "strict-origin-when-cross-origin" always;
 add_header X-Frame-Options "SAMEORIGIN" always;

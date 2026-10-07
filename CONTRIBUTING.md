@@ -29,6 +29,8 @@ istersen geri katkı ver.
 
 ```bash
 python3 -m http.server 8000
+node --check site.js content.js
+node docs/security-tests.js
 ```
 
 Kontrol listesi:
@@ -38,6 +40,7 @@ Kontrol listesi:
 - [ ] Gece/gündüz düğmesi çalışıyor
 - [ ] Mobilde (500 px) üst bar taşmıyor
 - [ ] `node --check site.js content.js` hatasız
+- [ ] `node docs/security-tests.js` tüm testleri geçiyor
 
 ## Yeni özellik eklerken
 

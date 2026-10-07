@@ -96,7 +96,7 @@ Kendi fotoğrafını koymak isteyenler `assets/` içine görsel koyup ürüne
 | **Yatay menü şeritleri**   | Vitrin ve her kategori tek satırda, `scroll-snap` ile yana kaydırılabilir                                             |
 | **Ürün görselleri**        | 42 ürün fotoğrafı; `img` verilmezse 29 flat SVG sembol ürün adına göre otomatik seçilir                              |
 | **Ürün detay modalı**      | Karta tıklayınca kategori, açıklama, etiket, adet seçimi ve yan ürün önerileri                                        |
-| **Sipariş sepeti**         | Üst barda sepet düğmesi (simge + adet rozeti), sağ altta panel, adet azalt, toplam, temizle                           |
+| **Sipariş sepeti**         | Üst barda sepet düğmesi (simge + adet rozeti), sağ altta panel, − / + ile adet, toplam, çöp kutusuyla temizle        |
 | **Kalıcı sepet**           | Sepet `localStorage`'da durur; sayfa yenilense de, sayfalar arası geçişte de korunur                                  |
 | **WhatsApp sipariş**       | Sepeti tek tıkla `wa.me` üzerinden hazır mesaj olarak gönderir + sağ altta WhatsApp FAB                               |
 | **Açık / kapalı rozeti**   | Saatlerden otomatik hesaplanır, yeşil/kırmızı nokta ile gösterilir                                                    |
@@ -104,7 +104,7 @@ Kendi fotoğrafını koymak isteyenler `assets/` içine görsel koyup ürüne
 | **Açılış saatleri paneli** | "Bugün" kutusu, bugünün satırının vurgulanması, notlar, yol tarifi butonu                                             |
 | **Kayan şerit**            | `SITE.ticker` yazıları; × ile kapatılabilir, tercihi kalıcı                                                           |
 | **İstatistik sayaçları**   | Görünürken 0'dan sayan rakamlar (`data-count`)                                                                        |
-| **Mobil uyumlu**           | 900 / 860 / 640 px kırılımları, hamburger menü, tek kolon hero                                                        |
+| **Mobil uyumlu**           | 900 / 860 / 640 / 560 px kırılımları, hamburger menü, tek kolon hero                                                  |
 | **SEO**                    | Sayfa başlıkları, meta description, `schema.org/Restaurant` JSON-LD, sayfa bazlı Open Graph (`og:url`) + Twitter Card |
 | **Gizlilik**               | Çerez yok; kapatılabilir KVKK/gizlilik bandı + `gizlilik.html` sayfası                                                |
 | **Erişilebilirlik**        | `aria-label`, `aria-expanded`, `prefers-reduced-motion`, focus outline, `color-scheme`                                |
@@ -191,10 +191,12 @@ npx serve .
 > `file://` ile açarsan harita iframe'i çalışmayabilir. Yayına alırken mutlaka
 > bir HTTP sunucusu kullan.
 
-Hızlı doğrulama (Chrome kuruluysa):
+Hızlı doğrulama (Chrome kuruluysa — yerel sunucu üzerinden, `file://` bazı
+ortamlarda çözülmiyor):
 
 ```bash
-chrome --headless=new --screenshot=shot.png --window-size=1400,900 index.html
+python3 -m http.server 8000   # ayrı terminalde
+chrome --headless=new --screenshot=shot.png --window-size=1400,900 http://localhost:8000/index.html
 ```
 
 ---
@@ -316,11 +318,14 @@ Menüde "Sepete ekle" tıkla
   order[] dizisi güncellenir (aynı ürün → adet artar) + localStorage
         │
         ▼
-  Sağ alttaki sepet paneli açılır (adet, toplam, − ile azalt, "Sepeti temizle")
+  Sağ alttaki sepet paneli açılır (adet, toplam, − / + ile adet, çöp kutusuyla temizle)
         │
         ▼
   "WhatsApp ile gönder" → wa.me/<numara>?text=<hazır mesaj>
 ```
+
+Karta tıklayınca açılan **ürün modalında** adet seçip sepete ekleyebilir, yan ürün
+önerilerine bakabilirsin (bkz. [docs/03](docs/03-sepet-ve-siparis.md#35-ürün-detay-modalı)).
 
 - Üst bardaki **sepet düğmesi** (sepet simgesi + adet rozeti) paneli açar/kapatır.
 - Panelin sağ üstündeki **×** de kapatır.

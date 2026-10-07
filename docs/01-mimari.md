@@ -90,7 +90,6 @@ DOMContentLoaded
   ├─ wireMenuButtons()       → [data-add] tıklamaları
   ├─ renderOrder()           → sepet rozeti + panel durumu
   ├─ initTicker()            → şerit (kapalıysa kaldırılır)
-  ├─ initModal()             → #item-modal DOM'a eklenir (ürün detay penceresi)
   ├─ initReveal()            → IntersectionObserver
   ├─ initCounters()          → data-count sayaçları
   └─ initScrollFx()          → progress bar, topbar, FAB, hero paralaks
