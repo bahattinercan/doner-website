@@ -32,6 +32,7 @@ python3 -m http.server 8000
 ```
 
 Kontrol listesi:
+
 - [ ] Menü render oluyor, arama çalışıyor
 - [ ] Sepete ekle → WhatsApp linki doğru
 - [ ] Gece/gündüz düğmesi çalışıyor

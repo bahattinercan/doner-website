@@ -2,6 +2,10 @@
    DÜKKAN AYARLARI — site içeriği yalnızca bu dosyada tutulur.
    Menü, fiyatlar, açılış saatleri, iletişim bilgileri ve duyuru şeridi
    burada tanımlanır. Görüntüleme ve etkileşim mantığı site.js içindedir.
+
+   ⚠️ TELEFON / WHATSAPP / E-POSTA / ADRES ÖRNEK DEĞERLERDİR.
+   Yayına almadan önce mutlaka kendi bilgilerinizle değiştirin;
+   aksi halde ziyaretçiler tanımadıkları bir numaraya yönlendirilir.
    ============================================================ */
 
 const SITE = {
@@ -10,13 +14,13 @@ const SITE = {
   intro:
     "Et her sabah kendi mutfağımızda hazırlanır, lavaş günlük açılır, turşu kendi üretimimizdir. " +
     "2004'ten beri aynı adreste, aynı ocakta hizmet veriyoruz.",
-  phone: "+90 532 123 45 67",
-  phoneHref: "tel:+905321234567",
-  whatsapp: "905321234567",
+  phone: "+90 555 555 55 55",
+  phoneHref: "tel:+905555555555",
+  whatsapp: "905555555555",
   address: "İstiklal Caddesi No: 12, Beyoğlu / İstanbul",
   mapsQuery: "İstiklal Caddesi 12 Beyoğlu İstanbul",
   instagram: "https://instagram.com/",
-  email: "info@tandirdoner.com",
+  email: "ornek@example.com",
   // Duyuru şeridi: istediğiniz kadar satır ekleyebilirsiniz.
   // Şeridi kapatmak için sayfadaki × düğmesine basılır; tercih
   // localStorage'da "tandir-ticker" anahtarında saklanır.

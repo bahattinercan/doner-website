@@ -10,7 +10,7 @@
   "@type": "Restaurant",
   "name": "Tandır Döner",
   "servesCuisine": "Turkish",
-  "telephone": "+905321234567",
+  "telephone": "+905555555555",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "İstiklal Caddesi No: 12",

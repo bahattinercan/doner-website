@@ -7,7 +7,12 @@ $quality.Param[0] = [System.Drawing.Imaging.EncoderParameter]::new([System.Drawi
 foreach ($entry in $manifest.images) {
     $destination = Join-Path $projectRoot "assets/menu/$($entry.id)-generated.jpg"
     if (Test-Path -LiteralPath $destination) { continue }
-    $sourceImage = [System.Drawing.Image]::FromFile($entry.source)
+    $source = Join-Path $projectRoot $entry.source
+    if (-not (Test-Path -LiteralPath $source)) {
+        Write-Warning "Kaynak yok: $source (ham görselleri images/raw/ altına koyun)"
+        continue
+    }
+    $sourceImage = [System.Drawing.Image]::FromFile($source)
     $height = [int][Math]::Round(800 * $sourceImage.Height / $sourceImage.Width)
     $resized = [System.Drawing.Bitmap]::new(800, $height)
     $graphics = [System.Drawing.Graphics]::FromImage($resized)

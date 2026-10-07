@@ -128,6 +128,8 @@ doner-website/
 │   ├── favicon.svg        # Sekme simgesi: koyu rozet içinde aynı işaret
 │   ├── doner-photo.jpg    # Hero + hikâye fotoğrafı (640×960, ~115 KB)
 │   ├── doner.svg          # Yedek SVG illüstrasyon (320×460)
+│   ├── fonts.css          # Self-hosted @font-face tanımları
+│   ├── fonts/             # Fraunces + Inter woff2 (Google Fonts'tan bir kez indirildi)
 │   └── menu/              # Ürün fotoğrafları (640×480, ~60 KB each)
 │       ├── tandir-durum.jpg
 │       ├── yonum-durum.jpg
@@ -202,13 +204,13 @@ const SITE = {
   name: "Tandır Döner",
   slogan: "Odun ateşinde, her gün taze döner.",
   intro: "Her gün taze çekilen et, odun ateşinde dönen tandır…",
-  phone: "+90 532 123 45 67",
-  phoneHref: "tel:+905321234567",
-  whatsapp: "905321234567", // ülke kodlu, boşluksuz
+  phone: "+90 555 555 55 55",
+  phoneHref: "tel:+905555555555",
+  whatsapp: "905555555555", // ülke kodlu, boşluksuz
   address: "İstiklal Caddesi No: 12, Beyoğlu / İstanbul",
   mapsQuery: "İstiklal Caddesi 12 Beyoğlu İstanbul",
   instagram: "https://instagram.com/",
-  email: "info@tandirdoner.com",
+  email: "ornek@example.com",
   ticker: ["Odun ateşinde döner", "Et günlük olarak hazırlanır" /* … 13 yazı */],
   hours: [
     { day: "Pazartesi", open: "10:00", close: "23:00" },
@@ -450,6 +452,28 @@ localStorage.removeItem("tandir-cart");
 localStorage.removeItem("tandir-theme");
 localStorage.removeItem("tandir-ticker");
 ```
+
+---
+
+## Güvenlik
+
+Statik site → saldırı yüzeyi küçük, ama dört katman var:
+
+| Katman | Ne yapılıyor |
+| --- | --- |
+| **HTML kaçışı** | `site.js` içindeki `esc()` helper'ı; sepet, menü, modal, arama, kayan şerit ve saat tablosu gibi tüm `innerHTML` dolguları kaçışlı yazılıyor |
+| **Girdi doğrulama** | `loadOrder()` localStorage sepetini filtreliyor (isim string, fiyat > 0, adet 1–20, en fazla 42 satır); `safeHref()` yalnızca `http(s)/tel/mailto`; `artFor()` yalnızca geçerli görsel yolları kabul ediyor |
+| **CSP** | Her HTML'de meta CSP (`default-src 'self'`, `script-src 'self'`). Vercel/Netlify/Cloudflare'a geçince `vercel.json`, `netlify.toml` ve `_headers` header olarak devreye giriyor (`frame-ancestors` dahil) |
+| **Rıza kapısı** | Google Maps iframe'i yalnızca çerez uyarısı onaylanınca yükleniyor; yazı tipleri self-hosted, üçüncü tarafa istek gitmiyor |
+| **Clickjacking** | GitHub Pages özel header veremediği için `guardFraming()` sayfa başka bir siteye gömülürse içeriği kapatıyor |
+
+Testler (14 adet; attribute kırması, etiket enjeksiyonu, sepet normalizasyonu, href şeması, görsel kaynağı, rıza kapısı):
+
+```bash
+node docs/security-tests.js
+```
+
+GitHub Actions'ta otomatik koşuyor: `.github/workflows/security-check.yml`.
 
 ---
 

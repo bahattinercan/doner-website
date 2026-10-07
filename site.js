@@ -6,6 +6,28 @@
 /* ---------- yardımcı ---------- */
 
 const TL = (n) => n.toLocaleString("tr-TR") + " ₺";
+
+/* HTML'e gömülen dinamik metinlerin kaçışı. Tüm innerHTML sink'leri bu
+   helper'tan geçmek zorunda: içerik (content.js) veya localStorage (sepet)
+   tırnak/etiket kırarak handler enjekte edemesin.
+   Not: tarayıcı attribute değerlerindeki entity'leri geri çözer, yani
+   data-item round-trip'i bozulmaz. */
+const esc = (value) =>
+  String(value == null ? "" : value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+
+/* href'lere yalnızca http(s)/tel/mailto kabul edilir — javascript: gibi
+   şemalar content.js'i düzenleyen biri için XSS kapısıdır. */
+const safeHref = (href) => {
+  const s = String(href || "").trim();
+  return /^(https?:|tel:|mailto:)/i.test(s) ? s : "#";
+};
+
+const waNumber = () => String(SITE.whatsapp || "").replace(/\D/g, "");
 const BASKET_ICON = `<svg class="icon icon-basket" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14M6.5 8l2 9.5h7l2-9.5M9 4.5v3.5M15 4.5v3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
 // Ürün adına göre illüstrasyon seçilir. Gerçek fotoğraf kullanmak için ürüne img alanı eklenir.
@@ -222,7 +244,14 @@ const ART_KEYS = [
 ];
 
 function artFor(item) {
-  if (item.img) return `<img src="${item.img}" alt="${item.name}" loading="lazy">`;
+  if (item.img) {
+    /* src yalnızca gerçek bir yol/scheme olabilir: javascript:/data: gibi
+       değerler content.js'i düzenleyen biri için XSS/veri sızıntısı kapısıdır. */
+    const src = String(item.img).trim();
+    if (/^(https?:\/\/|\/|\.\/|assets\/|images\/)/i.test(src)) {
+      return `<img src="${esc(src)}" alt="${esc(item.name)}" loading="lazy">`;
+    }
+  }
   const n = item.name.toLowerCase();
   const key = ART_KEYS.find(([w]) => n.includes(w))?.[1] || "porsiyon";
   return `<svg viewBox="0 0 64 48" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#art-${key}"/></svg>`;
@@ -270,7 +299,17 @@ function loadOrder() {
     const raw = localStorage.getItem(CART_KEY);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed.filter((o) => o && o.name && Number(o.price)) : [];
+    if (!Array.isArray(parsed)) return [];
+    /* Sepet kullanıcı/veri kaynaklı: şekil, adet ve fiyat burada doğrulanır.
+       name bir string, price bir sayı, qty 1..MAX_QTY aralığına sıkıştırılır. */
+    return parsed
+      .filter((o) => o && typeof o.name === "string" && Number(o.price) > 0)
+      .slice(0, MENU.length) // sepet en fazla ürün sayısı kadar satır tutabilir
+      .map((o) => ({
+        name: o.name.slice(0, 80),
+        price: Number(o.price),
+        qty: Math.min(MAX_QTY, Math.max(1, Math.floor(Number(o.qty)) || 1)),
+      }));
   } catch (err) {
     return [];
   }
@@ -295,7 +334,7 @@ function orderText() {
 }
 
 function waLink() {
-  return `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(orderText())}`;
+  return `https://wa.me/${waNumber()}?text=${encodeURIComponent(orderText())}`;
 }
 
 function renderOrder() {
@@ -318,10 +357,10 @@ function renderOrder() {
     ? order
         .map(
           (o) =>
-            `<li><span>${o.qty} × ${o.name}</span><b>${TL(o.price * o.qty)}</b>` +
+            `<li><span>${o.qty} × ${esc(o.name)}</span><b>${TL(o.price * o.qty)}</b>` +
             `<div class="qty-controls">` +
-            `<button class="qty" data-name="${o.name}" data-op="dec" aria-label="${o.name} adetini azalt">−</button>` +
-            `<button class="qty" data-name="${o.name}" data-op="inc" aria-label="${o.name} adetini arttır">+</button>` +
+            `<button class="qty" data-name="${esc(o.name)}" data-op="dec" aria-label="${esc(o.name)} adetini azalt">−</button>` +
+            `<button class="qty" data-name="${esc(o.name)}" data-op="inc" aria-label="${esc(o.name)} adetini arttır">+</button>` +
             `</div></li>`
         )
         .join("")
@@ -411,7 +450,7 @@ function openItemModal(name) {
   modal.querySelector("#modal-cat").textContent = group.category;
   modal.querySelector("#modal-title").textContent = item.name;
   modal.querySelector("#modal-desc").textContent = item.desc || "Bu ürün hakkında bilgi bulunmuyor.";
-  modal.querySelector("#modal-tags").innerHTML = (item.tags || []).map((t) => `<span>${t}</span>`).join("");
+  modal.querySelector("#modal-tags").innerHTML = (item.tags || []).map((t) => `<span>${esc(t)}</span>`).join("");
   modal.querySelector("#modal-price").textContent = TL(item.price);
   modal.querySelector("#modal-note").textContent =
     (group.note ? group.note + " " : "") + "Fiyatlara KDV dahildir.";
@@ -419,7 +458,7 @@ function openItemModal(name) {
   const side = MENU.find((g) => g.category === "Yan Ürünler");
   const pairs = (side ? side.items : []).filter((i) => i.name !== item.name).slice(0, 3);
   modal.querySelector("#modal-pairs").innerHTML = pairs.length
-    ? `<b>Yan ürün önerileri</b><div class="pair-list">` + pairs.map((p) => `<button class="pair" data-item="${p.name}">${p.name} · ${TL(p.price)}</button>`).join("") + `</div>`
+    ? `<b>Yan ürün önerileri</b><div class="pair-list">` + pairs.map((p) => `<button class="pair" data-item="${esc(p.name)}">${esc(p.name)} · ${TL(p.price)}</button>`).join("") + `</div>`
     : "";
 
   renderModalQty();
@@ -468,8 +507,8 @@ function initModal() {
         <p class="modal-note" id="modal-note"></p>
         <div class="modal-pairs" id="modal-pairs"></div>
         <div class="modal-actions">
-          <a class="btn btn-outline" href="${SITE.phoneHref}">Telefonla sipariş</a>
-          <a class="btn btn-outline" href="https://wa.me/${SITE.whatsapp}" target="_blank" rel="noopener">WhatsApp ile yaz</a>
+          <a class="btn btn-outline" href="${esc(safeHref(SITE.phoneHref))}">Telefonla sipariş</a>
+          <a class="btn btn-outline" href="https://wa.me/${waNumber()}" target="_blank" rel="noopener">WhatsApp ile yaz</a>
         </div>
       </div>
     </div>`;
@@ -521,23 +560,23 @@ function renderMenu(target, filter = "", category = "Tümü") {
       count += items.length;
       return `
         <section class="menu-group reveal">
-          <h3>${group.category}</h3>
-          ${group.note ? `<p class="group-note">${group.note}</p>` : ""}
+          <h3>${esc(group.category)}</h3>
+          ${group.note ? `<p class="group-note">${esc(group.note)}</p>` : ""}
           ${items.length > 3 ? `<p class="scroll-hint">Yana kaydırın</p>` : ""}
           <ul class="menu-list">
             ${items
               .map(
                 (i) => `
-                <li class="menu-item" data-item="${i.name}" style="--d:${n++ % 8}">
+                <li class="menu-item" data-item="${esc(i.name)}" style="--d:${n++ % 8}">
                   <div class="mi-art">${artFor(i)}</div>
                   <div class="mi-main">
-                    <div class="mi-name"><button class="mi-open" data-item="${i.name}">${i.name}</button></div>
-                    ${i.desc ? `<div class="mi-desc">${i.desc}</div>` : ""}
-                    ${i.tags ? `<div class="mi-tags">${i.tags.map((t) => `<span>${t}</span>`).join("")}</div>` : ""}
+                    <div class="mi-name"><button class="mi-open" data-item="${esc(i.name)}">${esc(i.name)}</button></div>
+                    ${i.desc ? `<div class="mi-desc">${esc(i.desc)}</div>` : ""}
+                    ${i.tags ? `<div class="mi-tags">${i.tags.map((t) => `<span>${esc(t)}</span>`).join("")}</div>` : ""}
                   </div>
                   <div class="mi-foot">
                     <span class="mi-price">${TL(i.price)}</span>
-                    <button class="mi-add" data-add="${i.name}" data-label="Sepete ekle" aria-label="${i.name} sepete ekle">
+                    <button class="mi-add" data-add="${esc(i.name)}" data-label="Sepete ekle" aria-label="${esc(i.name)} sepete ekle">
                       ${BASKET_ICON}<span class="mi-add-label">Sepete ekle</span>
                     </button>
                   </div>
@@ -549,7 +588,7 @@ function renderMenu(target, filter = "", category = "Tümü") {
     })
     .join("");
 
-  if (!count) el.innerHTML = `<p class="empty">“${filter}” için sonuç bulunamadı.</p>`;
+  if (!count) el.innerHTML = `<p class="empty">“${esc(filter)}” için sonuç bulunamadı.</p>`;
 
   const counter = document.getElementById("menu-count");
   if (counter) counter.textContent = `${count} ürün`;
@@ -565,13 +604,13 @@ function renderPreview(target) {
   el.innerHTML = list
     .map(
       (i, idx) => `
-      <article class="preview-card reveal" data-item="${i.name}" style="--d:${idx % 6}">
+      <article class="preview-card reveal" data-item="${esc(i.name)}" style="--d:${idx % 6}">
         <div class="mi-art">${artFor(i)}</div>
-        <div class="preview-name"><button class="mi-open" data-item="${i.name}">${i.name}</button></div>
-        <div class="preview-desc">${i.desc || ""}</div>
+        <div class="preview-name"><button class="mi-open" data-item="${esc(i.name)}">${esc(i.name)}</button></div>
+        <div class="preview-desc">${esc(i.desc || "")}</div>
         <div class="preview-foot">
           <span class="preview-price">${TL(i.price)}</span>
-          <button class="mi-add" data-add="${i.name}" data-label="Sepet" aria-label="${i.name} sepete ekle">
+          <button class="mi-add" data-add="${esc(i.name)}" data-label="Sepet" aria-label="${esc(i.name)} sepete ekle">
             ${BASKET_ICON}<span class="mi-add-label">Sepet</span>
           </button>
         </div>
@@ -605,11 +644,57 @@ function wireMenuButtons() {
   });
 }
 
+/* ---------- clickjacking koruması ---------- */
+
+/* GitHub Pages özel header veremediği için frame-ancestors verilemiyor
+   (meta CSP'de frame-ancestors desteklenmez). Sayfa başka bir site içine
+   gömülürse etkileşimli içerik kapatılır, uyarı gösterilir. */
+function guardFraming() {
+  if (window.top === window.self) return;
+  document.documentElement.classList.add("is-framed");
+  const warn = document.createElement("div");
+  warn.className = "framed-warning";
+  warn.textContent = "Bu sayfa başka bir site içinde gösteriliyor. Sipariş ve sepet için sayfayı doğrudan açın.";
+  document.body.prepend(warn);
+}
+
+/* ---------- üçüncü taraf yüklemeleri (KVKK rızası) ---------- */
+
+let consentGiven = false;
+
+function hasConsent() {
+  if (consentGiven) return true;
+  try { return localStorage.getItem("tandir-consent") === "ok"; } catch (err) { return false; }
+}
+
+/* Rıza verilmeden Google Maps iframe'i yüklenmez: embed kendi çerezlerini
+   koyduğu için "çerez kullanılmaz" iddiası ancak kapıya bağlanınca doğru olur. */
+function loadThirdParty() {
+  if (!hasConsent()) return;
+  const map = document.getElementById("map");
+  if (map && !map.src && map.dataset.src) map.src = map.dataset.src;
+  const note = document.querySelector(".map-note");
+  if (note) note.hidden = true;
+}
+
 /* ---------- sayfa içi dolgular ---------- */
 
 function fillStatic() {
+  /* data-site = metin, data-href-site = href. İki yerde de yalnızca SITE'te
+   gerçekten tanımlı anahtarlar kullanılır (prototip erişimini kapatır). */
   document.querySelectorAll("[data-site]").forEach((el) => {
-    el.textContent = SITE[el.dataset.site];
+    const key = el.dataset.site;
+    if (Object.prototype.hasOwnProperty.call(SITE, key)) el.textContent = SITE[key];
+  });
+  document.querySelectorAll("[data-href-site]").forEach((el) => {
+    const key = el.dataset.hrefSite;
+    if (Object.prototype.hasOwnProperty.call(SITE, key)) el.href = safeHref(SITE[key]);
+  });
+  /* fab / CTA WhatsApp linkleri: numara tek yerden (SITE.whatsapp) gelir,
+   HTML'de hardcoded numara kalmaz. Numara boşsa telefon linkine düşer. */
+  document.querySelectorAll("[data-wa]").forEach((el) => {
+    const n = waNumber();
+    el.href = n ? `https://wa.me/${n}` : safeHref(SITE.phoneHref);
   });
   const s = isOpenNow();
   document.querySelectorAll(".status").forEach((el) => {
@@ -625,7 +710,7 @@ function fillStatic() {
 
   document.querySelectorAll("[data-hours]").forEach((el) => {
     el.innerHTML = SITE.hours
-      .map((h, i) => `<tr class="${i === s.idx ? "is-today" : ""}"><td>${h.day}</td><td>${h.open} – ${h.close}</td></tr>`)
+      .map((h, i) => `<tr class="${i === s.idx ? "is-today" : ""}"><td>${esc(h.day)}</td><td>${esc(h.open)} – ${esc(h.close)}</td></tr>`)
       .join("");
   });
 
@@ -633,7 +718,7 @@ function fillStatic() {
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.mapsQuery)}`;
   document.querySelectorAll("[data-maps-link]").forEach((a) => { a.href = mapsUrl; });
   const map = document.getElementById("map");
-  if (map) map.src = `https://www.google.com/maps?q=${encodeURIComponent(SITE.mapsQuery)}&output=embed`;
+  if (map) map.dataset.src = `https://www.google.com/maps?q=${encodeURIComponent(SITE.mapsQuery)}&output=embed`;
 }
 
 /* ---------- tema (gece / gündüz) ---------- */
@@ -755,7 +840,7 @@ function initTicker() {
   const track = document.getElementById("ticker-track");
   if (track) {
     const group = SITE.ticker
-      .map((text) => `<span>${text}</span><span class="sep">◆</span>`)
+      .map((text) => `<span>${esc(text)}</span><span class="sep">◆</span>`)
       .join("");
     track.innerHTML = group + group; // iki tur: marquee kesintisiz dönsün
   }
@@ -778,20 +863,25 @@ function initConsent() {
   let saved = null;
   try { saved = localStorage.getItem("tandir-consent"); } catch (err) { /* localStorage kapalı */ }
   if (saved === "ok") {
+    consentGiven = true;
     note.remove();
+    loadThirdParty();
     return;
   }
 
   const btn = document.getElementById("cookie-ok");
   if (btn) {
     btn.addEventListener("click", () => {
-      try { localStorage.setItem("tandir-consent", "ok"); } catch (err) { /* yoksay */ }
+      consentGiven = true;
+      try { localStorage.setItem("tandir-consent", "ok"); } catch (err) { /* localStorage kapalı: rıza bu sayfa için geçerli */ }
       note.remove();
+      loadThirdParty();
     });
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  guardFraming();
   injectSprite();
   initTheme();
   fillStatic();
@@ -817,7 +907,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const chips = document.getElementById("menu-chips");
     if (chips) {
       chips.innerHTML = ["Tümü", ...MENU.map((g) => g.category)]
-        .map((c, i) => `<button class="chip${i === 0 ? " is-active" : ""}" data-cat="${c}">${c}</button>`)
+        .map((c, i) => `<button class="chip${i === 0 ? " is-active" : ""}" data-cat="${esc(c)}">${esc(c)}</button>`)
         .join("");
       chips.querySelectorAll(".chip").forEach((b) =>
         b.addEventListener("click", () => {

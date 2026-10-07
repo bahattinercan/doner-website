@@ -1,5 +1,37 @@
 # Değişiklik günlüğü
 
+## v1.2.2 — güvenlik sertleştirme
+
+- **HTML kaçışı**: `site.js` içine `esc()` helper'ı eklendi; sepet, menü, modal, arama
+  sonucu, kategori çipleri, kayan şerit ve saat tablosu gibi tüm `innerHTML` dolguları
+  artık kaçışlı yazılıyor (tırnak kırıp `onerror` enjekte etme yolu kapandı)
+- **Sepet doğrulaması**: `loadOrder()` `localStorage`'tan gelen kayıtları şekil kontrolünden
+  geçiriyor (`name` string, `price` sayı, `qty` 1–20 aralığına sıkıştırılıyor)
+- **href filtreleri**: `safeHref()` yalnızca `http(s):`, `tel:`, `mailto:` kabul ediyor;
+  WhatsApp numarası `waNumber()` ile sadece rakamlara indirgeniyor
+- **CSP**: beş sayfaya da `Content-Security-Policy` meta etiketi ve `referrer` politikası eklendi
+- **Harita rızası**: `contact.html`'deki Maps iframe'i artık `src` yerine `data-src` taşıyor;
+  iframe yalnızca çerez uyarısı onaylandığında yükleniyor (KVKK tutarlılığı)
+- **Gizlilik metni**: "çerez kullanılmaz" ifadesi üçüncü tarafları (Google Fonts, Maps)
+  açıklayacak şekilde düzeltildi
+- **Yayına alma**: `vercel.json` ve `netlify.toml` güvenlik header'ları; `docs/08` içine
+  nginx header örneği eklendi
+- **İçerik**: `docs/menu-image-prompts.json` içindeki yerel makine yolları
+  (`C:\Users\...\.codex\generated_images\...`) `images/raw/<id>.png` olarak değiştirildi;
+  ham görseller `.gitignore`'a alındı
+- **İletişim linkleri tek kaynak**: `tel:` ve `wa.me` linkleri HTML'de hardcoded kalmıyor;
+  `data-href-site="phoneHref|email|instagram"` ve `data-wa` nitelikleriyle `SITE`'ten
+  besleniyor (JS çalışmazsa mevcut href düşüyor, yani no-JS bozulmuyor). `gizlilik.html`
+  "Ara" linkinin metnini bozan `data-site="phoneHref"` hatası giderildi
+- **CSP sertleştirme**: `img-src`'ten gereksiz `data:` kaldırıldı, `form-action 'self'` eklendi;
+  Maps iframe'inden `allow="geolocation"` alındı; `Permissions-Policy: geolocation=(), camera=(), microphone=()` header'ı eklendi
+- **Girdi filtreleri**: `artFor()` yalnızca geçerli görsel yollarını kabul ediyor
+  (`javascript:`/`data:` reddediliyor), `fillStatic()` yalnızca `SITE`'te gerçekten tanımlı
+  anahtarları okuyor (prototip erişimi kapalı), `loadOrder()` fiyatı `> 0` şartına bağladı
+- **Dokümantasyon**: `docs/10-uyarlama-rehberi.md`'deki örnek kimlik
+  (`instagram.com/denizpide`, `info@denizpide.com`) gerçek bir işletmeye benzemesin diye
+  `ornek@example.com` olarak değiştirildi
+
 ## v1.2.1 — 2026-10-07 (metin tonu)
 
 - **Metin tonu**: site genelindeki espri ve sohbet cümleleri kurumsal, bilgi odaklı dille

@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' https:; frame-src https://www.google.com https://maps.google.com; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Gizlilik — Tandır Döner</title>
   <meta name="description" content="Bu sitede çerez ve analitik kullanılmaz; sepet, tema ve şerit tercihleri tarayıcının yerel deposunda saklanır. KVKK kapsamında kısa gizlilik açıklaması.">
   <!-- Open Graph / sosyal paylaşım — kendi domain'inle değiştir -->
@@ -19,9 +21,7 @@
   <meta name="twitter:title" content="Gizlilik — Tandır Döner">
   <meta name="twitter:description" content="Çerez ve analitik kullanılmaz. Sepet ve tema tercihleri yalnızca tarayıcınızda saklanır.">
   <meta name="twitter:image" content="https://bahattinercan.github.io/doner-website/docs/preview.jpg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/fonts.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="assets/favicon.svg">
   <script src="content.js" defer></script>
@@ -50,20 +50,25 @@
       <svg class="icon icon-basket" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14M6.5 8l2 9.5h7l2-9.5M9 4.5v3.5M15 4.5v3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span class="cart-count" id="cart-count">0</span>
     </button>
-    <a class="cta-call" href="tel:+905321234567" data-site="phoneHref">Ara</a>
+    <a class="cta-call" href="tel:+905555555555" data-href-site="phoneHref">Ara</a>
   </div>
   <div class="scroll-progress" id="scroll-progress"></div>
 </header>
 
 <main class="section wrap">
   <h1 class="section-head reveal">Gizlilik ve KVKK</h1>
-  <p class="section-lede reveal">Bu site tamamen statiktir. Ziyaretçi verisi toplamaz, çerez
-    kullanmaz ve analitik ya da reklam scripti barındırmaz.</p>
+  <p class="section-lede reveal">Bu site tamamen statiktir. Ziyaretçi verisi toplamaz, kendi
+    çerezini veya analitik/reklam scripti barındırmaz. Google Fonts ve harita embed'i gibi
+    üçüncü taraf servisler kendi politikalarına tabidir; harita, bu uyarıyı onayladığınızda
+    yüklenir.</p>
 
   <div class="cards reveal">
     <div class="card">
       <h3>Çerez kullanılmaz</h3>
-      <p>Tarayıcıya hiçbir çerez veya iz bırakılmaz. Site, sunucu tarafında ziyaret kaydı tutmaz.</p>
+      <p>Bu site kendi başına tarayıcıya çerez koymaz; sunucu tarafında ziyaret kaydı tutulmaz.
+        Harita ve yazı tipi gibi üçüncü taraf servisler kendi çerezlerini koyabilir — harita
+        rıza vermeden yüklenmez, yazı tipleri için isterseniz siteyi kendi fontlarınızla
+        çalıştırabilirsiniz.</p>
     </div>
     <div class="card">
       <h3>Yerel depolama (localStorage)</h3>
@@ -78,8 +83,9 @@
     </div>
     <div class="card">
       <h3>Üçüncü taraflar</h3>
-      <p>Yazı tipleri Google Fonts'tan, iletişim sayfasındaki harita Google Maps
-        embed'inden yüklenir. Bu servisler kendi gizlilik politikalarına tabidir.</p>
+      <p>Yazı tipleri sitede self-hosted; ziyaretçi hiçbir üçüncü tarafa istek atmaz.
+        İletişim sayfasındaki harita Google Maps embed'idir ve yalnızca bu uyarıyı
+        onayladığınızda yüklenir — o servis kendi politikasına tabidir.</p>
     </div>
   </div>
 
@@ -128,7 +134,7 @@
   </div>
 </div>
 
-<a class="fab" id="fab" href="https://wa.me/905321234567" aria-label="WhatsApp ile sipariş">WhatsApp ile sipariş</a>
+<a class="fab" id="fab" href="https://wa.me/905555555555" data-wa aria-label="WhatsApp ile sipariş">WhatsApp ile sipariş</a>
 
 <div class="cookie-note" id="cookie-note" role="dialog" aria-label="Gizlilik uyarısı">
   <p><b>Gizlilik notu:</b> Bu sitede çerez veya analitik kullanılmaz. Sepet, tema ve şerit tercihleri yalnızca tarayıcınızın yerel deposunda saklanır. <a href="gizlilik.html">Detaylar</a></p>

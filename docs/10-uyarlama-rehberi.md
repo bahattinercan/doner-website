@@ -18,8 +18,8 @@ const SITE = {
   whatsapp:  "903125555555",
   address:   "Cumhuriyet Cd. No: 4, Karşıyaka / İzmir",
   mapsQuery: "Cumhuriyet Caddesi 4 Karşıyaka İzmir",
-  instagram: "https://instagram.com/denizpide",
-  email:     "info@denizpide.com",
+  instagram: "https://instagram.com/",
+  email:     "ornek@example.com",
   ticker: ["Hamur her sabah açılır", "Fırın 18:00'de kapanır"],
   hours: [ /* 7 satır */ ],
 };
