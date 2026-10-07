@@ -1,0 +1,16 @@
+{
+  "name": "doner-website",
+  "version": "1.2.4",
+  "private": true,
+  "description": "Build'siz statik döner sitesi. Bu package.json yalnızca geliştirme araçları içindir — site çalışma zamanında hiçbir bağımlılık kullanmaz.",
+  "scripts": {
+    "test": "node tests/security-tests.js",
+    "check": "node --check js/site.js && node --check js/content.js",
+    "fonts": "node scripts/prepare-fonts.mjs",
+    "images": "node scripts/optimize-menu-images.js",
+    "serve": "python3 -m http.server 8000"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5"
+  }
+}
