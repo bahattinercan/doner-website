@@ -75,7 +75,7 @@ nelere dikkat etmen gerektiği **`docs/`** klasörinde anlatılıyor:
    cd doner-website
    ```
 2. **`content.js`'i kendi dükkanına göre değiştir** — isim, telefon, adres, saatler, menü.
-3. **İstersen renkleri değiştir** — `styles.css` içindeki `:root`.
+3. **İstersen renkleri değiştir** — `css/styles.css` içindeki `:root`.
 4. **Yerel olarak gör**
    ```bash
    python3 -m http.server 8000   # http://localhost:8000
@@ -121,21 +121,32 @@ doner-website/
 ├── menu.html           # Tüm menü + arama + kategori chip'leri + sepet
 ├── about.html          # Hikâye, üretim tarzı
 ├── contact.html        # Adres, telefon, WhatsApp, harita iframe, saatler
-├── content.js          # DÜKKAN AYARLARI: SITE + MENU (isim, telefon, saat, ürünler)
-├── styles.css          # Tek tasarım dosyası (tokenlar :root içinde, koyu tema override'ı altta)
-├── site.js             # Davranış: sepet, arama, tema, animasyon, render (ART_SPRITE burada)
-├── assets/
+├── gizlilik.html       # KVKK / gizlilik sayfası
+├── css/
+│   ├── styles.css         # Tek tasarım dosyası (tokenlar :root içinde, koyu tema override'ı altta)
+│   └── fonts.css          # Self-hosted @font-face tanımları
+├── js/
+│   ├── content.js         # DÜKKAN AYARLARI: SITE + MENU (isim, telefon, saat, ürünler)
+│   └── site.js            # Davranış: sepet, arama, tema, animasyon, render (ART_SPRITE burada)
+├── assets/                # Yalnızca yayınlanan varlıklar
 │   ├── logo.svg           # Üst bar logosu: tandır + şiş + köz (64×64 viewBox)
 │   ├── favicon.svg        # Sekme simgesi: koyu rozet içinde aynı işaret
 │   ├── doner-photo.jpg    # Hero + hikâye fotoğrafı (640×960, ~115 KB)
 │   ├── doner.svg          # Yedek SVG illüstrasyon (320×460)
-│   ├── fonts.css          # Self-hosted @font-face tanımları
+│   ├── preview.jpg        # og:image + README önizlemesi (1400×900)
 │   ├── fonts/             # Fraunces + Inter woff2 (Google Fonts'tan bir kez indirildi)
 │   └── menu/              # 42 ürün fotoğrafı (640×426, ~43–64 KB)
 │       ├── tandir-durum-generated.jpg
 │       ├── adana-durum-generated.jpg
-│       └── …              # content.js'teki `img` alanları bu dosyaları gösterir
-├── docs/
+│       └── …              # js/content.js'teki `img` alanları bu dosyaları gösterir
+├── scripts/               # Geliştirme araçları — site çalışırken kullanılmaz
+│   ├── prepare-fonts.mjs        # Yazı tiplerini Google Fonts'tan indirip assets/fonts/'e koyar
+│   ├── prepare-menu-images.ps1  # Ham menü görsellerini optimize eder
+│   ├── optimize-menu-images.js  # assets/menu'yi 640 px / q72 progressive'e indirir
+│   └── menu-image-prompts.json  # Menü görselleri için üretim listesi
+├── tests/
+│   └── security-tests.js          # XSS / kaçış / sepet doğrulama testleri (14 test)
+├── docs/                  # Yalnızca markdown
 │   ├── README.md               # Dokümantasyon ana sayfası (indeks)
 │   ├── 01-mimari.md            # Dosyaların rolü, sayfa iskeleti, site.js akışı
 │   ├── 02-icerik-yonetimi.md   # SITE, MENU, ticker, hours, illüstrasyonlar
@@ -146,21 +157,16 @@ doner-website/
 │   ├── 07-seo-ve-erisilebilirlik.md
 │   ├── 08-yayina-alma.md       # Deploy, domain, cache
 │   ├── 09-sorun-giderme.md     # Belirti → neden → çözüm
-│   ├── 10-uyarlama-rehberi.md   # Başka dükkana uyarlama adımları
-│   ├── security-tests.js        # XSS / kaçış / sepet doğrulama testleri (14 test)
-│   ├── prepare-fonts.js         # Yazı tiplerini Google Fonts'tan indirip assets/fonts/'e koyar
-│   ├── prepare-menu-images.ps1  # Ham menü görsellerini optimize eder
-│   ├── optimize-menu-images.js  # assets/menu'yi 640 px / q72 progressive'e indirir
-│   ├── menu-image-prompts.json  # Menü görselleri için üretim listesi
-│   └── preview.jpg             # README ekran görüntüsü (1400×900)
-├── gizlilik.html      # KVKK / gizlilik sayfası
-├── vercel.json        # Vercel güvenlik header'ları (CSP, X-Frame-Options…)
-├── netlify.toml       # Netlify güvenlik header'ları
-├── _headers           # Cloudflare Pages / Netlify header dosyası
+│   └── 10-uyarlama-rehberi.md   # Başka dükkana uyarlama adımları
 ├── .github/
 │   ├── ISSUE_TEMPLATE/    # Hata raporu + özellik önerisi şablonları
 │   ├── workflows/security-check.yml  # CI: sözdizimi, CSP, XSS testleri
 │   └── PULL_REQUEST_TEMPLATE.md
+├── package.json         # Geliştirme bağımlılığı (sharp) + npm script'leri
+├── vercel.json        # Vercel güvenlik header'ları (CSP, X-Frame-Options…)
+├── netlify.toml       # Netlify güvenlik header'ları
+├── _headers           # Cloudflare Pages / Netlify header dosyası
+├── .gitattributes     # Satır sonu + binary kuralları
 ├── LICENSE            # MIT
 ├── CONTRIBUTING.md
 ├── CHANGELOG.md
@@ -169,9 +175,9 @@ doner-website/
 └── .gitignore
 ```
 
-> **Kural:** İçerik `content.js`'te, tasarım `styles.css`'te, iskelet `*.html`'de,
-> davranış `site.js`'te. Ürün / fiyat / saat / şerit değiştirmek için sadece
-> `content.js`'e dokunman yeterli.
+> **Kural:** İçerik `js/content.js`'te, tasarım `css/styles.css`'te, iskelet `*.html`'de,
+> davranış `js/site.js`'te. Ürün / fiyat / saat / şerit değiştirmek için sadece
+> `js/content.js`'e dokunman yeterli.
 
 ---
 
@@ -380,7 +386,7 @@ Renkler `styles.css` → `:root` bloğunda tek yerde tanımlıdır.
 | `--max`        | `1120px`  | —         | İçerik genişliği                    |
 
 Tipografi: başlıklar **Fraunces** (serif), gövde **Inter**. Yazı tipleri
-`assets/fonts/` içinde self-hosted'dır (`assets/fonts.css`); tarayıcı Google Fonts'a
+`assets/fonts/` içinde self-hosted'dır (`css/fonts.css`); tarayıcı Google Fonts'a
 hiçbir istek atmaz. woff2 yüklenemezse `Georgia` / `system-ui`'ye düşer.
 
 Kırılma noktaları: **900 px** (iletişim/saat paneli tek kolon), **860 px** (hero tek kolon),
@@ -485,7 +491,7 @@ Statik site → saldırı yüzeyi küçük, ama dört katman var:
 Testler (14 adet; attribute kırması, etiket enjeksiyonu, sepet normalizasyonu, href şeması, görsel kaynağı, rıza kapısı):
 
 ```bash
-node docs/security-tests.js
+node tests/security-tests.js   # veya: npm test
 ```
 
 GitHub Actions'ta otomatik koşuyor: `.github/workflows/security-check.yml`.
