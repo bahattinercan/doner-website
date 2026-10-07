@@ -1,7 +1,7 @@
 /*
  * Menü fotoğraflarını küçültür: 640 px genişlik, progressive JPEG, q72.
  * Gereksinim: npm i sharp   (yalnızca geliştirme aracı; site bağımlılığı değil)
- * Çalıştırma:  node docs/optimize-menu-images.js
+ * Çalıştırma:  node scripts/optimize-menu-images.js   (veya: npm run images)
  * Orijinal dosyalar git'te duruyor; geri almak için: git checkout assets/menu
  */
 const fs = require("fs");

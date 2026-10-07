@@ -1,12 +1,14 @@
-/* docs/security-tests.js — XSS/kaçış testleri
+/* tests/security-tests.js — XSS/kaçış testleri
    Gerçek DOM yok: site.js, küçük bir DOM shim'i içinde çalıştırılır ve
    üretilen HTML çıktılar kontrol edilir.
-   Çalıştırma: node docs/security-tests.js
+   Çalıştırma: node tests/security-tests.js   (veya: npm test)
 */
 const fs = require("node:fs");
+const path = require("node:path");
 
-const content = fs.readFileSync("content.js", "utf8");
-const site = fs.readFileSync("site.js", "utf8");
+const ROOT = path.join(__dirname, "..");
+const content = fs.readFileSync(path.join(ROOT, "js", "content.js"), "utf8");
+const site = fs.readFileSync(path.join(ROOT, "js", "site.js"), "utf8");
 
 const shim = `
   const store = {};
