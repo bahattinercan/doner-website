@@ -2,15 +2,15 @@
 
 ## 6.1 Mevcut asset'ler
 
-| Dosya | Tür | Boyut | Ağırlık | Kullanım |
-|---|---|---|---|---|
-| `assets/logo.svg` | SVG | 64×64 viewBox | ~1.2 KB | Üst bar (32 px), footer |
-| `assets/favicon.svg` | SVG | 64×64 | ~1 KB | Sekme simgesi |
-| `assets/doner.svg` | SVG | 320×460 | ~2 KB | Yedek illüstrasyon |
-| `assets/doner-photo.jpg` | JPEG | 640×960 | ~115 KB | Hero (Ken Burns) + Hakkımızda görseli |
-| `assets/menu/*-generated.jpg` | JPEG | 640×426 | ~43–64 KB (toplam ~2.2 MB) | Ürün kartları (42 ürün) |
-| `assets/fonts/*.woff2` | woff2 | — | ~254 KB | Fraunces + Inter (self-hosted) |
-| `assets/preview.jpg` | JPEG | 1400×900 | ~140 KB | README + `og:image` |
+| Dosya                         | Tür   | Boyut         | Ağırlık                    | Kullanım                              |
+| ----------------------------- | ----- | ------------- | -------------------------- | ------------------------------------- |
+| `assets/logo.svg`             | SVG   | 64×64 viewBox | ~1.2 KB                    | Üst bar (32 px), footer               |
+| `assets/favicon.svg`          | SVG   | 64×64         | ~1 KB                      | Sekme simgesi                         |
+| `assets/doner.svg`            | SVG   | 320×460       | ~2 KB                      | Yedek illüstrasyon                    |
+| `assets/doner-photo.jpg`      | JPEG  | 640×960       | ~115 KB                    | Hero (Ken Burns) + Hakkımızda görseli |
+| `assets/menu/*-generated.jpg` | JPEG  | 640×426       | ~43–64 KB (toplam ~2.2 MB) | Ürün kartları (42 ürün)               |
+| `assets/fonts/*.woff2`        | woff2 | —             | ~254 KB                    | Fraunces + Inter (self-hosted)        |
+| `assets/preview.jpg`          | JPEG  | 1400×900      | ~140 KB                    | README + `og:image`                   |
 
 > `content.js` 42 ürünün tamamında `assets/menu/<id>-generated.jpg` kullanıyor. Bir ürün
 > görselsiz bırakılırsa ya da yolu geçersizse SVG illüstrasyon (6.2) otomatik devreye girer.
@@ -33,7 +33,7 @@ Kullanım:
 
 ```html
 <div class="mi-art">
-  <svg viewBox="0 0 64 48" aria-hidden="true"><use href="#art-durum"/></svg>
+  <svg viewBox="0 0 64 48" aria-hidden="true"><use href="#art-durum" /></svg>
 </div>
 ```
 
@@ -45,7 +45,7 @@ Yeni sembol eklemek:
 
 ```html
 <symbol id="art-makarna" viewBox="0 0 64 48">
-  <path d="…" fill="#e9b255"/>
+  <path d="…" fill="#e9b255" />
 </symbol>
 ```
 
@@ -64,17 +64,17 @@ ardından `ART_KEYS`'a `["makarna", "makarna"]` yaz.
 
 Önerilen özellikler:
 
-| Ölçü | Neden |
-|---|---|
+| Ölçü                                  | Neden                                                             |
+| ------------------------------------- | ----------------------------------------------------------------- |
 | 640 px genişlik (mevcut set: 640×426) | Kart içinde `object-fit: cover` ile kırpılır, retina'da net kalır |
-| q72 progressive JPEG | ~43–64 KB |
-| `alt` metni | Erişilebilirlik + SEO (ürün adından otomatik üretilir) |
+| q72 progressive JPEG                  | ~43–64 KB                                                         |
+| `alt` metni                           | Erişilebilirlik + SEO (ürün adından otomatik üretilir)            |
 
 Hazır script (Node + `sharp` kuruluysa):
 
 ```bash
-npm i sharp
-node docs/optimize-menu-images.js   # 640 px, q72, progressive
+npm install            # sharp yalnızca geliştirme bağımlılığıdır
+npm run images         # scripts/optimize-menu-images.js — 640 px, q72, progressive
 ```
 
 `sharp` bir CLI **değildir**, bir Node kütüphanesidir; tek dosya için:
@@ -100,7 +100,7 @@ Kendi fotoğrafını koymak için aynı adla üzerine yazmak yeterli — kod de�
 `index.html` içinde:
 
 ```html
-<img src="assets/doner-photo.jpg" alt="Odun ateşinde dönen tandır dana döner" width="640" height="960">
+<img src="assets/doner-photo.jpg" alt="Odun ateşinde dönen tandır dana döner" width="640" height="960" />
 ```
 
 `.hero-photo img` kuralı 340×460 px'lik bir alan tanımlar; `object-fit: cover` ile

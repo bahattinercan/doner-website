@@ -10,18 +10,20 @@ Bu siteyi başka bir dükkana (kahvaltıcı, pideci, tatlıcı…) uyarlamak iç
 
 ```js
 const SITE = {
-  name:      "Deniz Pide",
-  slogan:    "Odun fırınında, ince hamur.",
-  intro:     "Her akşam taze açılan hamur…",
-  phone:     "+90 312 555 55 55",
+  name: "Deniz Pide",
+  slogan: "Odun fırınında, ince hamur.",
+  intro: "Her akşam taze açılan hamur…",
+  phone: "+90 312 555 55 55",
   phoneHref: "tel:+903125555555",
-  whatsapp:  "903125555555",
-  address:   "Cumhuriyet Cd. No: 4, Karşıyaka / İzmir",
+  whatsapp: "903125555555",
+  address: "Cumhuriyet Cd. No: 4, Karşıyaka / İzmir",
   mapsQuery: "Cumhuriyet Caddesi 4 Karşıyaka İzmir",
   instagram: "https://instagram.com/",
-  email:     "ornek@example.com",
+  email: "ornek@example.com",
   ticker: ["Hamur her sabah açılır", "Fırın 18:00'de kapanır"],
-  hours: [ /* 7 satır */ ],
+  hours: [
+    /* 7 satır */
+  ],
 };
 ```
 
@@ -44,6 +46,7 @@ const MENU = [
 ```
 
 İpucu:
+
 - Vitrine çıkmak isteyen ürüne `tags: ["Çok satan"]` ver.
 - Yeni kategori = yeni chip, otomatik çıkar.
 
@@ -51,30 +54,32 @@ const MENU = [
 
 ## Adım 3 — Görseller
 
-| Ne | Nasıl |
-|---|---|
-| Logo | `assets/logo.svg`'yi değiştir (64×64 viewBox önerilir) |
-| Favicon | `assets/favicon.svg`'yi değiştir |
-| Hero fotoğrafı | `assets/doner-photo.jpg` üzerine yaz (≥640 px) |
+| Ne                | Nasıl                                                                      |
+| ----------------- | -------------------------------------------------------------------------- |
+| Logo              | `assets/logo.svg`'yi değiştir (64×64 viewBox önerilir)                     |
+| Favicon           | `assets/favicon.svg`'yi değiştir                                           |
+| Hero fotoğrafı    | `assets/doner-photo.jpg` üzerine yaz (≥640 px)                             |
 | Ürün fotoğrafları | `assets/menu/*-generated.jpg` + ürüne `img: "assets/menu/x-generated.jpg"` |
-| İllüstrasyonlar | `ART_SPRITE`'a yeni `<symbol>` ekle, `ART_KEYS`'a yaz |
+| İllüstrasyonlar   | `ART_SPRITE`'a yeni `<symbol>` ekle, `ART_KEYS`'a yaz                      |
 
 ---
 
 ## Adım 4 — Renkler
 
-`styles.css` → `:root`:
+`css/styles.css` → `:root`:
 
 ```css
 :root {
-  --ink:       #101418;
-  --cream:     #f4f6f8;
-  --paper:     #ffffff;
-  --amber:     #d9822b;      /* marka rengin */
-  --amber-deep:#b4661f;
-  --olive:     #3f6b52;
+  --ink: #101418;
+  --cream: #f4f6f8;
+  --paper: #ffffff;
+  --amber: #d9822b; /* marka rengin */
+  --amber-deep: #b4661f;
+  --olive: #3f6b52;
 }
-html[data-theme="dark"] { /* koyu varyantlar */ }
+html[data-theme="dark"] {
+  /* koyu varyantlar */
+}
 ```
 
 Marka rengini değiştirmek **butonlar, chip'ler, vurgular, rozetler** dahil her yere
@@ -111,6 +116,7 @@ python3 -m http.server 8000
 ```
 
 Kontrol listesi:
+
 - [ ] Menüde tüm ürünler görünüyor
 - [ ] Sepete ekle → WhatsApp mesajı doğru
 - [ ] Gece/gündüz düğmesi çalışıyor
@@ -121,9 +127,9 @@ Kontrol listesi:
 
 ## Ek özellik fikirleri
 
-| Özellik | Nasıl |
-|---|---|
-| QR menü | Masaya basılı QR → `menu.html` |
-| Gerçek galeri | `about.html`'e `<img>` grid'i |
+| Özellik          | Nasıl                                     |
+| ---------------- | ----------------------------------------- |
+| QR menü          | Masaya basılı QR → `menu.html`            |
+| Gerçek galeri    | `about.html`'e `<img>` grid'i             |
 | Fiyat güncelleme | `MENU`'yu bir JSON dosyasından `fetch` et |
-| Çoklu şube | `SITE.branches` dizisi + harita pin'leri |
+| Çoklu şube       | `SITE.branches` dizisi + harita pin'leri  |

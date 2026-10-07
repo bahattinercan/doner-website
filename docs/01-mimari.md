@@ -2,19 +2,22 @@
 
 ## 1.1 Dosyaların rolü
 
-| Dosya | Rol | Değiştirirken dikkat |
-|---|---|---|
-| `index.html` | Hero, "neden buraya geliyorsun", vitrin, saat paneli, CTA | Vitrin/sepet paneli `id`'leri `site.js` tarafından kullanılıyor |
-| `menu.html` | Arama + kategori chip'leri + tüm menü + sepet paneli | `#menu`, `#menu-search`, `#menu-count` |
-| `about.html` | Hikâye, üretim tarzı, fotoğraf | `.story-img` |
-| `contact.html` | Adres, telefon, harita iframe'i, saatler | `#map` iframe'i |
-| `styles.css` | Tüm tasarım: tokenlar, layout, animasyon, tema override'ları | `:root` + `html[data-theme="dark"]` |
-| `content.js` | **Dükkân ayarları**: `SITE` + `MENU` | Ürün/fiyat/saat burada |
-| `site.js` | Davranış: sepet, arama, tema, animasyon, render | `ART_SPRITE`, `ART_KEYS` burada |
-| `assets/` | Logo, favicon, hero fotoğrafı, 42 ürün fotoğrafı, self-hosted fontlar | İsimler sabit; üzerine yazmak yeterli |
+| Dosya          | Rol                                                                   | Değiştirirken dikkat                                            |
+| -------------- | --------------------------------------------------------------------- | --------------------------------------------------------------- |
+| `index.html`   | Hero, "neden buraya geliyorsun", vitrin, saat paneli, CTA             | Vitrin/sepet paneli `id`'leri `site.js` tarafından kullanılıyor |
+| `menu.html`    | Arama + kategori chip'leri + tüm menü + sepet paneli                  | `#menu`, `#menu-search`, `#menu-count`                          |
+| `about.html`   | Hikâye, üretim tarzı, fotoğraf                                        | `.story-img`                                                    |
+| `contact.html` | Adres, telefon, harita iframe'i, saatler                              | `#map` iframe'i                                                 |
+| `css/styles.css`   | Tüm tasarım: tokenlar, layout, animasyon, tema override'ları          | `:root` + `html[data-theme="dark"]`                             |
+| `css/fonts.css`  | Self-hosted `@font-face` tanımları (`assets/fonts/`'e işaret eder)    | Yeniden üretim: `scripts/prepare-fonts.mjs`                      |
+| `js/content.js`  | **Dükkân ayarları**: `SITE` + `MENU`                                  | Ürün/fiyat/saat burada                                          |
+| `js/site.js`     | Davranış: sepet, arama, tema, animasyon, render                       | `ART_SPRITE`, `ART_KEYS` burada                                 |
+| `assets/`      | Logo, favicon, hero fotoğrafı, 42 ürün fotoğrafı, self-hosted fontlar | İsimler sabit; üzerine yazmak yeterli                           |
+| `scripts/`     | Geliştirme araçları (font indirme, görsel optimizasyonu)              | Site çalışırken kullanılmaz, HTML'e karışmaz                    |
+| `tests/`       | XSS / kaçış / sepet doğrulama testleri (`npm test`)                   | CI her push'ta koşuyor                                          |
 
-> İlke: **veri → `content.js`, görünüm → `styles.css`, iskelet → `*.html`,**
-> **davranış → `site.js`.**
+> İlke: **veri → `js/content.js`, görünüm → `css/styles.css`, iskelet → `*.html`,**
+> **davranış → `js/site.js`.**
 > Ürün/fiyat/saat değişimi için HTML'e dokunmak gerekmez.
 
 ---
@@ -36,12 +39,14 @@ Her sayfada ortak parçalar:
   <div class="scroll-progress" id="scroll-progress"></div>
 </header>
 
-<main class="wrap"> …sayfa içeriği… </main>
+<main class="wrap">…sayfa içeriği…</main>
 
-<div class="order" id="order" hidden>   <!-- sepet paneli -->
+<div class="order" id="order" hidden>
+  <!-- sepet paneli -->
   <h4>Sipariş listesi</h4>
   <button class="order-close" id="order-close">…× ikonu…</button>
-  <ul class="order-items"></ul>   <!-- her satırda − / + adet düğmesi -->
+  <ul class="order-items"></ul>
+  <!-- her satırda − / + adet düğmesi -->
   <div class="order-total"><span>Toplam</span><b>…</b></div>
   <div class="order-actions">
     <button class="order-clear" id="order-clear">…çöp ikonu…</button>
@@ -99,32 +104,32 @@ DOMContentLoaded
 
 ## 1.4 `data-*` sözleşmesi
 
-| Attribute | Nerede | Ne yapar |
-|---|---|---|
-| `data-site="phone"` | metin elemanları | `SITE[key]` ile doldurulur |
-| `data-hours` | `<tbody>` | Saat tablosunu `SITE.hours`'tan üretir, bugünü `is-today` yapar |
-| `data-maps-link` | `<a>` | `SITE.mapsQuery` ile Google Maps linki |
-| `data-add="Ürün adı"` | buton | Ürünü sepete ekler |
-| `data-count="2004"` | `<b>` | Görünürken 0'dan sayar |
-| `data-suffix="+"` | sayaçla birlikte | Sayının sonuna eklenir |
-| `data-label="Sepet"` | `.mi-add` | Buton etiketi ("Eklendi" sonrası geri döner) |
+| Attribute             | Nerede           | Ne yapar                                                        |
+| --------------------- | ---------------- | --------------------------------------------------------------- |
+| `data-site="phone"`   | metin elemanları | `SITE[key]` ile doldurulur                                      |
+| `data-hours`          | `<tbody>`        | Saat tablosunu `SITE.hours`'tan üretir, bugünü `is-today` yapar |
+| `data-maps-link`      | `<a>`            | `SITE.mapsQuery` ile Google Maps linki                          |
+| `data-add="Ürün adı"` | buton            | Ürünü sepete ekler                                              |
+| `data-count="2004"`   | `<b>`            | Görünürken 0'dan sayar                                          |
+| `data-suffix="+"`     | sayaçla birlikte | Sayının sonuna eklenir                                          |
+| `data-label="Sepet"`  | `.mi-add`        | Buton etiketi ("Eklendi" sonrası geri döner)                    |
 
 ## 1.5 Kritik `id`'ler
 
-| `id` | Amaç | Yoksa ne olur |
-|---|---|---|
-| `theme-toggle` | Tema düğmesi | Tema yine çalışır, düğme olmaz |
-| `cart-btn` | Sepet panelini aç/kapat | Panel sadece ürün eklenince açılır |
-| `cart-count` | Adet rozeti | Rozet güncellenmez |
-| `order` / `order-close` / `order-clear` | Sepet paneli | Sepet çalışmaz |
-| `menu` / `menu-search` / `menu-count` | Menü sayfası | Menü render edilmez |
-| `menu-preview` | Ana sayfa vitrini | Vitrin boş kalır |
-| `item-modal` | Ürün detay penceresi | JS tarafından oluşturulur; kart tıklaması çalışmaz |
-| `ticker` / `ticker-track` / `ticker-close` | Kayan şerit | Şerit olmaz |
-| `scroll-progress` | Üst bar ilerleme çubuğu | Çubuk görünmez |
-| `fab` | WhatsApp butonu | Buton görünmez |
-| `map` | Harita iframe'i | Harita boş kalır |
-| `today-day` / `today-time` | "Bugün" kutusu | Kutu boş kalır |
+| `id`                                       | Amaç                    | Yoksa ne olur                                      |
+| ------------------------------------------ | ----------------------- | -------------------------------------------------- |
+| `theme-toggle`                             | Tema düğmesi            | Tema yine çalışır, düğme olmaz                     |
+| `cart-btn`                                 | Sepet panelini aç/kapat | Panel sadece ürün eklenince açılır                 |
+| `cart-count`                               | Adet rozeti             | Rozet güncellenmez                                 |
+| `order` / `order-close` / `order-clear`    | Sepet paneli            | Sepet çalışmaz                                     |
+| `menu` / `menu-search` / `menu-count`      | Menü sayfası            | Menü render edilmez                                |
+| `menu-preview`                             | Ana sayfa vitrini       | Vitrin boş kalır                                   |
+| `item-modal`                               | Ürün detay penceresi    | JS tarafından oluşturulur; kart tıklaması çalışmaz |
+| `ticker` / `ticker-track` / `ticker-close` | Kayan şerit             | Şerit olmaz                                        |
+| `scroll-progress`                          | Üst bar ilerleme çubuğu | Çubuk görünmez                                     |
+| `fab`                                      | WhatsApp butonu         | Buton görünmez                                     |
+| `map`                                      | Harita iframe'i         | Harita boş kalır                                   |
+| `today-day` / `today-time`                 | "Bugün" kutusu          | Kutu boş kalır                                     |
 
 ---
 

@@ -2,22 +2,22 @@
 
 ## 9.1 Belirti → neden → çözüm
 
-| Belirti | Olası neden | Çözüm |
-|---|---|---|
-| Sepet paneli açılmıyor | Panel `×` ile kapatıldı (`orderOpen=false`) | Üst bardaki sepet düğmesine bas |
-| Sepet rozeti 0 kalıyor | `localStorage` kapalı (gizli mod) | Tarayıcı ayarını aç; site yine çalışır |
-| "Şu an açık" rozeti yanlış | `SITE.hours` sırası Pazartesi→Pazar değil | Sırayı düzelt; saatler `HH:MM` |
-| Fiyat `285 ₺` değil `285` | `price` string girildi | Sayı yaz: `price: 285` |
-| Arama sonuç vermiyor | `desc` yok, isim farklı yazılıyor | Arama küçük harfle yapılır; `desc` ekle |
-| Ürün kartında fotoğraf yerine SVG çıkıyor | Üründe `img` yok ya da dosya adı yanlış | `img: "assets/menu/<id>-generated.jpg"` ekle, dosyanın varlığına bak |
-| Ürün modalı açılmıyor | Kart tıklaması `data-item` üzerinden çalışıyor | `site.js` yüklendi mi? `node --check site.js` ile sözdizimini doğrula |
-| Kayan şerit yok | Daha önce × ile kapatıldı | `localStorage.removeItem("tandir-ticker")` |
-| Site koyu açılıyor | Sistem `prefers-color-scheme: dark` | Düğmeyle değiştir; tercih kaydedilir |
-| Harita boş | `file://` ile açıldı | HTTP sunucu kullan (`python3 -m http.server 8000`) |
-| Menü kartları kesiliyor | Şerit yatay kaydırmalı | Trackpad/parmak ile yana kaydır; scrollbar amber'dir |
-| Buton yazısı görünmüyor | Butona renk verilmemiş (sistem `ButtonText` alıyor) | CSS'te `color: var(--text)` ekle |
-| Logo/hero boyutu bozuk | `.logo img`, `.hero-photo img` kuralları | İlgili CSS kuralını ayarla |
-| Animasyonlar çalışmıyor | `prefers-reduced-motion: reduce` açık | Sistem ayarını değiştir (bu bilinçli bir davranış) |
+| Belirti                                   | Olası neden                                         | Çözüm                                                                 |
+| ----------------------------------------- | --------------------------------------------------- | --------------------------------------------------------------------- |
+| Sepet paneli açılmıyor                    | Panel `×` ile kapatıldı (`orderOpen=false`)         | Üst bardaki sepet düğmesine bas                                       |
+| Sepet rozeti 0 kalıyor                    | `localStorage` kapalı (gizli mod)                   | Tarayıcı ayarını aç; site yine çalışır                                |
+| "Şu an açık" rozeti yanlış                | `SITE.hours` sırası Pazartesi→Pazar değil           | Sırayı düzelt; saatler `HH:MM`                                        |
+| Fiyat `285 ₺` değil `285`                 | `price` string girildi                              | Sayı yaz: `price: 285`                                                |
+| Arama sonuç vermiyor                      | `desc` yok, isim farklı yazılıyor                   | Arama küçük harfle yapılır; `desc` ekle                               |
+| Ürün kartında fotoğraf yerine SVG çıkıyor | Üründe `img` yok ya da dosya adı yanlış             | `img: "assets/menu/<id>-generated.jpg"` ekle, dosyanın varlığına bak  |
+| Ürün modalı açılmıyor                     | Kart tıklaması `data-item` üzerinden çalışıyor      | `js/site.js` yüklendi mi? `node --check js/site.js` ile sözdizimini doğrula |
+| Kayan şerit yok                           | Daha önce × ile kapatıldı                           | `localStorage.removeItem("tandir-ticker")`                            |
+| Site koyu açılıyor                        | Sistem `prefers-color-scheme: dark`                 | Düğmeyle değiştir; tercih kaydedilir                                  |
+| Harita boş                                | `file://` ile açıldı                                | HTTP sunucu kullan (`python3 -m http.server 8000`)                    |
+| Menü kartları kesiliyor                   | Şerit yatay kaydırmalı                              | Trackpad/parmak ile yana kaydır; scrollbar amber'dir                  |
+| Buton yazısı görünmüyor                   | Butona renk verilmemiş (sistem `ButtonText` alıyor) | CSS'te `color: var(--text)` ekle                                      |
+| Logo/hero boyutu bozuk                    | `.logo img`, `.hero-photo img` kuralları            | İlgili CSS kuralını ayarla                                            |
+| Animasyonlar çalışmıyor                   | `prefers-reduced-motion: reduce` açık               | Sistem ayarını değiştir (bu bilinçli bir davranış)                    |
 
 ---
 
@@ -38,7 +38,7 @@ isOpenNow();
 renderMenu("menu", "", "Tümü");
 
 // sprite yüklü mü
-document.querySelectorAll("#menu-art-sprite symbol").length;   // 29 olmalı
+document.querySelectorAll("#menu-art-sprite symbol").length; // 29 olmalı
 ```
 
 ---
