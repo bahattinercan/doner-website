@@ -394,6 +394,8 @@ function findItem(name) {
 function renderModalQty() {
   const num = document.getElementById("modal-qty");
   if (num) num.textContent = modalQty;
+  const dec = document.getElementById("modal-dec");
+  if (dec) dec.disabled = modalQty <= 1;
 }
 
 function openItemModal(name) {
@@ -417,7 +419,7 @@ function openItemModal(name) {
   const side = MENU.find((g) => g.category === "Yanında İyi Gider");
   const pairs = (side ? side.items : []).filter((i) => i.name !== item.name).slice(0, 3);
   modal.querySelector("#modal-pairs").innerHTML = pairs.length
-    ? `<b>Yanına ne alırız?</b>` + pairs.map((p) => `<button class="pair" data-item="${p.name}">${p.name} · ${TL(p.price)}</button>`).join("")
+    ? `<b>Yanına ne alırız?</b><div class="pair-list">` + pairs.map((p) => `<button class="pair" data-item="${p.name}">${p.name} · ${TL(p.price)}</button>`).join("") + `</div>`
     : "";
 
   renderModalQty();
