@@ -46,7 +46,8 @@ Doğrulama: https://validator.schema.org/
 | `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image` | `index.html` | |
 | `link rel="icon"` | Her sayfa | `assets/favicon.svg` |
 
-`og:url` bilinçli olarak yok — domain belli olunca eklenmeli.
+`og:url` her sayfada tanımlı (demo domain üzerinden; kendi domain'ine taşırken
+`https://siteniz.com/...` şeklinde değiştir).
 
 **Öneri:** `menu.html`, `about.html`, `contact.html`'de de en az `og:title` +
 `og:image` bulunmalı; paylaşılınca görselsiz görünmesinler.
@@ -67,6 +68,7 @@ Doğrulama: https://validator.schema.org/
 | Focus outline | ✅ amber outline |
 | Kontrast | ✅ koyu metin/açık zemin (gece modunda tersi) |
 | Klavye ile sepet erişimi | ✅ düğmeler gerçek `<button>` |
+| Gizlilik uyarısı | ✅ `role="dialog"` + `aria-label`, tek tıkla kapatılır |
 | Harita iframe'i | `title` attribute'u eklenmeli (yapılacak) |
 
 ---
@@ -86,3 +88,23 @@ chrome --headless=new --dump-dom index.html > /dev/null
 ```
 
 Daha iyisi: PageSpeed Insights / Lighthouse.
+
+---
+
+## 7.5 Gizlilik & KVKK
+
+Site statik olduğu için sunucu tarafında hiçbir ziyaret verisi toplamaz:
+
+- **Çerez yok**, analitik/reklam scripti yok.
+- `localStorage`'da tutulanlar: `tandir-cart`, `tandir-theme`, `tandir-ticker`, `tandir-consent`.
+- Sipariş listesi WhatsApp'a **kullanıcının cihazından** gönderilir; site isim,
+telefon veya adres vermez.
+- Üçüncü taraflar: Google Fonts (yazı tipi) ve iletişim sayfasındaki Google Maps
+  embed'i — kendi gizlilik politikalarına tabidir.
+
+Kullanıcıya bunu anlatmak için her sayfada kapatılabilir bir **gizlilik bandı**
+(`.cookie-note`) ve ayrıntılı bir **`gizlilik.html`** sayfası var. Bandı kapatmak
+`tandir-consent = "ok"` yazar; geri getirmek için anahtarı sil.
+
+Kendi işletmen için yayına alırken `gizlilik.html`'i kendi KVKK metinlerinle
+genişlet (ver sorumlusu, başvuru yolları, saklama süreleri vb.).

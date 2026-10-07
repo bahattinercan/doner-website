@@ -618,10 +618,33 @@ function initTicker() {
   }
 }
 
+/* ---------- gizlilik / çerez uyarısı (KVKK) ---------- */
+
+function initConsent() {
+  const note = document.getElementById("cookie-note");
+  if (!note) return;
+
+  let saved = null;
+  try { saved = localStorage.getItem("tandir-consent"); } catch (err) { /* localStorage kapalı */ }
+  if (saved === "ok") {
+    note.remove();
+    return;
+  }
+
+  const btn = document.getElementById("cookie-ok");
+  if (btn) {
+    btn.addEventListener("click", () => {
+      try { localStorage.setItem("tandir-consent", "ok"); } catch (err) { /* yoksay */ }
+      note.remove();
+    });
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   injectSprite();
   initTheme();
   fillStatic();
+  initConsent();
 
   // mobil menü
   const burger = document.querySelector(".burger");

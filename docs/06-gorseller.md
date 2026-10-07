@@ -6,7 +6,7 @@
 |---|---|---|---|---|
 | `assets/logo.svg` | SVG | 64×64 viewBox | ~1.2 KB | Üst bar (32 px), footer |
 | `assets/favicon.svg` | SVG | 64×64 | ~1 KB | Sekme simgesi |
-| `assets/doner.svg` | SVG | 320×460 | ~2 KB | Hero + Hakkımızda (kendi üretimimiz) |
+| `assets/doner.svg` | SVG | 320×460 | ~2 KB | Yedek illüstrasyon |
 
 | `docs/preview.jpg` | JPEG | 1400×900 | ~140 KB | README + `og:image` |
 
@@ -75,20 +75,26 @@ sharp -i assets/menu/kunefe.jpg -o assets/menu/kunefe.jpg -quality 72
 
 ## 6.4 Hero görselini değiştirme
 
+`assets/doner-photo.jpg` (640×960) hero ve hikâye bölümünde kullanılıyor.
+Kendi fotoğrafını koymak için aynı adla üzerine yazmak yeterli — kod değişikliği gerekmez.
+
+Ürün fotoğrafları `assets/menu/` klasöründe duruyor ve `content.js`'te ilgili ürüne
+`img` alanı ile bağlanmış durumda:
+
 `index.html` içinde:
 
 ```html
-<img src="assets/doner.svg" alt="…" width="320" height="460">
+<img src="assets/doner-photo.jpg" alt="Odun ateşinde dönen tandır dana döner" width="640" height="960">
 ```
 
-Kendi fotoğrafını kullanmak için `assets/hero.jpg` koy ve `src`ı değiştir;
-`.hero-photo img` kuralı 340×460 px’lik bir alan tanımlar, `object-fit: cover` ile
+`.hero-photo img` kuralı 340×460 px'lik bir alan tanımlar; `object-fit: cover` ile
 otomatik kırpılır. En az **640 px genişlik** önerilir.
 
 ---
 
-## 6.5 Lisans uyarısı
+## 6.5 Lisans
 
-`doner-photo.jpg` Yandex görsel aramasından alındı; dükkana ait **değil**.
-Yayına almadan önce mutlaka kendi çektiğin fotoğrafla değiştir.
-Logo ve favicon kendi üretimimizdir.
+Sitede **üçüncü parti stok görsel yoktur**. Logo, favicon, SVG illüstrasyon ve
+ürün fotoğrafları projeye aittir (MIT). Yine de yayına almadan önce ürün
+fotoğraflarını **kendi dükkânının çekimleriyle** değiştirmen önerilir — menü
+fotoğrafları örnek amaçlıdır. Detay: [CREDITS.md](../CREDITS.md).

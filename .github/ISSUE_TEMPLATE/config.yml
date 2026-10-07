@@ -1,0 +1,7 @@
+contact_links:
+  - name: Dokümantasyon
+    url: https://github.com/bahattinercan/doner-website/tree/main/docs
+    about: Site nasıl çalışıyor, neyi nerede değiştirilir?
+  - name: Katkı rehberi
+    url: https://github.com/bahattinercan/doner-website/blob/main/CONTRIBUTING.md
+    about: PR kuralları ve kod tarzı

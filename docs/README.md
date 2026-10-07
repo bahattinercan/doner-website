@@ -33,7 +33,7 @@ nelerin bozulabileceği madde madde anlatılır.
 | Kayan şerit yazıları | `site.js` | `SITE.ticker` |
 | Renkler | `styles.css` | `:root` ve `html[data-theme="dark"]` |
 | Ürün fotoğrafı | `assets/menu/…jpg` | ürüne `img: "…"` ekle |
-| Hero görseli | `assets/doner.svg` (veya kendi JPG’in) | `index.html` içindeki `src` |
+| Hero fotoğrafı | `assets/doner-photo.jpg` | üzerine aynı adla yaz |
 
 ---
 
@@ -41,14 +41,14 @@ nelerin bozulabileceği madde madde anlatılır.
 
 | Bilgi | Değer |
 |---|---|
-| Sayfa sayısı | 4 (`index`, `menu`, `about`, `contact`) |
+| Sayfa sayısı | 5 (`index`, `menu`, `about`, `contact`, `gizlilik`) |
 | Menü | 6 kategori, 42 ürün |
 | İllüstrasyon | 29 SVG sembol (`ART_SPRITE`) |
 | Şerit yazısı | 12 ifade |
 | Bağımlılık | 0 (framework, npm, build yok) |
 | JS satır sayısı | ~810 |
 | CSS satır sayısı | ~950 |
-| Kalıcı veri | `localStorage`: `tandir-cart`, `tandir-theme`, `tandir-ticker` |
+| Kalıcı veri | `localStorage`: `tandir-cart`, `tandir-theme`, `tandir-ticker`, `tandir-consent` |
 | Tema | Gündüz + gece, sistem tercihi fallback'li |
 
 ---

@@ -7,12 +7,13 @@
 | `assets/logo.svg` | Bu projenin üretimi | MIT (kodla birlikte) |
 | `assets/favicon.svg` | Bu projenin üretimi | MIT |
 | `assets/doner.svg` | Bu projenin üretimi | MIT |
+| `assets/doner-photo.jpg` | Proje tarafından sağlanan örnek fotoğraf | MIT (örnek) |
 | Menü illüstrasyonları (`ART_SPRITE`) | Bu projenin üretimi | MIT |
 | `docs/preview.jpg` | Bu projenin ekran görüntüsü | MIT |
 
-**Üçüncü parti stok fotoğraf kullanılmıyor.** Site, kendi ürettiğimiz SVG illüstrasyonla
-açılıyor; gerçek fotoğraf koymak isteyen kullanıcı `assets/` içine kendi görselini
-yerleştirir (bkz. `docs/06-gorseller.md`).
+**Stok/üçüncü parti görsel yoktur.** Fotoğraflar projeye ait örnek görsellerdir;
+kendi işletmenizin fotoğraflarıyla değiştirmeniz önerilir (bkz. `docs/06-gorseller.md`).
+Fotoğraflar `sharp` ile 640 px'e indirilip progressive JPEG (q72–74) olarak optimize edildi.
 
 ## Yazı tipleri
 

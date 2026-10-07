@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>İletişim — Tandır Döner</title>
-  <meta name="description" content="Tandır Döner adresi, telefonu, WhatsApp sipariş hattı ve açılış saatleri.">
-<!-- Open Graph / sosyal paylaşım — kendi domain'inle değiştir -->
+  <title>Gizlilik — Tandır Döner</title>
+  <meta name="description" content="Bu sitede çerez ve analitik yoktur; sepet, tema ve şerit tercihi tarayıcının yerel deposunda tutulur. KVKK kapsamında kısa gizlilik açıklaması.">
+  <!-- Open Graph / sosyal paylaşım — kendi domain'inle değiştir -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Tandır Döner">
-  <meta property="og:url" content="https://bahattinercan.github.io/doner-website/contact.html">
-  <meta property="og:title" content="İletişim — Tandır Döner">
-  <meta property="og:description" content="Adres, telefon, WhatsApp sipariş, açılış saatleri ve harita.">
+  <meta property="og:url" content="https://bahattinercan.github.io/doner-website/gizlilik.html">
+  <meta property="og:title" content="Gizlilik — Tandır Döner">
+  <meta property="og:description" content="Çerez yok, analitik yok. Sepet ve tema tercihi yalnızca tarayıcınızda tutulur.">
   <meta property="og:image" content="https://bahattinercan.github.io/doner-website/docs/preview.jpg">
   <meta property="og:image:width" content="1400">
   <meta property="og:image:height" content="900">
-  <meta property="og:image:alt" content="İletişim — Tandır Döner">
+  <meta property="og:image:alt" content="Gizlilik — Tandır Döner">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="İletişim — Tandır Döner">
-  <meta name="twitter:description" content="Adres, telefon, WhatsApp sipariş, açılış saatleri ve harita.">
+  <meta name="twitter:title" content="Gizlilik — Tandır Döner">
+  <meta name="twitter:description" content="Çerez yok, analitik yok. Sepet ve tema tercihi yalnızca tarayıcınızda tutulur.">
   <meta name="twitter:image" content="https://bahattinercan.github.io/doner-website/docs/preview.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +40,7 @@
       <a href="index.html">Ana Sayfa</a>
       <a href="menu.html">Menü</a>
       <a href="about.html">Hakkımızda</a>
-      <a href="contact.html" class="active">İletişim</a>
+      <a href="contact.html">İletişim</a>
     </nav>
     <button class="theme-toggle" id="theme-toggle" aria-label="Gece moduna geç" title="Gece / gündüz modu">
       <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 14.3A8.6 8.6 0 1 1 9.7 3.4a8.6 8.6 0 0 0 10.9 10.9z" fill="currentColor"/></svg>
@@ -50,56 +50,64 @@
       <svg class="icon icon-basket" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14M6.5 8l2 9.5h7l2-9.5M9 4.5v3.5M15 4.5v3.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span class="cart-count" id="cart-count">0</span>
     </button>
-    <a class="cta-call" href="tel:+905321234567">Ara</a>
+    <a class="cta-call" href="tel:+905321234567" data-site="phoneHref">Ara</a>
   </div>
   <div class="scroll-progress" id="scroll-progress"></div>
 </header>
 
-<section class="section wrap">
-  <h2>İletişim</h2>
-  <p class="section-lede">Sipariş telefon ve WhatsApp üzerinden. Akşam son şiş bitince ocak kapanır.</p>
+<main class="section wrap">
+  <h1 class="section-head reveal">Gizlilik ve KVKK</h1>
+  <p class="section-lede reveal">Bu site tamamen statiktir. Ziyaretçi verisi toplamaz,
+    çerez kullanmaz, analitik/reklam scripti barındırmaz.</p>
 
-  <div class="contact-grid">
-    <div class="contact-col">
-      <div class="card reveal">
-        <h3>Telefon &amp; WhatsApp</h3>
-        <p class="contact-line"><a href="tel:+905321234567" data-site="phone"></a></p>
-        <div class="card-actions">
-          <a class="btn btn-primary" href="https://wa.me/905321234567">WhatsApp ile sipariş</a>
-          <a class="btn btn-outline" href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
-        </div>
-      </div>
-
-      <div class="card reveal">
-        <h3>Adres</h3>
-        <p data-site="address"></p>
-        <p class="note">İstiklal Caddesi'nin Beyoğlu tarafı; tramvay durağına 2 dakika.</p>
-        <div class="card-actions">
-          <a class="btn btn-outline" data-maps-link href="https://www.google.com/maps" target="_blank" rel="noopener">Yol tarifi</a>
-        </div>
-      </div>
+  <div class="cards reveal">
+    <div class="card">
+      <h3>Çerez yok</h3>
+      <p>Tarayıcıya bırakılan hiçbir iz/çerez yoktur. Site, sunucu tarafında hiçbir
+        ziyaret kaydı tutmaz.</p>
     </div>
-
-    <div class="contact-col">
-      <div class="card reveal">
-        <h3>Açılış saatleri</h3>
-        <table class="hours-table" data-hours></table>
-        <div class="status" id="open-status"><span class="dot"></span><span class="status-text"></span></div>
-      </div>
+    <div class="card">
+      <h3>Yerel depolama (localStorage)</h3>
+      <p>Site yalnızca senin tarayıcında şu bilgileri saklar: sepet içeriği, tema
+        tercihi (gece/gündüz), kayan şerit tercihi ve bu uyarının gösterilip
+        gösterilmeyeceği. Hiçbir bilgi dışarı gönderilmez.</p>
+    </div>
+    <div class="card">
+      <h3>Siparişler</h3>
+      <p>Sipariş listesi WhatsApp'a senin cihazından gönderilir. Site sipariş,
+        isim, telefon ya da adres bilgisi vermez.</p>
+    </div>
+    <div class="card">
+      <h3>Üçüncü taraflar</h3>
+      <p>Yazı tipleri Google Fonts'tan, iletişim sayfasındaki harita Google Maps
+        embed'inden gelir. Bu servisler kendi gizlilik politikalarına tabidir.</p>
     </div>
   </div>
 
-  <!-- Adresi değiştirmek için tek yer: site.js içindeki SITE.mapsQuery -->
-  <div class="map-wrap reveal">
-    <iframe id="map" class="map"
-      src="https://www.google.com/maps?q=%C4%B0stiklal%20Caddesi%2012%20Beyo%C4%9Flu%20%C4%B0stanbul&output=embed"
-      title="Konum haritası" loading="lazy"></iframe>
-    <div class="map-meta">
-      <span data-site="address"></span>
-      <a data-maps-link href="https://www.google.com/maps" target="_blank" rel="noopener">Haritada aç ↗</a>
+  <div class="hours-panel reveal">
+    <h2>Tarayıcındaki verileri silmek</h2>
+    <p>Aşağıdaki anahtarlar bu sitede kullanılır. Tarayıcı ayarlarından ya da
+      geliştirici konsolundan silebilirsin:</p>
+    <table class="hours-table">
+      <tr><td><code>tandir-cart</code></td><td>Sepet içeriği</td></tr>
+      <tr><td><code>tandir-theme</code></td><td>Gece / gündüz tercihi</td></tr>
+      <tr><td><code>tandir-ticker</code></td><td>Kayan şerit açık/kapalı</td></tr>
+      <tr><td><code>tandir-consent</code></td><td>Gizlilik uyarısının durumu</td></tr>
+    </table>
+    <p>Konsoldan temizlemek için:</p>
+    <pre>localStorage.clear();</pre>
+  </div>
+
+  <div class="cta-strip reveal">
+    <p>KVKK kapsamında bir talebin varsa (bilgi öğrenme, silme vb.) bize telefon ya da
+      e-posta ile ulaşabilirsin. Bu şablonu kendi işletmen için kullanıyorsan,
+      kendi KVKK metnini buraya yazmayı unutma.</p>
+    <div class="card-actions">
+      <a class="btn btn-primary" href="contact.html">İletişime geç</a>
+      <a class="btn btn-outline" href="index.html">Ana sayfaya dön</a>
     </div>
   </div>
-</section>
+</main>
 
 <footer>
   <div class="footer-inner">

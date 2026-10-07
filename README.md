@@ -104,7 +104,8 @@ Kendi fotoğrafını koymak isteyenler `assets/` içine görsel koyup ürüne
 | **Kayan şerit**            | `SITE.ticker` yazıları; × ile kapatılabilir, tercihi kalıcı                                    |
 | **İstatistik sayaçları**   | Görünürken 0'dan sayan rakamlar (`data-count`)                                                 |
 | **Mobil uyumlu**           | 900 / 860 / 640 px kırılımları, hamburger menü, tek kolon hero                                 |
-| **SEO**                    | Sayfa başlıkları, meta description, `schema.org/Restaurant` JSON-LD, Open Graph + Twitter Card |
+| **SEO**                    | Sayfa başlıkları, meta description, `schema.org/Restaurant` JSON-LD, sayfa bazlı Open Graph (`og:url`) + Twitter Card |
+| **Gizlilik**              | Çerez yok; kapatılabilir KVKK/gizlilik bandı + `gizlilik.html` sayfası |
 | **Erişilebilirlik**        | `aria-label`, `aria-expanded`, `prefers-reduced-motion`, focus outline, `color-scheme`         |
 | **Türkçe para formatı**    | `285` yaz, `285 ₺` olarak çıkar (`toLocaleString("tr-TR")`)                                    |
 | **Kısa URL dostu**         | Build yok, framework yok → CDN'de ~40 KB HTML/CSS/JS + SVG                                     |
@@ -125,7 +126,16 @@ doner-website/
 ├── assets/
 │   ├── logo.svg           # Üst bar logosu: tandır + şiş + köz (64×64 viewBox)
 │   ├── favicon.svg        # Sekme simgesi: koyu rozet içinde aynı işaret
-│   └── doner.svg          # Hero/hikâye illüstrasyonu (320×460, kendi üretimimiz)
+│   ├── doner-photo.jpg    # Hero + hikâye fotoğrafı (640×960, ~115 KB)
+│   ├── doner.svg          # Yedek SVG illüstrasyon (320×460)
+│   └── menu/              # Ürün fotoğrafları (640×480, ~60 KB each)
+│       ├── tandir-durum.jpg
+│       ├── yonum-durum.jpg
+│       ├── porsiyon-doner.jpg
+│       ├── doner-sandvic.jpg
+│       ├── ceyrek-doner.jpg
+│       ├── doner-burger.jpg
+│       └── etli-pide.jpg
 ├── docs/
 │   ├── README.md               # Dokümantasyon ana sayfası (indeks)
 │   ├── 01-mimari.md            # Dosyaların rolü, sayfa iskeleti, site.js akışı
@@ -139,6 +149,10 @@ doner-website/
 │   ├── 09-sorun-giderme.md     # Belirti → neden → çözüm
 │   ├── 10-uyarlama-rehberi.md   # Başka dükkana uyarlama adımları
 │   └── preview.jpg             # README ekran görüntüsü (1400×900)
+├── gizlilik.html      # KVKK / gizlilik sayfası
+├── .github/
+│   ├── ISSUE_TEMPLATE/    # Hata raporu + özellik önerisi şablonları
+│   └── PULL_REQUEST_TEMPLATE.md
 ├── LICENSE            # MIT
 ├── CONTRIBUTING.md
 ├── CHANGELOG.md
@@ -384,17 +398,19 @@ Kırılma noktaları: **900 px** (iletişim/saat paneli tek kolon), **860 px** (
 
 | Dosya                    | Boyut           | Ağırlık | Nerelerde                                                |
 | ------------------------ | --------------- | ------- | -------------------------------------------------------- |
-| `assets/doner.svg`       | 320 × 460       | ~2 KB   | Hero illüstrasyonu + Hakkımızda görseli                  |
+| `assets/doner-photo.jpg` | 640 × 960       | ~115 KB | Hero (Ken Burns) + Hakkımızda görseli                    |
+| `assets/menu/*.jpg`      | 640 × 480       | ~60 KB  | Ürün kartları (7 ürün)                                   |
+| `assets/doner.svg`       | 320 × 460       | ~2 KB   | Yedek illüstrasyon (logo benzeri)                        |
 | `assets/logo.svg`        | 64 × 64 viewBox | ~1.2 KB | Tüm sayfalarda üst bar (32 px)                           |
 | `assets/favicon.svg`     | 64 × 64         | ~1 KB   | Sekme simgesi (`rel="icon"`)                             |
 | `docs/preview.jpg`       | 1400 × 900      | ~140 KB | README önizlemesi + `og:image`                           |
 
-Tüm görseller **bu projenin kendi üretimidir** (SVG) — üçüncü parti stok
-fotoğraf yoktur, lisans riski yoktur. Detay: [CREDITS.md](CREDITS.md).
+Fotoğraflar projeye ait örnek görsellerdir; ürün kartlarında illüstrasyon yerine
+otomatik kullanılırlar. Detay: [CREDITS.md](CREDITS.md).
 
-> Kendi fotoğrafını kullanmak isteyen: `assets/` içine `hero.jpg` koy ve
-> `index.html`'de `src="assets/doner.svg"` yerine `src="assets/hero.jpg"` yaz.
-> Ürün fotoğrafları için ise ürüne `img: "assets/menu/x.jpg"` yeterli.
+> Kendi fotoğrafını kullanmak isteyen: `assets/doner-photo.jpg` üzerine kendi
+> görselini yaz (aynı ad yeterli). Ürün fotoğrafları için ürüne
+> `img: "assets/menu/x.jpg"` yazmak yeterli.
 
 ---
 
@@ -423,6 +439,7 @@ fotoğraf yoktur, lisans riski yoktur. Detay: [CREDITS.md](CREDITS.md).
 | `tandir-cart`   | Sepet: `[{name, price, qty}, …]` | "Sepeti temizle" düğmesi            |
 | `tandir-theme`  | `"light"` / `"dark"`             | Anahtarı sil → sistem ayarına döner |
 | `tandir-ticker` | `"off"` ise kayan şerit gizlidir | Anahtarı sil → şerit geri gelir     |
+| `tandir-consent`  | Gizlilik uyarısı kapatıldıysa `"ok"` | Anahtarı sil → uyarı tekrar çıkar   |
 
 > `localStorage` kapalıysa (gizli mod) sepet sadece o sayfa için çalışır, site bozulmaz.
 
@@ -520,10 +537,10 @@ Yayına almadan önce:
 - [x] Ürün illüstrasyonları (29 flat SVG)
 - [x] Vitrin ve menü şeritlerinin yana kaydırılabilir olması
 - [x] `og:image` / Twitter Card etiketleri ve favicon
-- [ ] Gerçek ürün fotoğrafları (dürüm, porsiyon, künefe) + `sharp` optimizasyonu
+- [x] Gerçek ürün fotoğrafları (7 ürün, `sharp` ile optimize edildi)
 - [ ] QR menü (masaya basılı QR → `menu.html`)
 - [ ] Menü verisinin Google Sheets / CSV'den okunması (deploy'sız fiyat güncelleme)
-- [ ] KVKK / çerez bildirimi
+- [x] KVKK / gizlilik notu (`gizlilik.html` + kapatılabilir uyarı bandı)
 - [ ] Instagram galerisi
 - [ ] Gerçek adresin Google Maps linki
 

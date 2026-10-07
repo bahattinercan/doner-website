@@ -1,5 +1,14 @@
 # Değişiklik günlüğü
 
+## v1.1.0 — 2026-10-07 (halka açılma)
+
+- **GitHub Issues / PR şablonları** (`.github/ISSUE_TEMPLATE/…`, `PULL_REQUEST_TEMPLATE.md`)
+- **KVKK / gizlilik**: her sayfada kapatılabilir gizlilik bandı + `gizlilik.html` sayfası
+  (`localStorage: tandir-consent`)
+- **`og:url` ve sayfa bazlı Open Graph etiketleri** (4 sayfa + gizlilik)
+- **Gerçek ürün fotoğrafları**: hero için odun ateşinde tandır fotoğrafı, 7 ürün
+  kartı fotoğrafı — hepsi `sharp` ile 640 px, progressive JPEG (q72–74)
+
 ## v1.0.0 — 2026-10-07 (ilk açık sürüm)
 
 ### Yeni

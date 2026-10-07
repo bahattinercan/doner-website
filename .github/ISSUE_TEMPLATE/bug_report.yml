@@ -1,0 +1,59 @@
+name: Hata raporu
+description: Çalışmayan bir şey bildirmek için kullanın
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Teşekkürler! Kısa ve net bir rapor, düzeltmeyi hızlandırır.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Ne oldu?
+      description: Belirtiyi net biçimde anlatın.
+      placeholder: Sepete eklediğim ürün sayfa yenilenince kayboluyor.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Adım adım nasıl yeniden üretilebilir?
+      description: Örn. 1) menu.html aç 2) "Ayran" ekle 3) sayfayı yenile
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Beklenen davranış
+      placeholder: Sepetin korunması bekleniyordu.
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Tarayıcı / cihaz
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Mobil (Android)
+        - Mobil (iOS)
+        - Diğer
+  - type: textarea
+    id: console
+    attributes:
+      label: Konsol hatası (varsa)
+      placeholder: Uncaught TypeError: ...
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Ön kontroller
+      options:
+        - label: `python3 -m http.server 8000` ile yerelde de denedim
+        - label: Tarayıcı konsoluna bakıp hata mesajını kopyaladım
+        - label: `docs/09-sorun-giderme.md` bölümüne baktım

@@ -1,0 +1,34 @@
+name: Özellik önerisi
+description: Yeni bir özellik veya iyileştirme önermek için kullanın
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Bu site sıfır bağımlılık ilkesiyle yazılıyor. Önerinin build/paket
+        gerektirip gerektirmediğini belirtmek işi hızlandırır.
+  - type: textarea
+    id: idea
+    attributes:
+      label: Öneri
+      description: Ne eklensin, neden faydalı?
+      placeholder: Menü fiyatlarını güncellemek için deploy gerektirmeyen bir JSON dosyası okunsun.
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Hangi alanı ilgilendiriyor?
+      options:
+        - İçerik / menü
+        - Tasarım
+        - Sepet & sipariş
+        - SEO
+        - Erişilebilirlik
+        - Performans
+        - Yayına alma
+  - type: textarea
+    id: sketch
+    attributes:
+      label: Yaklaşık nasıl çalışmalı?
+      placeholder: "content.js içindeki MENU yerine menu.json fetch edilir…"

@@ -726,6 +726,50 @@ html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
 }
 .toast.is-out { animation: toastOut .3s var(--ease) forwards; }
 
+/* ---------------- gizlilik / çerez uyarısı ---------------- */
+
+.cookie-note {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 80;
+  max-width: 520px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--ink);
+  color: var(--on-dark);
+  border: 1px solid rgba(233, 178, 85, .3);
+  border-radius: 12px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .35);
+  animation: cookieIn .4s var(--ease);
+}
+.cookie-note p { margin: 0; font-size: .88rem; line-height: 1.45; }
+.cookie-note a { color: var(--amber); text-decoration: underline; }
+.cookie-ok {
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--amber);
+  background: var(--amber);
+  color: var(--ink);
+  font: inherit;
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .2s var(--ease), background .2s;
+}
+.cookie-ok:hover { background: var(--amber-deep); transform: translateY(-1px); }
+@keyframes cookieIn {
+  from { opacity: 0; transform: translate(-50%, 14px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+@media (max-width: 640px) {
+  .cookie-note { max-width: calc(100% - 24px); flex-direction: column; align-items: stretch; }
+}
+
 /* ---------------- hikâye ---------------- */
 
 .story {
