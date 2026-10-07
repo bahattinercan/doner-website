@@ -20,6 +20,16 @@ const esc = (value) =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
 
+/* localStorage her ortamda erişilebilir değildir (gizli mod, gömülü iframe,
+   tarayıcı kısıtı). Tüm okuma/yazmalar bu iki kapıdan geçer: erişilemezse
+   tercih yalnızca o sayfa için geçerli kalır ve site çalışmaya devam eder. */
+const lsGet = (key) => {
+  try { return localStorage.getItem(key); } catch (err) { return null; }
+};
+const lsSet = (key, value) => {
+  try { localStorage.setItem(key, value); } catch (err) { /* sessiz: gizli mod */ }
+};
+
 /* href'lere yalnızca http(s)/tel/mailto kabul edilir — javascript: gibi
    şemalar content.js'i düzenleyen biri için XSS kapısıdır. */
 const safeHref = (href) => {
@@ -297,7 +307,7 @@ let orderOpen = false;
 
 function loadOrder() {
   try {
-    const raw = localStorage.getItem(CART_KEY);
+    const raw = lsGet(CART_KEY);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
@@ -318,7 +328,7 @@ function loadOrder() {
 
 function saveOrder() {
   try {
-    localStorage.setItem(CART_KEY, JSON.stringify(order));
+    lsSet(CART_KEY, JSON.stringify(order));
   } catch (err) {
     /* localStorage kapalıysa sepet sadece bu sayfa için çalışır */
   }
@@ -665,7 +675,7 @@ let consentGiven = false;
 
 function hasConsent() {
   if (consentGiven) return true;
-  try { return localStorage.getItem("tandir-consent") === "ok"; } catch (err) { return false; }
+  return lsGet("tandir-consent") === "ok";
 }
 
 /* Rıza verilmeden Google Maps iframe'i yüklenmez: embed kendi çerezlerini
@@ -733,7 +743,7 @@ function applyTheme(theme) {
 }
 
 function initTheme() {
-  const saved = localStorage.getItem(THEME_KEY);
+  const saved = lsGet(THEME_KEY);
   const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   applyTheme(saved || (systemDark ? "dark" : "light"));
 
@@ -742,12 +752,12 @@ function initTheme() {
   btn.addEventListener("click", () => {
     const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
     applyTheme(next);
-    try { localStorage.setItem(THEME_KEY, next); } catch (err) { /* yoksay */ }
+    lsSet(THEME_KEY, next);
   });
 
   // kullanıcı sistem tercihini değiştirirse ve elle seçim yoksa takip et
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-    if (!localStorage.getItem(THEME_KEY)) applyTheme(e.matches ? "dark" : "light");
+    if (!lsGet(THEME_KEY)) applyTheme(e.matches ? "dark" : "light");
   });
 }
 
@@ -833,7 +843,7 @@ function initTicker() {
   const ticker = document.getElementById("ticker");
   if (!ticker) return;
 
-  if (localStorage.getItem("tandir-ticker") === "off") {
+  if (lsGet("tandir-ticker") === "off") {
     ticker.remove();
     return;
   }
@@ -850,7 +860,7 @@ function initTicker() {
   if (close) {
     close.addEventListener("click", () => {
       ticker.remove();
-      try { localStorage.setItem("tandir-ticker", "off"); } catch (err) { /* yoksay */ }
+      lsSet("tandir-ticker", "off");
     });
   }
 }
@@ -861,8 +871,7 @@ function initConsent() {
   const note = document.getElementById("cookie-note");
   if (!note) return;
 
-  let saved = null;
-  try { saved = localStorage.getItem("tandir-consent"); } catch (err) { /* localStorage kapalı */ }
+  const saved = lsGet("tandir-consent");
   if (saved === "ok") {
     consentGiven = true;
     note.remove();
@@ -874,7 +883,7 @@ function initConsent() {
   if (btn) {
     btn.addEventListener("click", () => {
       consentGiven = true;
-      try { localStorage.setItem("tandir-consent", "ok"); } catch (err) { /* localStorage kapalı: rıza bu sayfa için geçerli */ }
+      lsSet("tandir-consent", "ok");
       note.remove();
       loadThirdParty();
     });
