@@ -1,0 +1,215 @@
+{
+  "generator": "Built-in image_gen",
+  "images": [
+    {
+      "id": "tandir-durum",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu product photograph. Subject: Tandır Dürüm, a Turkish lavash wrap cut diagonally into two halves showing wood-roasted thinly sliced beef doner, french fries and garlic sauce. Warm cream ceramic plate on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing food textures, three-quarter overhead view. Single dish centered, fully visible with generous margin for square and landscape card crops. Photorealistic professional food photography. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/tandir-durum.png"
+    },
+    {
+      "id": "yonum-durum",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Yönüm Dürüm: crispy toasted lavash wrap cut open, very thinly chopped beef doner, pickled cucumbers and red hot sauce. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/yonum-durum.png"
+    },
+    {
+      "id": "porsiyon-doner",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Porsiyon Döner: plate of thin shaved roasted beef doner with a mound of rice and chopped tomato cucumber shepherd salad. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/porsiyon-doner.png"
+    },
+    {
+      "id": "doner-sandvic",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Döner Sandviç: Turkish crusty bread sandwich stuffed with shaved beef doner, tomato slices and cucumber pickles. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/doner-sandvic.png"
+    },
+    {
+      "id": "ceyrek-doner",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Çeyrek Döner: small quarter-loaf Turkish bread sandwich with beef doner accompanied by a small portion of fries. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/ceyrek-doner.png"
+    },
+    {
+      "id": "etli-pide",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Etli Pide: boat-shaped Turkish pide with minced beef and doner pieces, melted kasar cheese and roasted green pepper. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/etli-pide.png"
+    },
+    {
+      "id": "adana-durum",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Adana Dürüm: double lavash wrap cut open showing spicy grilled minced Adana kebab, accompanied by charred green pepper. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/adana-durum.png"
+    },
+    {
+      "id": "doner-burger",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Döner Burger: glossy brioche bun filled with shaved beef doner (not a burger patty), cheddar, pickles and garlic sauce. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/doner-burger.png"
+    },
+    {
+      "id": "kasarli-durum",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Kaşarlı Dürüm: double lavash wrap cut diagonally with shaved beef doner and generous melted Turkish kasar cheese. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/kasarli-durum.png"
+    },
+    {
+      "id": "duble-tandir",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Duble Tandır: extra-large thick double lavash wrap cut into two large halves, filled with double serving of roasted shaved beef doner. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/duble-tandir.png"
+    },
+    {
+      "id": "lahmacun",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Lahmacun: one thin round Turkish flatbread with finely minced beef tomato and herb topping, parsley and lemon wedge. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/lahmacun.png"
+    },
+    {
+      "id": "kasarli-pide",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Kaşarlı Pide: elongated boat-shaped Turkish pide filled with golden melted kasar cheese and charred green peppers. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/kasarli-pide.png"
+    },
+    {
+      "id": "pacanga-boregi",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Paçanga Böreği: golden crisp pastry rolls, one cut open showing pastirma cured beef and melted cheese. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/pacanga-boregi.png"
+    },
+    {
+      "id": "cift-lahmacun",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Çift Lahmacun: exactly two thin round Turkish lahmacun with minced meat topping, slightly overlapping, accompanied by one glass of foamy white ayran. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/cift-lahmacun.png"
+    },
+    {
+      "id": "mercimek-corbasi",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Mercimek Çorbası: smooth golden Turkish lentil soup in a cream ceramic bowl, melted butter swirl and lemon wedge. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/mercimek-corbasi.png"
+    },
+    {
+      "id": "ezogelin-corbasi",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Ezogelin Çorbası: rustic red-orange Turkish soup with visible lentil and bulgur texture, tomatoes and dried mint. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/ezogelin-corbasi.png"
+    },
+    {
+      "id": "coban-salata",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Çoban Salata: diced tomato cucumber and green pepper Turkish shepherd salad dressed in pomegranate molasses. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/coban-salata.png"
+    },
+    {
+      "id": "roket-salata",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Roket Salata: fresh arugula rocket salad with white feta cheese cubes and ruby pomegranate seeds, olive oil. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/roket-salata.png"
+    },
+    {
+      "id": "humus",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Humus: creamy chickpea hummus swirled in a shallow bowl with olive oil, served with warm lavash bread. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/humus.png"
+    },
+    {
+      "id": "haydari",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Haydari: thick white strained yogurt dip with mint and garlic, olive oil drizzle, served with lavash. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/haydari.png"
+    },
+    {
+      "id": "kozlenmis-biber",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Közlenmiş Biber: wood-fire roasted red and green peppers with charred skins, dressed with garlic and olive oil. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/kozlenmis-biber.png"
+    },
+    {
+      "id": "citir-patates",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Çıtır Patates: modest single serving of golden hand-cut crispy salted french fries in a small cream ceramic dish. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/citir-patates.png"
+    },
+    {
+      "id": "buyuk-patates",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Büyük Patates: large generous 200g serving of hand-cut golden salted french fries piled in a broad cream ceramic bowl. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/buyuk-patates.png"
+    },
+    {
+      "id": "sogan-halkasi",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Soğan Halkası: golden crispy breaded onion rings with a small ramekin of red spicy dipping sauce. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/sogan-halkasi.png"
+    },
+    {
+      "id": "tursu-tabagi",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Turşu Tabağı: Turkish mixed pickle plate with cucumber pickles, pickled cabbage, carrot and peppers. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/tursu-tabagi.png"
+    },
+    {
+      "id": "pilav",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Pilav: buttered golden bulgur pilaf with distinct coarse bulgur grains in a cream ceramic bowl, not white rice. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/pilav.png"
+    },
+    {
+      "id": "citir-lavas",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Çıtır Lavaş: warm thin Turkish lavash flatbread with crisp toasted bubbles, folded loosely on a plate. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/citir-lavas.png"
+    },
+    {
+      "id": "misir",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Mısır: boiled yellow corn on the cob with a pat of melting butter. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/misir.png"
+    },
+    {
+      "id": "kunefe",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Künefe: round Turkish kunefe dessert of crisp golden shredded kadayif pastry soaked in syrup, pistachio topping, one wedge slightly lifted showing melted cheese. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/kunefe.png"
+    },
+    {
+      "id": "fistikli-baklava",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Fıstıklı Baklava: exactly four pieces of Turkish pistachio baklava with flaky golden phyllo layers and green pistachio filling, glossy syrup. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/fistikli-baklava.png"
+    },
+    {
+      "id": "sutlac",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Sütlaç: oven-baked Turkish rice pudding in an earthenware ramekin, caramelized brown top and light dusting of cinnamon. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/sutlac.png"
+    },
+    {
+      "id": "kazandibi",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Kazandibi: rolled Turkish milk pudding with caramelized dark golden skin and soft white center, topped with chopped hazelnuts. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/kazandibi.png"
+    },
+    {
+      "id": "sekerpare",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Şekerpare: exactly four golden Turkish semolina cookies soaked in syrup on a cream ceramic plate. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/sekerpare.png"
+    },
+    {
+      "id": "ayran",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Ayran: single clear glass of fresh white Turkish yogurt drink with natural foam. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/ayran.png"
+    },
+    {
+      "id": "salgam",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Şalgam: single clear glass of deep purple-red Turkish fermented turnip drink. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/salgam.png"
+    },
+    {
+      "id": "limonata",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Limonata: single clear glass of homemade cloudy yellow lemonade with fresh mint leaves. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/limonata.png"
+    },
+    {
+      "id": "soda",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Soda: single clear glass of sparkling soda water with rising bubbles. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/soda.png"
+    },
+    {
+      "id": "su",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Su: unbranded clear 500 ml spring-water bottle with cap and condensation. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/su.png"
+    },
+    {
+      "id": "maden-suyu",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Maden Suyu: small unbranded green glass mineral water bottle alongside a clear glass of sparkling mineral water and lemon wedge. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/maden-suyu.png"
+    },
+    {
+      "id": "cay",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Çay: Turkish amber black tea in a traditional tulip-shaped clear tea glass on a small saucer. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/cay.png"
+    },
+    {
+      "id": "turk-kahvesi",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Türk Kahvesi: small Turkish coffee cup with thick foam, accompanied by two cubes of Turkish delight. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/turk-kahvesi.png"
+    },
+    {
+      "id": "filtre-kahve",
+      "prompt": "Use case: product-mockup. Asset type: Turkish restaurant menu photograph. Subject: Filtre Kahve: freshly brewed black filter coffee in a simple cream ceramic mug with faint rising steam. Warm cream ceramic tableware on a rustic dark brown tabletop, warm soft side lighting, authentic appetizing textures. Photorealistic professional food photography, three-quarter overhead view. Only the described product and accompaniments, centered fully visible with generous margins for square and landscape card crops. No text, logos, watermarks, collage or people.",
+      "source": "images/raw/filtre-kahve.png"
+    }
+  ]
+}
