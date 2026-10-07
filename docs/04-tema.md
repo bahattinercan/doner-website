@@ -73,8 +73,8 @@ sistem tercihi devreye girmez.
 Koyu temada Google Maps iframe'i karartılır:
 
 ```css
-html[data-theme="dark"] #map {
-  filter: invert(1) hue-rotate(180deg) brightness(.95) saturate(.75);
+html[data-theme="dark"] .map {
+  filter: invert(1) hue-rotate(180deg) brightness(0.95) saturate(0.75);
 }
 ```
 
@@ -98,5 +98,6 @@ Headless Chrome ile gündüz ekran görüntüsü almak için:
 chrome --headless=new --screenshot=shot.png --window-size=1400,900 index.html
 ```
 
-Headless varsayılan olarak koyu tema ile açılır; gündüzü görmek için sayfaya
+Headless Chrome, işletim sisteminin tema ayarını okur; koyu tema açık bir Windows'ta
+görüntü koyu çıkar. Belirli bir temayı test etmek için sayfaya geçici olarak
 `<script>localStorage.setItem("tandir-theme","light")</script>` eklenmiş bir kopya kullan.

@@ -56,7 +56,7 @@ const MENU = [
 | Logo | `assets/logo.svg`'yi değiştir (64×64 viewBox önerilir) |
 | Favicon | `assets/favicon.svg`'yi değiştir |
 | Hero fotoğrafı | `assets/doner-photo.jpg` üzerine yaz (≥640 px) |
-| Ürün fotoğrafları | `assets/menu/*.jpg` + ürüne `img: "assets/menu/x.jpg"` |
+| Ürün fotoğrafları | `assets/menu/*-generated.jpg` + ürüne `img: "assets/menu/x-generated.jpg"` |
 | İllüstrasyonlar | `ART_SPRITE`'a yeni `<symbol>` ekle, `ART_KEYS`'a yaz |
 
 ---

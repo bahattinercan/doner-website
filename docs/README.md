@@ -29,8 +29,8 @@ nelerin bozulabileceği madde madde anlatılır.
 |---|---|---|
 | Telefon / adres / Instagram | `content.js` | `SITE` nesnesi |
 | Fiyat / ürün / kategori | `content.js` | `MENU` dizisi |
-| Açılış saatleri | `site.js` | `SITE.hours` |
-| Kayan şerit yazıları | `site.js` | `SITE.ticker` |
+| Açılış saatleri | `content.js` | `SITE.hours` |
+| Kayan şerit yazıları | `content.js` | `SITE.ticker` |
 | Renkler | `styles.css` | `:root` ve `html[data-theme="dark"]` |
 | Ürün fotoğrafı | `assets/menu/…jpg` | ürüne `img: "…"` ekle |
 | Hero fotoğrafı | `assets/doner-photo.jpg` | üzerine aynı adla yaz |
@@ -43,11 +43,12 @@ nelerin bozulabileceği madde madde anlatılır.
 |---|---|
 | Sayfa sayısı | 5 (`index`, `menu`, `about`, `contact`, `gizlilik`) |
 | Menü | 6 kategori, 42 ürün |
-| İllüstrasyon | 29 SVG sembol (`ART_SPRITE`) |
-| Şerit yazısı | 12 ifade |
+| Ürün fotoğrafı | 42 (`assets/menu/*-generated.jpg`, 800×533) |
+| İllüstrasyon | 29 SVG sembol (`ART_SPRITE`) — `img` yoksa yedek |
+| Şerit yazısı | 13 ifade |
 | Bağımlılık | 0 (framework, npm, build yok) |
-| JS satır sayısı | ~810 |
-| CSS satır sayısı | ~950 |
+| JS satır sayısı | ~960 (`site.js`) + 129 (`content.js`) |
+| CSS satır sayısı | ~1950 |
 | Kalıcı veri | `localStorage`: `tandir-cart`, `tandir-theme`, `tandir-ticker`, `tandir-consent` |
 | Tema | Gündüz + gece, sistem tercihi fallback'li |
 
@@ -60,7 +61,8 @@ nelerin bozulabileceği madde madde anlatılır.
 | **SITE** | Dükkan bilgileri nesnesi (isim, telefon, adres, saatler, şerit) |
 | **MENU** | Kategoriler ve ürünler dizisi |
 | **ART_SPRITE** | Ürün kartlarında kullanılan SVG sembol koleksiyonu |
-| **order** |Bellekteki sepet dizisi: `{ name, price, qty }` |
+| **order** | Bellekteki sepet dizisi: `{ name, price, qty }` |
+| **modal** | Ürün kartına tıklayınca açılan detay penceresi (`#item-modal`, JS ile oluşturulur) |
 | **rozet / status** | "Şu an açık / kapalı" göstergesi |
 | **FAB** | Sağ altta beliren WhatsApp butonu (floating action button) |
 | **reveal** | Scroll'da görünürlükle açılan animasyon sınıfı |

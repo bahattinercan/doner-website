@@ -32,11 +32,11 @@ const BASKET_ICON = `<svg class="icon icon-basket" viewBox="0 0 24 24" aria-hidd
 const CLOSE_ICON = `<svg class="icon icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
 
 // Ürün adına göre illüstrasyon seçilir. Gerçek fotoğraf kullanmak için ürüne img alanı eklenir.
-// Ürüne img alanı eklendiğinde (ör. "assets/menu/kunefe.jpg") SVG yerine fotoğraf kullanılır.
+// Ürüne img alanı eklendiğinde (ör. "assets/menu/kunefe-generated.jpg") SVG yerine fotoğraf kullanılır.
 const ART_SPRITE = `<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true">
   <!-- Tandır Döner menü ikonları — düz (flat) illüstrasyonlar.
      Gerçek fotoğraf kullanmak için MENU içindeki ürüne img alanı eklenir
-     (ör. img: "assets/menu/kunefe.jpg"); SVG otomatik olarak devre dışı kalır. -->
+     (ör. img: "assets/menu/kunefe-generated.jpg"); SVG otomatik olarak devre dışı kalır. -->
 
   <symbol id="art-durum" viewBox="0 0 64 48">
     <g transform="rotate(-16 32 24)">

@@ -134,8 +134,10 @@ Not satırları ("Son sipariş…", "Resmî tatiller…") sabit metindir; `index
 
 ## 2.5 Ürün görselleri
 
-### Otomatik illüstrasyon
-`artFor(item)` ürün adını küçük harfe çevirip `ART_KEYS` listesinde arar:
+### Otomatik illüstrasyon (yedek)
+Şu an 42 ürünün **tamamında** `img` tanımlı, dolayısıyla kartlarda fotoğraf görünüyor.
+`img` yoksa ya da yolu geçersizse `artFor(item)` ürün adını küçük harfe çevirip
+`ART_KEYS` listesinde arar:
 
 ```js
 const ART_KEYS = [
@@ -161,10 +163,14 @@ Eşleşme yoksa `porsiyon` simgesi kullanılır.
 
 ### Gerçek fotoğraf
 ```js
-{ name: "Künefe", price: 190, img: "assets/menu/kunefe.jpg" }
+{ name: "Künefe", price: 190, img: "assets/menu/kunefe-generated.jpg" }
 ```
-`img` varsa SVG kullanılmaz; `<img src="…" alt="Künefe">` basılır.
-Fotoğraflar `assets/menu/` klasöründe durmalı. Önerilen: **640×480**, q75 progressive JPEG.
+`img` varsa SVG kullanılmaz; `<img src="…" alt="Künefe" loading="lazy">` basılır.
+Fotoğraflar `assets/menu/` klasöründe durmalı. Önerilen: **800 px genişlik**
+(kartlar `object-fit: cover` ile kırpıyor), progressive JPEG, q72–85.
+
+> `artFor()` yalnızca `http(s)://`, `/`, `./`, `assets/` veya `images/` ile başlayan
+> yolları kabul eder; `javascript:` ve `data:` gibi değerler reddedilir.
 
 ---
 
@@ -174,3 +180,4 @@ Fotoğraflar `assets/menu/` klasöründe durmalı. Önerilen: **640×480**, q75 
 - `hours` sırası bozulursa rozet yanlış hesaplanır.
 - `price` string girilirse `₺` eklenmez ve toplam hatalı olur.
 - `ART_SPRITE` içindeki `id`'ler `art-` ön ekiyle başlamalı.
+- `img` alanı dışarıdan geliyorsa güvenli bir yol olmalı; `artFor()` şema kontrolü yapıyor.

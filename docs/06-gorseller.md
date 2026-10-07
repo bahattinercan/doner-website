@@ -8,6 +8,7 @@
 | `assets/favicon.svg` | SVG | 64×64 | ~1 KB | Sekme simgesi |
 | `assets/doner.svg` | SVG | 320×460 | ~2 KB | Yedek illüstrasyon |
 
+| `assets/menu/*-generated.jpg` | JPEG | 800×533 | ~90–140 KB | Ürün kartları (42 ürün) |
 | `docs/preview.jpg` | JPEG | 1400×900 | ~140 KB | README + `og:image` |
 
 ---
@@ -50,10 +51,10 @@ ardından `ART_KEYS`'a `["makarna", "makarna"]` yaz.
 
 ## 6.3 Gerçek fotoğraf kullanmak
 
-1. Fotoğrafı `assets/menu/` altına koy: `assets/menu/kunefe.jpg`
+1. Fotoğrafı `assets/menu/` altına koy: `assets/menu/kunefe-generated.jpg`
 2. Ürüne ekle:
    ```js
-   { name: "Künefe", price: 190, img: "assets/menu/kunefe.jpg" }
+   { name: "Künefe", price: 190, img: "assets/menu/kunefe-generated.jpg" }
    ```
 3. İllüstrasyon otomatik devre dışı kalır.
 
@@ -61,14 +62,14 @@ ardından `ART_KEYS`'a `["makarna", "makarna"]` yaz.
 
 | Ölçü | Neden |
 |---|---|
-| 640×480 (4:3) | Kart genişliğine oturur, `object-fit` ile kesilir |
-| q70–75 progressive JPEG | ~60–90 KB |
+| 800×533 (4:3) | Kart genişliğine oturur, `object-fit` ile kesilir |
+| q72–85 progressive JPEG | ~90–140 KB |
 | `alt` metni | Erişilebilirlik + SEO (otomatik üretilir) |
 
 Optimize etmek için (Node + sharp kuruluysa):
 
 ```bash
-sharp -i assets/menu/kunefe.jpg -o assets/menu/kunefe.jpg -quality 72
+sharp -i assets/menu/kunefe-generated.jpg -o assets/menu/kunefe-generated.jpg -quality 72
 ```
 
 ---

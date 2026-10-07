@@ -24,6 +24,8 @@
 | `--radius` | `16px` | — | Kart köşeleri |
 | `--max` | `1120px` | — | İçerik genişliği |
 | `--ease` | `cubic-bezier(.2,.7,.2,1)` | — | Tüm geçişler |
+| `--font-display` | `Fraunces, Georgia, Times` | — | Başlıklar, fiyat, logo |
+| `--font-body` | `Inter, Segoe UI, system-ui` | — | Gövde, UI, butonlar |
 | `--shadow-sm` / `--shadow` | hafif | yoğun | Kart gölgeleri |
 
 ---
@@ -35,7 +37,9 @@
 | Başlıklar, fiyat, logo | **Fraunces** (serif) | Georgia, Times |
 | Gövde, UI, butonlar | **Inter** | Segoe UI, system-ui |
 
-Google Fonts'tan `preconnect` + tek istekle gelir. İnternet yoksa fallback çalışır.
+İki yazı tipi de `assets/fonts/` içinde **self-hosted**'dır (`assets/fonts.css`);
+sayfa hiçbir üçüncü tarafa font isteği atmaz. woff2 yüklenemezse fallback devreye girer.
+Yenilemek için: `node docs/prepare-fonts.js`.
 
 ---
 
@@ -53,6 +57,7 @@ Kırılımlar:
 | ≤ 900 px | Saat paneli / iletişim tek kolon |
 | ≤ 860 px | Hero tek kolon, fotoğraf küçülür |
 | ≤ 640 px | Hamburger menü, sepet tam genişlik |
+| ≤ 560 px | Ürün modalı daralır (görsel yüksekliği ve başlık küçülür) |
 
 ---
 
@@ -74,6 +79,7 @@ Kırılımlar:
 | Menü | `.menu-toolbar`, `.chips`, `.chip`, `.menu-group`, `.menu-list`, `.menu-item` | `.mi-main`, `.mi-foot`, `.mi-price`, `.mi-add` |
 | Sepet paneli | `.order`, `.order-close`, `.order-items`, `.qty`, `.order-total`, `.order-send`, `.order-clear` | Sabit sağ alt |
 | Bildirim | `.toast` | Sol alt |
+| Ürün modalı | `.modal`, `.modal-backdrop`, `.modal-card`, `.modal-art`, `.modal-body`, `.modal-foot`, `.modal-qty`, `.modal-pairs`, `.modal-actions` | JS ile oluşturulur, Esc ile kapanır |
 | WhatsApp FAB | `.fab` | Scroll 260 px sonrası görünür |
 | Footer | `.footer-inner`, `.footer-brand` | |
 

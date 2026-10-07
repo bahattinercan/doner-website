@@ -11,7 +11,7 @@
 | `styles.css` | Tüm tasarım: tokenlar, layout, animasyon, tema override'ları | `:root` + `html[data-theme="dark"]` |
 | `content.js` | **Dükkân ayarları**: `SITE` + `MENU` | Ürün/fiyat/saat burada |
 | `site.js` | Davranış: sepet, arama, tema, animasyon, render | `ART_SPRITE`, `ART_KEYS` burada |
-| `assets/` | Logo, favicon, hero illüstrasyonu, (gelecekte) ürün fotoğrafları | İsimler sabit; üzerine yazmak yeterli |
+| `assets/` | Logo, favicon, hero fotoğrafı, 42 ürün fotoğrafı, self-hosted fontlar | İsimler sabit; üzerine yazmak yeterli |
 
 > İlke: **veri → `content.js`, görünüm → `styles.css`, iskelet → `*.html`,**
 > **davranış → `site.js`.**
@@ -40,11 +40,13 @@ Her sayfada ortak parçalar:
 
 <div class="order" id="order" hidden>   <!-- sepet paneli -->
   <h4>Sipariş listesi</h4>
-  <button class="order-close" id="order-close">×</button>
-  <ul class="order-items"></ul>
-  <div class="order-total"></div>
-  <a class="order-send" href="#">WhatsApp ile gönder</a>
-  <button class="order-clear" id="order-clear">Sepeti temizle</button>
+  <button class="order-close" id="order-close">…× ikonu…</button>
+  <ul class="order-items"></ul>   <!-- her satırda − / + adet düğmesi -->
+  <div class="order-total"><span>Toplam</span><b>…</b></div>
+  <div class="order-actions">
+    <button class="order-clear" id="order-clear">…çöp ikonu…</button>
+    <a class="order-send" href="#">WhatsApp ile gönder</a>
+  </div>
 </div>
 
 <a class="fab" id="fab" href="https://wa.me/…">WhatsApp ile sipariş</a>
@@ -76,15 +78,19 @@ site.js yüklenir
   └─ animasyonlar (initReveal, initCounters, initScrollFx, initTicker)
 
 DOMContentLoaded
+  ├─ guardFraming()          → sayfa gömülüyse uyarı katmanı
   ├─ injectSprite()          → SVG semboller DOM'a eklenir
   ├─ initTheme()             → localStorage / sistem tercihi uygulanır
   ├─ fillStatic()            → data-site, status, today, data-hours, harita
+  ├─ initConsent()           → gizlilik bandı; rıza varsa harita yüklenir
+  ├─ initModal()             → #item-modal ürün detay penceresi
   ├─ burger menü            → .nav-links.is-open
   ├─ arama + chip'ler      → renderMenu("menu", …)
-  ├─ renderPreview("preview") (varsa)
+  ├─ renderPreview("menu-preview") (varsa)
   ├─ wireMenuButtons()       → [data-add] tıklamaları
   ├─ renderOrder()           → sepet rozeti + panel durumu
   ├─ initTicker()            → şerit (kapalıysa kaldırılır)
+  ├─ initModal()             → #item-modal DOM'a eklenir (ürün detay penceresi)
   ├─ initReveal()            → IntersectionObserver
   ├─ initCounters()          → data-count sayaçları
   └─ initScrollFx()          → progress bar, topbar, FAB, hero paralaks
@@ -113,7 +119,8 @@ DOMContentLoaded
 | `cart-count` | Adet rozeti | Rozet güncellenmez |
 | `order` / `order-close` / `order-clear` | Sepet paneli | Sepet çalışmaz |
 | `menu` / `menu-search` / `menu-count` | Menü sayfası | Menü render edilmez |
-| `preview` | Ana sayfa vitrini | Vitrin boş kalır |
+| `menu-preview` | Ana sayfa vitrini | Vitrin boş kalır |
+| `item-modal` | Ürün detay penceresi | JS tarafından oluşturulur; kart tıklaması çalışmaz |
 | `ticker` / `ticker-track` / `ticker-close` | Kayan şerit | Şerit olmaz |
 | `scroll-progress` | Üst bar ilerleme çubuğu | Çubuk görünmez |
 | `fab` | WhatsApp butonu | Buton görünmez |
@@ -145,4 +152,4 @@ sistem tercihinden her zaman önceliklidir.
 - Harici `<use href="…svg#id">` Chrome'da güvenilir olmadığı için sprite **DOM'a enjekte** edilir.
 - Animasyonlar `IntersectionObserver` ile yalnızca görünürken tetiklenir.
 - Scroll handler `passive: true` ile okunur.
-- Fotoğraf progressive JPEG; hero'da 320 CSS px gösterilir.
+- Fotoğraflar progressive JPEG; hero görseli CSS'te en fazla 340 px genişliğinde (860 px altında 260 px) gösterilir, ürün fotoğrafları `loading="lazy"` ile gelir.

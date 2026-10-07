@@ -92,7 +92,7 @@ const tests = `
 
   /* 5) görsel kaynağı doğrulaması */
   check("javascript: img reddediliyor", !artFor({ img: "javascript:alert(1)", name: "test" }).includes("<img"));
-  check("normal img kabul ediliyor", artFor({ img: "assets/menu/kunefe.jpg", name: "Künefe" }).includes("<img"));
+  check("normal img kabul ediliyor", artFor({ img: "assets/menu/kunefe-generated.jpg", name: "Künefe" }).includes("<img"));
 
   /* 6) WhatsApp numarası */
   check("wa numarası yalnızca rakam", waNumber() === "905555555555");

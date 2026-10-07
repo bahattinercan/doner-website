@@ -83,7 +83,7 @@ nelere dikkat etmen gerektiği **`docs/`** klasörinde anlatılıyor:
 5. **Yayına al** — Vercel / Netlify / Cloudflare Pages / GitHub Pages (build yok).
 
 Kendi fotoğrafını koymak isteyenler `assets/` içine görsel koyup ürüne
-`img: "assets/menu/x.jpg"` yazabilir (bkz. [docs/06-gorseller.md](docs/06-gorseller.md)).
+`img: "assets/menu/x-generated.jpg"` yazabilir (bkz. [docs/06-gorseller.md](docs/06-gorseller.md)).
 
 ---
 
@@ -91,10 +91,11 @@ Kendi fotoğrafını koymak isteyenler `assets/` içine görsel koyup ürüne
 
 | Özellik                    | Açıklama                                                                                                              |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| **4 sayfa**                | Ana sayfa, Menü, Hakkımızda, İletişim                                                                                 |
+| **5 sayfa**                | Ana sayfa, Menü, Hakkımızda, İletişim + Gizlilik (KVKK)                                                               |
 | **Menü arama**             | Ürün adı + açıklamada anlık filtre (sayfa yenilemeden), kategori chip'leri                                            |
 | **Yatay menü şeritleri**   | Vitrin ve her kategori tek satırda, `scroll-snap` ile yana kaydırılabilir                                             |
-| **Ürün illüstrasyonları**  | Her kartta düz (flat) SVG çizim — 29 sembol, adıma göre otomatik seçilir                                              |
+| **Ürün görselleri**        | 42 ürün fotoğrafı; `img` verilmezse 29 flat SVG sembol ürün adına göre otomatik seçilir                              |
+| **Ürün detay modalı**      | Karta tıklayınca kategori, açıklama, etiket, adet seçimi ve yan ürün önerileri                                        |
 | **Sipariş sepeti**         | Üst barda sepet düğmesi (simge + adet rozeti), sağ altta panel, adet azalt, toplam, temizle                           |
 | **Kalıcı sepet**           | Sepet `localStorage`'da durur; sayfa yenilense de, sayfalar arası geçişte de korunur                                  |
 | **WhatsApp sipariş**       | Sepeti tek tıkla `wa.me` üzerinden hazır mesaj olarak gönderir + sağ altta WhatsApp FAB                               |
@@ -108,7 +109,7 @@ Kendi fotoğrafını koymak isteyenler `assets/` içine görsel koyup ürüne
 | **Gizlilik**               | Çerez yok; kapatılabilir KVKK/gizlilik bandı + `gizlilik.html` sayfası                                                |
 | **Erişilebilirlik**        | `aria-label`, `aria-expanded`, `prefers-reduced-motion`, focus outline, `color-scheme`                                |
 | **Türkçe para formatı**    | `285` yaz, `285 ₺` olarak çıkar (`toLocaleString("tr-TR")`)                                                           |
-| **Kısa URL dostu**         | Build yok, framework yok → CDN'de ~40 KB HTML/CSS/JS + SVG                                                            |
+| **Build'suz**              | Framework yok: HTML + CSS + JS ≈ 90 KB, self-hosted yazı tipleri ≈ 254 KB                                             |
 
 ---
 
@@ -130,14 +131,10 @@ doner-website/
 │   ├── doner.svg          # Yedek SVG illüstrasyon (320×460)
 │   ├── fonts.css          # Self-hosted @font-face tanımları
 │   ├── fonts/             # Fraunces + Inter woff2 (Google Fonts'tan bir kez indirildi)
-│   └── menu/              # Ürün fotoğrafları (640×480, ~60 KB each)
-│       ├── tandir-durum.jpg
-│       ├── yonum-durum.jpg
-│       ├── porsiyon-doner.jpg
-│       ├── doner-sandvic.jpg
-│       ├── ceyrek-doner.jpg
-│       ├── doner-burger.jpg
-│       └── etli-pide.jpg
+│   └── menu/              # 42 ürün fotoğrafı (800×533, ~90–140 KB)
+│       ├── tandir-durum-generated.jpg
+│       ├── adana-durum-generated.jpg
+│       └── …              # content.js'teki `img` alanları bu dosyaları gösterir
 ├── docs/
 │   ├── README.md               # Dokümantasyon ana sayfası (indeks)
 │   ├── 01-mimari.md            # Dosyaların rolü, sayfa iskeleti, site.js akışı
@@ -150,16 +147,23 @@ doner-website/
 │   ├── 08-yayina-alma.md       # Deploy, domain, cache
 │   ├── 09-sorun-giderme.md     # Belirti → neden → çözüm
 │   ├── 10-uyarlama-rehberi.md   # Başka dükkana uyarlama adımları
+│   ├── security-tests.js        # XSS / kaçış / sepet doğrulama testleri (14 test)
+│   ├── prepare-fonts.js         # Yazı tiplerini Google Fonts'tan indirip assets/fonts/'e koyar
+│   ├── prepare-menu-images.ps1  # Ham menü görsellerini optimize eder
+│   ├── menu-image-prompts.json  # Menü görselleri için üretim listesi
 │   └── preview.jpg             # README ekran görüntüsü (1400×900)
 ├── gizlilik.html      # KVKK / gizlilik sayfası
+├── vercel.json        # Vercel güvenlik header'ları (CSP, X-Frame-Options…)
+├── netlify.toml       # Netlify güvenlik header'ları
+├── _headers           # Cloudflare Pages / Netlify header dosyası
 ├── .github/
 │   ├── ISSUE_TEMPLATE/    # Hata raporu + özellik önerisi şablonları
+│   ├── workflows/security-check.yml  # CI: sözdizimi, CSP, XSS testleri
 │   └── PULL_REQUEST_TEMPLATE.md
 ├── LICENSE            # MIT
 ├── CONTRIBUTING.md
 ├── CHANGELOG.md
 ├── CREDITS.md         # Görsel ve yazı tipi kaynakları
-├── screenshots/           # Yerel test ekran görüntüleri (gitignore'da)
 ├── README.md
 └── .gitignore
 ```
@@ -282,15 +286,16 @@ Not satırları ("Son sipariş…", "Resmî tatiller…") `index.html` içinde d
 
 ### 5) Menü görselleri — illüstrasyonlar
 
-Her ürün kartının üstünde düz (flat) bir illüstrasyon var. **29 sembol**
-`site.js` içindeki `ART_SPRITE` string'inde durur ve sayfa açıldığında DOM'a enjekte
-edilir; görsel ürün adına göre otomatik seçilir (`dürüm → durum`, `çorba → corba`,
-`kahve → kahve` …).
+Şu an **42 ürünün tamamında `img` tanımlı**, yani kartlarda gerçek fotoğraf görünüyor.
+Düz (flat) SVG illüstrasyonlar **yedek** olarak duruyor: `img` yoksa (ya da yolu
+geçersizse) görsel ürün adına göre otomatik seçilir. **29 sembol** `site.js` içindeki
+`ART_SPRITE` string'inde durur ve sayfa açıldığında DOM'a enjekte edilir
+(`dürüm → durum`, `çorba → corba`, `kahve → kahve` …).
 
-Gerçek fotoğraf kullanmak istersen ürüne `img` yaz, illüstrasyon otomatik devre dışı kalır:
+Kendi fotoğrafını kullanmak isteyen ürüne `img` yazmalı, illüstrasyon otomatik devre dışı kalır:
 
 ```js
-{ name: "Künefe", desc: "…", price: 190, img: "assets/menu/kunefe.jpg" }
+{ name: "Künefe", desc: "…", price: 190, img: "assets/menu/kunefe-generated.jpg" }
 ```
 
 Fotoğrafları `assets/menu/` altına koyman yeterli. Yeni illüstrasyon eklemek için
@@ -368,11 +373,12 @@ Renkler `styles.css` → `:root` bloğunda tek yerde tanımlıdır.
 | `--radius`     | `16px`    | —         | Kart köşeleri                       |
 | `--max`        | `1120px`  | —         | İçerik genişliği                    |
 
-Tipografi: başlıklar **Fraunces** (serif), gövde **Inter** — Google Fonts'tan gelir;
-internet yoksa `Georgia` / `system-ui`'ye düşer.
+Tipografi: başlıklar **Fraunces** (serif), gövde **Inter**. Yazı tipleri
+`assets/fonts/` içinde self-hosted'dır (`assets/fonts.css`); tarayıcı Google Fonts'a
+hiçbir istek atmaz. woff2 yüklenemezse `Georgia` / `system-ui`'ye düşer.
 
 Kırılma noktaları: **900 px** (iletişim/saat paneli tek kolon), **860 px** (hero tek kolon),
-**640 px** (hamburger menü).
+**640 px** (hamburger menü, sepet tam genişlik), **560 px** (ürün modalı daralır).
 
 ---
 
@@ -401,18 +407,20 @@ Kırılma noktaları: **900 px** (iletişim/saat paneli tek kolon), **860 px** (
 | Dosya                    | Boyut           | Ağırlık | Nerelerde                             |
 | ------------------------ | --------------- | ------- | ------------------------------------- |
 | `assets/doner-photo.jpg` | 640 × 960       | ~115 KB | Hero (Ken Burns) + Hakkımızda görseli |
-| `assets/menu/*.jpg`      | 640 × 480       | ~60 KB  | Ürün kartları (7 ürün)                |
+| `assets/menu/*-generated.jpg` | 800 × 533  | ~90–140 KB (toplam ~5 MB) | Ürün kartları (42 ürün)         |
+| `assets/fonts/*.woff2`   | —               | ~254 KB | Fraunces + Inter (self-hosted)        |
 | `assets/doner.svg`       | 320 × 460       | ~2 KB   | Yedek illüstrasyon (logo benzeri)     |
 | `assets/logo.svg`        | 64 × 64 viewBox | ~1.2 KB | Tüm sayfalarda üst bar (32 px)        |
 | `assets/favicon.svg`     | 64 × 64         | ~1 KB   | Sekme simgesi (`rel="icon"`)          |
 | `docs/preview.jpg`       | 1400 × 900      | ~140 KB | README önizlemesi + `og:image`        |
 
-Fotoğraflar projeye ait örnek görsellerdir; ürün kartlarında illüstrasyon yerine
-otomatik kullanılırlar. Detay: [CREDITS.md](CREDITS.md).
+Menü fotoğrafları bu proje için **yapay zekâ ile üretilmiş temsili** görsellerdir;
+gerçek ürün çekimi değildir. Yayına almadan önce kendi dükkânının fotoğraflarıyla
+değiştirmek gerekir. Detay: [CREDITS.md](CREDITS.md).
 
 > Kendi fotoğrafını kullanmak isteyen: `assets/doner-photo.jpg` üzerine kendi
 > görselini yaz (aynı ad yeterli). Ürün fotoğrafları için ürüne
-> `img: "assets/menu/x.jpg"` yazmak yeterli.
+> `img: "assets/menu/x-generated.jpg"` yazmak yeterli.
 
 ---
 
@@ -451,6 +459,7 @@ Tarayıcı konsolundan temizlemek için:
 localStorage.removeItem("tandir-cart");
 localStorage.removeItem("tandir-theme");
 localStorage.removeItem("tandir-ticker");
+localStorage.removeItem("tandir-consent");
 ```
 
 ---
@@ -520,7 +529,7 @@ Yayına almadan önce:
 
 ## Kendi dükkanına uyarlama checklist'i
 
-- [ ] `site.js` → `SITE.name`, `slogan`, `intro`
+- [ ] `content.js` → `SITE.name`, `slogan`, `intro`
 - [ ] `SITE.phone`, `SITE.phoneHref`, `SITE.whatsapp` (gerçek numara)
 - [ ] `SITE.address` + `SITE.mapsQuery`
 - [ ] `SITE.hours` — bayram/ramazan istisnaları
@@ -561,7 +570,7 @@ Yayına almadan önce:
 - [x] Ürün illüstrasyonları (29 flat SVG)
 - [x] Vitrin ve menü şeritlerinin yana kaydırılabilir olması
 - [x] `og:image` / Twitter Card etiketleri ve favicon
-- [x] Gerçek ürün fotoğrafları (7 ürün, `sharp` ile optimize edildi)
+- [x] Ürün fotoğrafları (42 ürün, yapay zekâ ile üretildi, 800 px JPEG)
 - [ ] QR menü (masaya basılı QR → `menu.html`)
 - [ ] Menü verisinin Google Sheets / CSV'den okunması (deploy'sız fiyat güncelleme)
 - [x] KVKK / gizlilik notu (`gizlilik.html` + kapatılabilir uyarı bandı)
@@ -608,5 +617,5 @@ tümü bu projenin kendi üretimidir; kaynak ve lisans detayı için
 | --------------------------------------------- | ----------------- | ------- |
 | Kod                                           | Bu proje          | MIT     |
 | Logo / favicon / illüstrasyon / menü ikonları | Bu proje          | MIT     |
-| Fraunces, Inter yazı tipleri                  | Google Fonts      | OFL 1.1 |
+| Fraunces, Inter yazı tipleri                  | Google Fonts'tan indirilip `assets/fonts/`'e gömülmüş | OFL 1.1 |
 | Harita                                        | Google Maps embed | —       |

@@ -10,7 +10,7 @@ let orderOpen = false;   // panel görünür mü
 ```
 
 - Aynı ürün tekrar eklenirse `qty` artar (ayrı satır oluşmaz).
-- Adet **azaltma** `−` düğmesiyle yapılır; 0'a inince satır silinir.
+- Adet `−` ve `+` düğmeleriyle azaltılıp arttırılır; 0'a inince satır silinir. Üst sınır **20 adet** (`MAX_QTY`); aşınca toast uyarısı çıkar.
 - Toplam: `Σ price × qty`.
 
 ---
@@ -79,14 +79,33 @@ Sağ alttaki **FAB** (WhatsApp butonu) scroll 260 px'ı geçince görünür ve d
 
 ---
 
-## 3.5 Bildirim (toast)
+## 3.5 Ürün detay modalı
+
+Menü/vitrin kartına (adına veya görseline) tıklayınca `#item-modal` açılır. Modal HTML'de
+durmaz, `initModal()` tarafından JS ile oluşturulur:
+
+| Bölge | İçerik |
+|---|---|
+| `#modal-art` | Ürün fotoğrafı, yoksa SVG illüstrasyon |
+| `#modal-cat` / `#modal-title` / `#modal-desc` | Kategori, ad, açıklama |
+| `#modal-tags` | Etiketler |
+| `#modal-price` + `#modal-qty` (`−` / `+`) + `#modal-add` | Fiyat, adet seçimi, sepete ekleme |
+| `#modal-note` | Kategori notu + "Fiyatlara KDV dahildir." |
+| `#modal-pairs` | "Yan ürün önerileri" (Yan Ürünler kategorisinden en fazla 3) |
+| `.modal-actions` | Telefonla sipariş / WhatsApp ile yaz |
+
+Kapanma: `×` düğmesi, arka plana tıklama veya **Esc**. Modal `role="dialog"`,
+`aria-modal="true"` ve `aria-labelledby="modal-title"` taşır; açılınca kapatma
+düğmesine odaklanır.
+
+## 3.6 Bildirim (toast)
 
 Ürün eklenince sol altta kısa bildirim çıkar: `“Tandır Dürüm sepete eklendi”`.
 Toast, `prefers-reduced-motion` açık olsa bile çalışır (sadece animasyon kısalır).
 
 ---
 
-## 3.6 Kenar durumlar
+## 3.7 Kenar durumlar
 
 | Durum | Davranış |
 |---|---|
@@ -98,7 +117,7 @@ Toast, `prefers-reduced-motion` açık olsa bile çalışır (sadece animasyon k
 
 ---
 
-## 3.7 Sepeti test etme (konsol)
+## 3.8 Sepeti test etme (konsol)
 
 ```js
 // mevcut sepeti gör
