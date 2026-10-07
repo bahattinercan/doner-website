@@ -1,5 +1,18 @@
 # Değişiklik günlüğü
 
+## v1.2.4 — dosya düzeni
+
+- **Klasörler**: `styles.css` → `css/`, `content.js` + `site.js` → `js/`, `assets/fonts.css` →
+  `css/fonts.css` (`url()` yolları `../assets/fonts/`); `docs/` içindeki geliştirme araçları
+  `scripts/` ve `tests/`'e taşındı — `docs/` artık yalnızca markdown
+- **CI**: `security-check.yml` yeni yolları kullanıyor (`js/*.js`, `node tests/security-tests.js`);
+  `tests/security-tests.js` dosyaları `__dirname` üzerinden okuyor, CWD'ye bağımlı değil
+- **package.json**: `sharp` geliştirme bağımlılığı ve `npm test` / `npm run fonts` /
+  `npm run images` script'leri eklendi (`node_modules` vardı ama `package.json` yoktu)
+- **.gitattributes**: satır sonu (`text=auto eol=lf`) ve binary kuralları eklendi
+- Beş HTML sayfasındaki `stylesheet`/`script` referansları ve dokümanlardaki dosya yolları
+  yeni düzenle eşitlendi
+
 ## v1.2.3 — dokümantasyon doğrulaması
 
 - **Gerçek veriyle eşitleme**: README ve `docs/` içindeki sayılar güncellendi
@@ -30,7 +43,7 @@
   şerit ve rıza okumaları artık try/catch'siz doğrudan `localStorage`'a dokunmuyor.
   Böylece "localStorage kapalıysa site çalışmaya devam eder" iddiası gerçekten doğru.
 - **Menü fotoğrafları**: 42 görsel 640 px / q72 progressive JPEG'e indirildi
-  (4.75 MB → 2.22 MB, %53 azalma). Yeniden üretmek için `docs/optimize-menu-images.js`.
+  (4.75 MB → 2.22 MB, %53 azalma). Yeniden üretmek için `scripts/optimize-menu-images.js`.
 - **`og:image`**: `docs/preview.jpg` → `assets/preview.jpg` taşındı; 5 sayfadaki
   `og:image` / `twitter:image` ve README bağlantıları güncellendi.
 
