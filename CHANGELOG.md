@@ -11,9 +11,9 @@
 - **"Sepeti temizle" → çöp kutusu simgesi** (aynı satırda, WhatsApp düğmesinin solunda;
   sepet boşken gizlenir)
 - **Modal hizaları**: adet kontrolü tek parça (sayı kutularla aynı yükseklikte, adet 1 iken
-  `−` pasif), "Sepete ekle" sağa yaslı, "Yanına ne alırız?" etiketi ayrı satırda, aksiyon
-  düğmeleri eşit genişlikte, kapatma düğmesi fotoğrafta okunur koyu zeminli, gövde 12 px
-  ritimli grid
+  `−` pasif), "Sepete ekle" ve aksiyon düğmeleri satır genişliğini dolduruyor (ölü boşluk
+  yok), "Yanına ne alırız?" etiketi ayrı satırda, kapatma düğmesi fotoğrafta okunur koyu
+  zeminli, gövde 10 px ritimli grid
 - **Metin revizyonu**: slogan, tanıtım, kayan şerit, 42 ürün açıklaması, saat notları,
   gizlilik metni ve durum yazıları gerçekçi/esnaf tonunda yeniden yazıldı
 
