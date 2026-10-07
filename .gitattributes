@@ -1,0 +1,23 @@
+# Satır sonları: depoda tutarlı LF; karışık CRLF/LF uyarılarını önler
+* text=auto eol=lf
+
+# Binary — satır sonu dönüşümü uygulanmaz
+*.woff2 binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.webp binary
+*.ico binary
+
+# Metin dosyaları
+*.html text
+*.css text
+*.js text
+*.mjs text
+*.md text
+*.json text
+*.yml text
+*.toml text
+*.ps1 text
+_headers text
+LICENSE text
