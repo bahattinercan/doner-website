@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: JS sözdizimi
-        run: node --check site.js && node --check content.js
+        run: node --check js/site.js && node --check js/content.js
 
       - name: CSP her sayfada var mı
         run: |
@@ -24,13 +24,13 @@ jobs:
       - name: Dinamik kod / XSS desenleri
         run: |
           fail=0
-          if grep -nE "eval\(|new Function|document\.write|setTimeout\(\"|setInterval\(\"" site.js content.js; then
+          if grep -nE "eval\(|new Function|document\.write|setTimeout\(\"|setInterval\(\"" js/site.js js/content.js; then
             echo "Dinamik kod kullanımı bulundu"; fail=1
           fi
           if grep -nE 'target="_blank"' *.html | grep -v 'noopener'; then
             echo "rel=noopener eksik"; fail=1
           fi
-          if grep -nE 'href="http://' *.html *.js; then
+          if grep -nE 'href="http://' *.html js/*.js; then
             echo "http (HTTPS olmayan) link bulundu"; fail=1
           fi
           exit $fail
@@ -48,4 +48,4 @@ jobs:
           exit $fail
 
       - name: XSS / kaçış testleri
-        run: node docs/security-tests.js
+        run: node tests/security-tests.js
