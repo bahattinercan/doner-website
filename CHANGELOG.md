@@ -64,8 +64,7 @@
 - **Yayına alma**: `vercel.json` ve `netlify.toml` güvenlik header'ları; `docs/08` içine
   nginx header örneği eklendi
 - **İçerik**: `docs/menu-image-prompts.json` içindeki yerel makine yolları
-  (`C:\Users\...\.codex\generated_images\...`) `images/raw/<id>.png` olarak değiştirildi;
-  ham görseller `.gitignore`'a alındı
+  `images/raw/<id>.png` biçimine çevrildi; ham görseller `.gitignore`'a alındı
 - **İletişim linkleri tek kaynak**: `tel:` ve `wa.me` linkleri HTML'de hardcoded kalmıyor;
   `data-href-site="phoneHref|email|instagram"` ve `data-wa` nitelikleriyle `SITE`'ten
   besleniyor (JS çalışmazsa mevcut href düşüyor, yani no-JS bozulmuyor). `gizlilik.html`

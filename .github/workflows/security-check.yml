@@ -8,7 +8,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: JS sözdizimi
         run: node --check js/site.js && node --check js/content.js
@@ -39,10 +39,12 @@ jobs:
         run: |
           fail=0
           if grep -rniE "api[_-]?key|secret|passwd|ghp_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|Bearer [A-Za-z0-9]{10,}|xox[baprs]-" \
-              --exclude-dir=.github --include="*.js" --include="*.html" --include="*.json" --include="*.toml" .; then
+              --exclude-dir=.github --exclude-dir=.git --exclude-dir=node_modules \
+              --include="*.js" --include="*.html" --include="*.json" --include="*.toml" .; then
             echo "Şüpheli gizli değer bulundu"; fail=1
           fi
-          if grep -rn "C:\\\\Users" --include="*.json" --include="*.md" --include="*.ps1" .; then
+          if grep -rn "C:\\\\Users" --exclude-dir=.git --exclude-dir=node_modules \
+              --include="*.json" --include="*.md" --include="*.ps1" .; then
             echo "Yerel Windows yolu ifşası bulundu"; fail=1
           fi
           exit $fail
